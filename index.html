@@ -10,11 +10,10 @@
     --bg: #0d0d0d; --surface: #161616; --surface2: #1f1f1f;
     --border: rgba(255,255,255,0.08); --border-hover: rgba(233,69,96,0.5);
     --accent: #E94560; --accent2: #ff6b6b;
-    --text: #f0f0f0; --text-muted: #888; --text-hint: #555;
+    --text: #f0f0f0; --text-muted: #888; --text-hint: #444;
     --radius: 12px; --radius-sm: 8px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
   body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 15px; line-height: 1.6; min-height: 100vh; }
   .app-header { position: sticky; top: 0; z-index: 100; background: rgba(13,13,13,0.95); backdrop-filter: blur(12px); border-bottom: 0.5px solid var(--border); padding: .75rem 1.25rem; display: flex; align-items: center; justify-content: space-between; }
   .header-logo { font-size: 13px; font-weight: 600; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; }
@@ -34,8 +33,8 @@
   .sec-title { font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: .5rem; letter-spacing: -.5px; }
   .sec-note { font-size: 13px; color: var(--text-muted); border-left: 2px solid var(--accent); padding-left: .75rem; margin-bottom: 2rem; line-height: 1.5; }
   .field { margin-bottom: 1.25rem; }
-  .field-label { display: block; font-size: 12px; font-weight: 600; letter-spacing: .5px; color: var(--text-muted); margin-bottom: .5rem; }
-  input[type=text], textarea, select { width: 100%; background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-family: inherit; font-size: 15px; padding: .7rem .9rem; outline: none; transition: border-color .15s; -webkit-appearance: none; }
+  .field-label { display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: .5rem; }
+  input[type=text], textarea { width: 100%; background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-family: inherit; font-size: 15px; padding: .7rem .9rem; outline: none; transition: border-color .15s; -webkit-appearance: none; }
   input[type=text]:focus, textarea:focus { border-color: var(--accent); background: var(--surface2); }
   input::placeholder, textarea::placeholder { color: var(--text-hint); }
   textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
@@ -44,7 +43,7 @@
   .bullet-row { display: flex; align-items: center; gap: 10px; }
   .bullet-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
   .bullet-row input { flex: 1; }
-  .add-field-btn { background: none; border: none; color: var(--accent); font-size: 13px; cursor: pointer; padding: .3rem 0; font-family: inherit; margin-top: 4px; display: flex; align-items: center; gap: 4px; }
+  .add-field-btn { background: none; border: none; color: var(--accent); font-size: 13px; cursor: pointer; padding: .3rem 0; font-family: inherit; margin-top: 4px; }
   .arch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1.25rem; }
   .arch-btn { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius-sm); color: var(--text-muted); font-family: inherit; font-size: 13px; padding: .7rem .9rem; cursor: pointer; text-align: left; transition: all .15s; line-height: 1.3; }
   .arch-btn:hover { border-color: var(--accent); color: var(--text); }
@@ -62,7 +61,7 @@
   .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--surface2); border: 0.5px solid var(--border); cursor: pointer; transition: all .15s; }
   .nav-dot.active { background: var(--accent); border-color: var(--accent); width: 18px; border-radius: 99px; }
   .nav-dot.done { border-color: var(--accent); background: rgba(233,69,96,0.3); }
-  .btn-nav { background: var(--surface2); border: 0.5px solid var(--border); border-radius: var(--radius-sm); color: var(--text-muted); font-family: inherit; font-size: 14px; font-weight: 500; padding: .6rem 1.1rem; cursor: pointer; transition: all .15s; display: flex; align-items: center; gap: 6px; }
+  .btn-nav { background: var(--surface2); border: 0.5px solid var(--border); border-radius: var(--radius-sm); color: var(--text-muted); font-family: inherit; font-size: 14px; font-weight: 500; padding: .6rem 1.1rem; cursor: pointer; transition: all .15s; }
   .btn-nav:hover { border-color: var(--border-hover); color: var(--text); }
   .btn-nav.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
   .btn-nav.primary:hover { background: var(--accent2); }
@@ -109,7 +108,7 @@
 
 <!-- 1. KDO JSI -->
 <div id="sec1" class="section">
-  <div class="sec-eyebrow">01 / 06</div>
+  <div class="sec-eyebrow">01 / 07</div>
   <div class="sec-title">Kdo jsi?</div>
   <div class="sec-note">Pár věcí o tobě. Nemusíš znít dokonale, chceme znát tebe skutečnou.</div>
   <div class="grid2">
@@ -118,9 +117,9 @@
   </div>
   <div class="field"><label class="field-label">Tvůj příběh (2-3 věty)</label><textarea id="s1-story" placeholder="Proč jsi začala, co tě k tomu dovedlo, co tě dělá autentickou..."></textarea></div>
   <div class="field">
-    <label class="field-label">Jak bys popsala svou osobnost?</label>
+    <label class="field-label">Jak bys popsala svou osobnost? (2-4 věci)</label>
     <div class="bullet-list" id="s1-traits">
-      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Např. odvážná, nedělám si starosti co si kdo myslí..."></div>
+      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Např. odvážná, přímá, nedělám si starosti..."></div>
       <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Další vlastnost..."></div>
     </div>
     <button class="add-field-btn" onclick="addBullet('s1-traits')">+ přidat</button>
@@ -128,11 +127,11 @@
   <div class="field"><label class="field-label">Čím se odlišuješ od ostatních holek na OF?</label><textarea id="s1-diff" placeholder="Co ti ostatní nemají nebo co děláš jinak..."></textarea></div>
 </div>
 
-<!-- 2. ARCHETYP -->
+<!-- 2. VIBE & ARCHETYP -->
 <div id="sec2" class="section">
-  <div class="sec-eyebrow">02 / 06</div>
-  <div class="sec-title">Jaká jsi?</div>
-  <div class="sec-note">Vyber jeden nebo více typů které tě vystihují.</div>
+  <div class="sec-eyebrow">02 / 07</div>
+  <div class="sec-title">Tvůj vibe</div>
+  <div class="sec-note">Vyber typy které tě vystihují a popiš svou energii.</div>
   <div class="arch-grid" id="arch-grid">
     <button class="arch-btn" onclick="toggleArch(this)">Alternativní / tattoo vibe</button>
     <button class="arch-btn" onclick="toggleArch(this)">Holka ze sousedství</button>
@@ -147,64 +146,16 @@
     <button class="arch-btn" onclick="toggleArch(this)">Party holka</button>
     <button class="arch-btn" onclick="toggleArch(this)">Jiná...</button>
   </div>
-  <div class="field"><label class="field-label">Upřesnění nebo vlastní popis</label><input type="text" id="s2-custom" placeholder="Např. vlastní kombinace nebo popis..."></div>
-
+  <div class="field"><label class="field-label">Upřesnění nebo vlastní popis</label><input type="text" id="s2-custom" placeholder="Vlastní kombinace nebo popis..."></div>
+  <div class="field"><label class="field-label">Jak bys popsala svoji energii a vibe? (vlastními slovy)</label><textarea id="s2-vibe" placeholder="Např. jsem ta co říká co si myslí, baví mě být sexy ale bez přetvářky, mám ráda chaos..."></textarea></div>
 </div>
 
-<!-- 3. INSPIRACE & OBSAH -->
+<!-- 3. TOV & OBSAH -->
 <div id="sec3" class="section">
-  <div class="sec-eyebrow">03 / 06</div>
-  <div class="sec-title">Inspirace & obsah</div>
-  <div class="sec-note">Chceme vědět co tě baví a co tě inspiruje.</div>
-  <div class="field">
-    <label class="field-label">Profily holek které sleduješ a líbí se ti jejich obsah</label>
-    <div class="bullet-list" id="s3-refs">
-      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="@profil na IG nebo OF - co se ti na ní líbí..."></div>
-      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="@profil - co se ti na ní líbí..."></div>
-      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="@profil..."></div>
-    </div>
-    <button class="add-field-btn" onclick="addBullet('s3-refs')">+ přidat profil</button>
-  </div>
-  <div class="divider"></div>
-  <div class="field">
-    <label class="field-label">Jaká videa děláš nejraději?</label>
-    <div class="bullet-list" id="s3-fav">
-      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Např. talking selfie reels..."></div>
-      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Např. outfit check, dance, POV..."></div>
-    </div>
-    <button class="add-field-btn" onclick="addBullet('s3-fav')">+ přidat</button>
-  </div>
-  <div class="field"><label class="field-label">Co bys nikdy nechtěla točit?</label><textarea id="s3-never-vid" placeholder="Např. cringe lipsync, fake lifestyle, přehnané filtry..."></textarea></div>
-</div>
-
-<!-- 4. CO NECHCES -->
-<div id="sec4" class="section">
-  <div class="sec-eyebrow">04 / 06</div>
-  <div class="sec-title">Co nechceš?</div>
-  <div class="sec-note">Stejně důležité jako to co chceš. Pomáhá nám vyhnout se věcem které ti nesedí.</div>
-  <div class="field">
-    <label class="field-label">Témata o kterých nechceš mluvit veřejně</label>
-    <div class="bullet-list" id="s4-top">
-      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Např. politika, rodina, ex..."></div>
-      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Další téma..."></div>
-    </div>
-    <button class="add-field-btn" onclick="addBullet('s4-top')">+ přidat</button>
-  </div>
-  <div class="field">
-    <label class="field-label">Typy kolaborací a SFS které nechceš</label>
-    <div class="bullet-list" id="s4-col">
-      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Např. profily se špatnou reputací..."></div>
-      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Další typ..."></div>
-    </div>
-    <button class="add-field-btn" onclick="addBullet('s4-col')">+ přidat</button>
-  </div>
-</div>
-
-<!-- 5. TVOJE SLOVICKA -->
-<div id="sec5" class="section">
-  <div class="sec-eyebrow">05 / 06</div>
-  <div class="sec-title">Tvoje slovíčka</div>
-  <div class="sec-note">Slova a přezdívky které používáš ráda. Pomáhá nám mluvit tvým hlasem.</div>
+  <div class="sec-eyebrow">03 / 07</div>
+  <div class="sec-title">Jak komunikuješ?</div>
+  <div class="sec-note">Chceme mluvit tvým hlasem, ne kopií někoho jiného.</div>
+  <div class="field"><label class="field-label">Jak bys popsala svůj styl komunikace?</label><input type="text" id="s3-tov" placeholder="Např. sarkastická, hravá, flirtující, přímá, vtipná..."></div>
   <div class="field">
     <label class="field-label">Jak oslovuješ své fanoušky?</label>
     <div class="kw-wrap" id="kw-fans"></div>
@@ -214,31 +165,84 @@
     </div>
   </div>
   <div class="field">
-    <label class="field-label">Slova a výrazy které často používáš</label>
+    <label class="field-label">Tvoje vlastní slova a výrazy které ráda používáš</label>
     <div class="kw-wrap" id="kw-words"></div>
     <div class="kw-input-row">
-      <input type="text" id="kw-words-inp" placeholder="Vlastní výrazy, slang, vtipná slovíčka... (Enter)">
+      <input type="text" id="kw-words-inp" placeholder="Slang, vtipná slovíčka, typické výrazy... (Enter)">
       <button class="btn-add-kw" onclick="addKw('kw-words','kw-words-inp')">Přidat</button>
     </div>
   </div>
-  <div class="field"><label class="field-label">Jak bys popsala svůj styl komunikace?</label><textarea id="s5-style" placeholder="Např. sarkastická, hravá, flirtující, přímá, vtipná..."></textarea></div>
-  <div class="field"><label class="field-label">Catchphrase nebo věta která tě vystihuje</label><input type="text" id="s5-catch" placeholder="Např. tvoje typická hláška nebo motto..."></div>
+  <div class="field">
+    <label class="field-label">Napiš 3 věty nebo titulky tak jak bys je napsala ty</label>
+    <div class="bullet-list" id="s3-captions">
+      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Příklad věty nebo titulku..."></div>
+      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Příklad věty nebo titulku..."></div>
+      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Příklad věty nebo titulku..."></div>
+    </div>
+  </div>
 </div>
 
-<!-- 6. INSPIRACE KONKURENCE -->
-<div id="sec6" class="section">
-  <div class="sec-eyebrow">06 / 06</div>
-  <div class="sec-title">Ještě pár věcí</div>
-  <div class="sec-note">Poslední sekce, pak jsi hotová!</div>
+<!-- 4. OBSAH -->
+<div id="sec4" class="section">
+  <div class="sec-eyebrow">04 / 07</div>
+  <div class="sec-title">Tvůj obsah</div>
+  <div class="sec-note">Co točíš, co tě baví, co nechceš.</div>
   <div class="field">
-    <label class="field-label">Děláš OF na fulltime nebo máš i jinou práci?</label>
+    <label class="field-label">Jaká videa děláš nejraději?</label>
+    <div class="bullet-list" id="s4-fav">
+      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Např. talking selfie reels..."></div>
+      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Např. outfit check, dance, POV..."></div>
+    </div>
+    <button class="add-field-btn" onclick="addBullet('s4-fav')">+ přidat</button>
+  </div>
+  <div class="field">
+    <label class="field-label">Profily holek které sleduješ a líbí se ti jejich obsah</label>
+    <div class="bullet-list" id="s4-refs">
+      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="@profil - co se ti na ní líbí..."></div>
+      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="@profil..."></div>
+    </div>
+    <button class="add-field-btn" onclick="addBullet('s4-refs')">+ přidat profil</button>
+  </div>
+  <div class="field"><label class="field-label">Co bys nikdy nechtěla točit?</label><textarea id="s4-never" placeholder="Např. fake lifestyle, přehnané filtry, cringe lipsync..."></textarea></div>
+</div>
+
+<!-- 5. CO NECHCES -->
+<div id="sec5" class="section">
+  <div class="sec-eyebrow">05 / 07</div>
+  <div class="sec-title">Tvoje hranice</div>
+  <div class="sec-note">Co nechceš aby se o tobě říkalo nebo s čím nechceš být spojována.</div>
+  <div class="field">
+    <label class="field-label">Témata o kterých nechceš mluvit veřejně</label>
+    <div class="bullet-list" id="s5-top">
+      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Např. politika, rodina, ex..."></div>
+      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Další téma..."></div>
+    </div>
+    <button class="add-field-btn" onclick="addBullet('s5-top')">+ přidat</button>
+  </div>
+  <div class="field">
+    <label class="field-label">Typy kolaborací a SFS které nechceš</label>
+    <div class="bullet-list" id="s5-col">
+      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Např. profily se špatnou reputací..."></div>
+    </div>
+    <button class="add-field-btn" onclick="addBullet('s5-col')">+ přidat</button>
+  </div>
+</div>
+
+<!-- 6. DOSTUPNOST -->
+<div id="sec6" class="section">
+  <div class="sec-eyebrow">06 / 07</div>
+  <div class="sec-title">Tvůj čas</div>
+  <div class="sec-note">Pomáhá nám plánovat kolik obsahu reálně zvládneš.</div>
+  <div class="field">
+    <label class="field-label">Děláš OF na fulltime nebo máš i jinou práci / školu?</label>
     <div class="arch-grid" style="grid-template-columns:1fr 1fr 1fr">
       <button class="arch-btn" onclick="toggleArch(this)">OF fulltime</button>
       <button class="arch-btn" onclick="toggleArch(this)">OF + práce / škola</button>
       <button class="arch-btn" onclick="toggleArch(this)">OF je vedlejší</button>
     </div>
   </div>
-  <div class="field"><label class="field-label">Kolik hodin denně můžeš věnovat tvorbě obsahu?</label>
+  <div class="field">
+    <label class="field-label">Kolik hodin denně můžeš věnovat tvorbě obsahu?</label>
     <div class="arch-grid" style="grid-template-columns:1fr 1fr 1fr 1fr">
       <button class="arch-btn" onclick="toggleArch(this)">1-2h</button>
       <button class="arch-btn" onclick="toggleArch(this)">2-4h</button>
@@ -247,7 +251,14 @@
     </div>
   </div>
   <div class="field"><label class="field-label">Co tě na tvé práci baví nejvíc?</label><textarea id="s6-love" placeholder="Co ti dělá radost, co tě nabíjí energií..."></textarea></div>
-  <div class="field"><label class="field-label">Čím chceš být za rok jiná než dnes?</label><textarea id="s6-goal" placeholder="Kde se vidíš, co chceš vybudovat..."></textarea></div>
+</div>
+
+<!-- 7. CIL -->
+<div id="sec7" class="section">
+  <div class="sec-eyebrow">07 / 07</div>
+  <div class="sec-title">Poslední otázka</div>
+  <div class="sec-note">Pak jsi hotová!</div>
+  <div class="field"><label class="field-label">Kde se vidíš za rok? Co chceš vybudovat?</label><textarea id="s7-goal" placeholder="Tvůj cíl, co chceš dosáhnout..."></textarea></div>
 </div>
 
 <!-- EXPORT -->
@@ -258,8 +269,7 @@
     <div class="export-sub" id="ex-sub">Tvoje Creator Bible je vyplněná a připravená ke stažení.</div>
     <div class="export-btns">
       <button class="btn-export primary" onclick="exportBrandCard()">&#9733; Stáhnout Brand Card</button>
-      <button class="btn-export secondary" onclick="exportPDF()">&#8595; Stáhnout kompletní PDF</button>
-
+      <button class="btn-export secondary" onclick="exportFullPDF()">&#8595; Stáhnout kompletní PDF</button>
     </div>
     <div class="summary-card" id="summary-card"></div>
   </div>
@@ -274,8 +284,8 @@
 </nav>
 
 <script>
-const SECTIONS = ['sec0','sec1','sec2','sec3','sec4','sec5','sec6','sec-export'];
-const LABELS = ['Úvod','01 Kdo jsi','02 Jaká jsi','03 Inspirace','04 Co nechceš','05 Slovíčka','06 Závěr','Hotovo'];
+const SECTIONS = ['sec0','sec1','sec2','sec3','sec4','sec5','sec6','sec7','sec-export'];
+const LABELS = ['Úvod','01 Kdo jsi','02 Tvůj vibe','03 Komunikace','04 Obsah','05 Hranice','06 Čas','07 Cíl','Hotovo'];
 let cur = 0;
 const TOTAL = SECTIONS.length;
 
@@ -319,9 +329,7 @@ function addBullet(id){
   list.appendChild(row);
 }
 
-function toggleArch(btn){
-  btn.classList.toggle('selected');
-}
+function toggleArch(btn){ btn.classList.toggle('selected'); }
 
 function addKw(wrapId, inputId){
   const inp = document.getElementById(inputId);
@@ -334,25 +342,33 @@ function addKw(wrapId, inputId){
   wrap.appendChild(tag);
   inp.value = '';
 }
+
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('kw-fans-inp').addEventListener('keydown', e => { if(e.key==='Enter') addKw('kw-fans','kw-fans-inp'); });
-  document.getElementById('kw-words-inp').addEventListener('keydown', e => { if(e.key==='Enter') addKw('kw-words','kw-words-inp'); });
+  document.getElementById('kw-fans-inp').addEventListener('keydown', e => { if(e.key==='Enter'){ e.preventDefault(); addKw('kw-fans','kw-fans-inp'); }});
+  document.getElementById('kw-words-inp').addEventListener('keydown', e => { if(e.key==='Enter'){ e.preventDefault(); addKw('kw-words','kw-words-inp'); }});
+});
+
+document.addEventListener('keydown', e => {
+  if(e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && e.target.id !== 'kw-fans-inp' && e.target.id !== 'kw-words-inp' && cur < TOTAL-1){
+    e.preventDefault(); navigate(1);
+  }
 });
 
 function gv(id){ const el=document.getElementById(id); return el?el.value.trim():''; }
-function gi(containerId){ const el=document.getElementById(containerId); if(!el)return[]; return Array.from(el.querySelectorAll('input[type=text]')).map(i=>i.value.trim()).filter(Boolean); }
-function gk(wrapId){ const w=document.getElementById(wrapId); if(!w)return[]; return Array.from(w.querySelectorAll('.kw-tag')).map(t=>t.textContent.replace('×','').trim()); }
-function gArch(){ return Array.from(document.querySelectorAll('.arch-btn.selected')).map(b=>b.textContent); }
+function gi(cid){ const el=document.getElementById(cid); if(!el)return[]; return Array.from(el.querySelectorAll('input[type=text]')).map(i=>i.value.trim()).filter(Boolean); }
+function gk(wid){ const w=document.getElementById(wid); if(!w)return[]; return Array.from(w.querySelectorAll('.kw-tag')).map(t=>t.textContent.replace('×','').trim()); }
+function gArch(secId){ const sec=document.getElementById(secId); if(!sec)return[]; return Array.from(sec.querySelectorAll('.arch-btn.selected')).map(b=>b.textContent); }
 
 function collectAll(){
   return {
     model: gv('cv-name'), date: gv('cv-date'),
     s1: { vek:gv('s1-age'), lokace:gv('s1-loc'), pribeh:gv('s1-story'), osobnost:gi('s1-traits'), odliseni:gv('s1-diff') },
-    s2: { archetypy:gArch(), vlastni:gv('s2-custom') },
-    s3: { reference:gi('s3-refs'), oblibena:gi('s3-fav'), nechce:gv('s3-never-vid') },
-    s4: { temata:gi('s4-top'), kolaborace:gi('s4-col') },
-    s5: { osloveni:gk('kw-fans'), slova:gk('kw-words'), styl:gv('s5-style'), catchphrase:gv('s5-catch') },
-    s6: { fulltime: Array.from(document.querySelectorAll('#sec6 .arch-btn.selected')).map(b=>b.textContent).join(', '), bavi:gv('s6-love'), goal:gv('s6-goal') }
+    s2: { archetypy:gArch('sec2'), vlastni:gv('s2-custom'), vibe:gv('s2-vibe') },
+    s3: { tov:gv('s3-tov'), osloveni:gk('kw-fans'), slova:gk('kw-words'), captions:gi('s3-captions') },
+    s4: { oblibena:gi('s4-fav'), reference:gi('s4-refs'), never:gv('s4-never') },
+    s5: { temata:gi('s5-top'), kolaborace:gi('s5-col') },
+    s6: { dostupnost:gArch('sec6').join(', '), love:gv('s6-love') },
+    s7: { goal:gv('s7-goal') }
   };
 }
 
@@ -361,144 +377,201 @@ function buildSummary(){
   const name = d.model || 'Modelka';
   document.getElementById('ex-title').textContent = name + ' — hotovo!';
   document.getElementById('ex-sub').textContent = 'Tvoje Creator Bible je vyplněná a připravená ke stažení.';
-  const archs = d.s2.archetypy.join(', ') || '—';
-  const slova = d.s5.osloveni.join(', ') || '—';
   const card = document.getElementById('summary-card');
   const rows = [
-    ['Jméno', name], ['Datum narození', d.date||'—'],
-    ['Archetyp', archs], ['Styl komunikace', d.s5.styl||'—'],
-    ['Oslovení fanoušků', slova]
+    ['Jméno', name],
+    ['Datum narození', d.date||'—'],
+    ['Archetyp', d.s2.archetypy.join(', ')||d.s2.vlastni||'—'],
+    ['Styl', d.s3.tov||'—'],
+    ['Oslovení', d.s3.osloveni.join(', ')||'—'],
+    ['Dostupnost', d.s6.dostupnost||'—'],
   ];
   card.innerHTML = rows.map(([k,v]) => `<div class="summary-row"><span class="summary-key">${k}</span><span class="summary-val">${v}</span></div>`).join('');
 }
 
-function exportJSON(){
-  const d = collectAll();
-  const blob = new Blob([JSON.stringify(d,null,2)],{type:'application/json'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = (d.model||'creator').replace(/\s+/g,'_') + '_bible.json';
-  a.click();
-}
-
-function pdfSetup(){
+// ---- PDF helpers ----
+function makePDF(){
   const {jsPDF} = window.jspdf;
-  const pdf = new jsPDF({orientation:'portrait', unit:'mm', format:'a4'});
-  const W=210, H=297, M=15, CW=W-M*2;
+  const pdf = new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+  const W=210,H=297,M=16,CW=W-M*2;
   let y=M;
-  function chk(n){ if(y+n>H-M){ pdf.addPage(); y=M; } }
-  function rule(c){ pdf.setDrawColor(...c); pdf.setLineWidth(0.3); pdf.line(M,y,W-M,y); y+=3; }
-  function secTitle(text){ chk(12); pdf.setFontSize(7.5); pdf.setFont('helvetica','bold'); pdf.setTextColor(160,160,160); pdf.text(text.toUpperCase(),M,y); y+=1.5; rule([210,210,210]); }
-  function lbl(text, accent){ chk(8); pdf.setFontSize(7); pdf.setFont('helvetica','bold'); pdf.setTextColor(accent?233:130, accent?69:130, accent?96:130); pdf.text(text.toUpperCase(),M,y); y+=4; }
-  function val(text){ if(!text||text==='') text='nevyplněno'; chk(6); pdf.setFontSize(9.5); pdf.setFont('helvetica','normal'); pdf.setTextColor(30,30,30); const lines=pdf.splitTextToSize(text,CW); lines.forEach(l=>{ chk(6); pdf.text(l,M,y); y+=5; }); y+=2; }
-  function buls(arr){ if(!arr||!arr.length){ val('nevyplněno'); return; } arr.forEach(item=>{ chk(6); pdf.setFontSize(9.5); pdf.setFont('helvetica','normal'); pdf.setTextColor(30,30,30); const ls=pdf.splitTextToSize('• '+item,CW-4); ls.forEach((l,i)=>{ chk(6); pdf.text(l,M+(i>0?4:0),y); y+=5; }); }); y+=2; }
-  function twocol(l1,v1,l2,v2){ chk(16); const h=(CW-8)/2; pdf.setFontSize(7); pdf.setFont('helvetica','bold'); pdf.setTextColor(130,130,130); pdf.text(l1.toUpperCase(),M,y); pdf.text(l2.toUpperCase(),M+h+8,y); y+=4; pdf.setFontSize(9.5); pdf.setFont('helvetica','normal'); pdf.setTextColor(30,30,30); const a=pdf.splitTextToSize(v1||'—',h); const b=pdf.splitTextToSize(v2||'—',h); const mx=Math.max(a.length,b.length); for(let i=0;i<mx;i++){ chk(5); if(a[i])pdf.text(a[i],M,y); if(b[i])pdf.text(b[i],M+h+8,y); y+=5; } y+=2; }
-  return {pdf,W,H,M,CW,y:()=>y, setY:(v)=>{y=v;}, chk,rule,secTitle,lbl,val,buls,twocol};
+  const chk = n => { if(y+n>H-14){pdf.addPage();y=M;} };
+  const rule = (c,w=0.3) => { pdf.setDrawColor(...c);pdf.setLineWidth(w);pdf.line(M,y,W-M,y);y+=3; };
+  const lbl = (t,accent) => { chk(8);pdf.setFontSize(7);pdf.setFont('helvetica','bold');pdf.setTextColor(accent?233:130,accent?69:130,accent?96:130);pdf.text(t,M,y);y+=4; };
+  const val = t => { if(!t||!t.trim())t='—';chk(6);pdf.setFontSize(9.5);pdf.setFont('helvetica','normal');pdf.setTextColor(30,30,30);const ls=pdf.splitTextToSize(t,CW);ls.forEach(l=>{chk(6);pdf.text(l,M,y);y+=5;});y+=1; };
+  const buls = arr => { if(!arr||!arr.length){val('—');return;}arr.forEach(item=>{chk(6);pdf.setFontSize(9.5);pdf.setFont('helvetica','normal');pdf.setTextColor(30,30,30);const ls=pdf.splitTextToSize('• '+item,CW-4);ls.forEach((l,i)=>{chk(6);pdf.text(l,M+(i>0?4:0),y);y+=5;});});y+=1;};
+  const secT = t => { chk(14);pdf.setFontSize(7.5);pdf.setFont('helvetica','bold');pdf.setTextColor(150,150,150);pdf.text(t,M,y);y+=1.5;rule([210,210,210]); };
+  const sp = () => { y+=4; };
+  return {pdf,W,H,M,CW,y:()=>y,setY:v=>{y=v;},chk,rule,lbl,val,buls,secT,sp};
 }
 
+// ---- BRAND CARD ----
 function exportBrandCard(){
   const d = collectAll();
-  const name = d.model || 'Modelka';
-  const archs = d.s2.archetypy.join(' + ') || d.s2.vlastni || '—';
-  const p = pdfSetup();
-  const {pdf,W,H,M,CW} = p;
-  let y = M;
-  const setY = v => { y=v; };
+  const name = d.model||'Modelka';
+  const {pdf,W,H,M,CW,chk,rule,lbl,val,buls,sp} = makePDF();
+  let y = 0;
 
-  function chk(n){ if(y+n>H-M){ pdf.addPage(); y=M; } }
-  function secTitle(text){ chk(12); pdf.setFontSize(7.5); pdf.setFont('helvetica','bold'); pdf.setTextColor(160,160,160); pdf.text(text.toUpperCase(),M,y); y+=1.5; pdf.setDrawColor(210,210,210); pdf.setLineWidth(0.3); pdf.line(M,y,W-M,y); y+=3; }
-  function lbl(text,accent){ chk(8); pdf.setFontSize(7); pdf.setFont('helvetica','bold'); pdf.setTextColor(accent?233:130,accent?69:130,accent?96:130); pdf.text(text.toUpperCase(),M,y); y+=4; }
-  function val(text){ if(!text||text==='')text='nevyplněno'; pdf.setFontSize(9.5); pdf.setFont('helvetica','normal'); pdf.setTextColor(30,30,30); const ls=pdf.splitTextToSize(text,CW); ls.forEach(l=>{ chk(6); pdf.text(l,M,y); y+=5; }); y+=2; }
-  function buls(arr){ if(!arr||!arr.length){val('nevyplněno');return;} arr.forEach(item=>{ const ls=pdf.splitTextToSize('• '+item,CW-4); pdf.setFontSize(9.5); pdf.setFont('helvetica','normal'); pdf.setTextColor(30,30,30); ls.forEach((l,i)=>{ chk(6); pdf.text(l,M+(i>0?4:0),y); y+=5; }); }); y+=2; }
-  function twocol(l1,v1,l2,v2){ chk(16); const h=(CW-8)/2; pdf.setFontSize(7); pdf.setFont('helvetica','bold'); pdf.setTextColor(130,130,130); pdf.text(l1.toUpperCase(),M,y); pdf.text(l2.toUpperCase(),M+h+8,y); y+=4; pdf.setFontSize(9.5); pdf.setFont('helvetica','normal'); pdf.setTextColor(30,30,30); const a=pdf.splitTextToSize(v1||'—',h); const b=pdf.splitTextToSize(v2||'—',h); const mx=Math.max(a.length,b.length); for(let i=0;i<mx;i++){ chk(5); if(a[i])pdf.text(a[i],M,y); if(b[i])pdf.text(b[i],M+h+8,y); y+=5; } y+=2; }
+  // Helper to set y
+  const sy = v => { y=v; };
+  const gy = () => y;
+
+  function pchk(n){ if(y+n>H-14){pdf.addPage();y=M;} }
+  function plbl(t,accent){ pchk(8);pdf.setFontSize(7);pdf.setFont('helvetica','bold');pdf.setTextColor(accent?233:130,accent?69:130,accent?96:130);pdf.text(t,M,y);y+=4; }
+  function pval(t){ if(!t||!t.trim())t='—';pdf.setFontSize(10);pdf.setFont('helvetica','normal');pdf.setTextColor(20,20,20);const ls=pdf.splitTextToSize(t,CW);ls.forEach(l=>{pchk(6);pdf.text(l,M,y);y+=5.5;});y+=1; }
+  function pbuls(arr){ if(!arr||!arr.length){pval('—');return;}arr.forEach(item=>{const ls=pdf.splitTextToSize('• '+item,CW-4);pdf.setFontSize(10);pdf.setFont('helvetica','normal');pdf.setTextColor(20,20,20);ls.forEach((l,i)=>{pchk(6);pdf.text(l,M+(i>0?4:0),y);y+=5.5;});});y+=1;}
+  function psecT(num,t){ pchk(16);pdf.setFillColor(248,248,248);pdf.rect(M,y-4,CW,11,'F');pdf.setFontSize(9);pdf.setFont('helvetica','bold');pdf.setTextColor(233,69,96);pdf.text(num,M+1,y+4);pdf.setTextColor(40,40,40);pdf.text(t,M+12,y+4);y+=12; }
+  function psp(){ y+=5; }
 
   // HEADER
-  pdf.setFillColor(233,69,96); pdf.rect(0,0,W,22,'F');
-  pdf.setFontSize(10); pdf.setFont('helvetica','bold'); pdf.setTextColor(255,255,255);
-  pdf.text('CREATOR BIBLE',M,9);
-  pdf.setFontSize(17); pdf.text(name,M,17);
-  pdf.setFontSize(8); pdf.setTextColor(255,200,200);
-  pdf.text(archs,W-M,9,{align:'right'});
-  if(d.date){ pdf.setFontSize(7); pdf.setTextColor(255,220,220); pdf.text('nar. '+d.date,W-M,16,{align:'right'}); }
-  y=28;
+  pdf.setFillColor(233,69,96);
+  pdf.rect(0,0,W,28,'F');
+  pdf.setFontSize(9);pdf.setFont('helvetica','bold');pdf.setTextColor(255,200,200);
+  pdf.text('BRAND IDENTITY BOOK',M,10);
+  pdf.setFontSize(20);pdf.setTextColor(255,255,255);
+  pdf.text(name,M,20);
+  const arch = d.s2.archetypy.join(' + ')||d.s2.vlastni||'';
+  if(arch){pdf.setFontSize(8);pdf.setTextColor(255,220,220);pdf.text(arch,W-M,20,{align:'right'});}
+  y = 34;
 
-  secTitle('01  Identita');
-  twocol('Věk',d.s1.vek,'Odkud',d.s1.lokace);
-  lbl('Příběh'); val(d.s1.pribeh||'—');
-  lbl('Osobnost'); val(d.s1.osobnost.join(', ')||'—');
-  lbl('Odlišení',true); val(d.s1.odliseni||'—');
+  // 1. KDO JE
+  psecT('1.','Kdo je');
+  plbl('Vek / odkud');
+  pval([d.s1.vek, d.s1.lokace].filter(Boolean).join('  |  ')||'—');
+  plbl('Pribeh');
+  pval(d.s1.pribeh||'—');
+  plbl('Charakter');
+  pval(d.s1.osobnost.filter(Boolean).join(', ')||'—');
+  psp();
 
-  secTitle('02  Archetyp & vibe');
-  lbl('Typy',true); val(archs);
+  // 2. VIBE
+  psecT('2.','Tvuj vibe');
+  plbl('Archetyp / typ');
+  pval(arch||'—');
+  plbl('Energie vlastnimi slovy');
+  pval(d.s2.vibe||'—');
+  psp();
 
-  secTitle('03  Inspirace & obsah');
-  lbl('Inspirační profily'); buls(d.s3.reference);
-  lbl('Oblíbené formáty videí'); buls(d.s3.oblibena);
-  if(d.s3.nechce){ lbl('Co nechce'); val(d.s3.nechce); }
+  // 3. JAK SE ODLISUJE
+  psecT('3.','Jak se odlisuje');
+  pval(d.s1.odliseni||'—');
+  psp();
 
-  secTitle('04  Hranice');
-  if(d.s4.temata.length){ lbl('Tabu témata'); buls(d.s4.temata); }
-  if(d.s4.kolaborace.length){ lbl('Nechce kolaborovat s'); buls(d.s4.kolaborace); }
-
-  secTitle('05  Hlas & slovíčka');
-  if(d.s5.osloveni.length){ lbl('Oslovení fanoušků',true); val(d.s5.osloveni.join('  •  ')); }
-  if(d.s5.slova.length){ lbl('Vlastní výrazy'); val(d.s5.slova.join('  •  ')); }
-  lbl('Styl komunikace'); val(d.s5.styl||'—');
-  if(d.s5.catchphrase){ lbl('Catchphrase'); val(d.s5.catchphrase); }
-
-  if(d.s6.bavi||d.s6.goal||d.s6.fulltime){
-    secTitle('06  Motivace');
-    if(d.s6.fulltime){ lbl('Dostupnost',true); val(d.s6.fulltime); }
-    if(d.s6.bavi){ lbl('Co ji baví'); val(d.s6.bavi); }
-    if(d.s6.goal){ lbl('Cíl'); val(d.s6.goal); }
+  // 4. TONE OF VOICE
+  psecT('4.','Tone of Voice pro reels');
+  plbl('Styl');
+  pval(d.s3.tov||'—');
+  if(d.s3.osloveni.length){ plbl('Osloveni fanousku'); pval(d.s3.osloveni.join(', ')); }
+  if(d.s3.slova.length){ plbl('Vlastni vyrazy'); pval(d.s3.slova.join(', ')); }
+  if(d.s3.captions.filter(Boolean).length){
+    plbl('Priklady vyjadrovani');
+    d.s3.captions.filter(Boolean).forEach(c => {
+      pchk(7);
+      pdf.setFontSize(10);pdf.setFont('helvetica','italic');pdf.setTextColor(60,60,60);
+      const ls=pdf.splitTextToSize('"'+c+'"',CW-4);
+      ls.forEach(l=>{pchk(6);pdf.text(l,M+2,y);y+=5.5;});
+    });
+    y+=1;
   }
+  psp();
+
+  // 5. OBSAH
+  psecT('5.','Co bude delat za obsah');
+  plbl('Oblibene formaty');
+  pbuls(d.s4.oblibena);
+  if(d.s4.never){ plbl('Co nikdy nechce tocit'); pval(d.s4.never); }
+  psp();
+
+  // SHRNUTÍ
+  pchk(20);
+  pdf.setFillColor(248,248,248);
+  pdf.rect(M,y-2,CW,8,'F');
+  pdf.setFontSize(9);pdf.setFont('helvetica','bold');pdf.setTextColor(233,69,96);
+  pdf.text('Shrnuti',M+2,y+4);
+  y+=12;
+
+  // build shrnutí text
+  const archStr = arch ? arch : 'kreativni tvurce';
+  const vibStr = d.s2.vibe ? d.s2.vibe.split('.')[0] : '';
+  const shrnutiParts = [
+    name+'\'s brand =',
+    arch ? arch+'.' : '',
+    d.s1.pribeh ? d.s1.pribeh.split('.')[0]+'.' : '',
+    d.s1.odliseni ? d.s1.odliseni.split('.')[0]+'.' : '',
+    vibStr ? vibStr+'.' : '',
+  ].filter(Boolean).join(' ');
+  pdf.setFontSize(10);pdf.setFont('helvetica','normal');pdf.setTextColor(20,20,20);
+  const shrLines = pdf.splitTextToSize(shrnutiParts, CW);
+  shrLines.forEach(l=>{pchk(6);pdf.text(l,M,y);y+=5.5;});
 
   // FOOTER
-  pdf.setDrawColor(233,69,96); pdf.setLineWidth(0.3); pdf.line(M,H-10,W-M,H-10);
-  pdf.setFontSize(7); pdf.setFont('helvetica','normal'); pdf.setTextColor(180,180,180);
-  pdf.text('Creator Bible  •  '+name+'  •  Confidential',M,H-6);
-  pdf.text(d.date?'nar. '+d.date:'',W-M,H-6,{align:'right'});
+  pdf.setDrawColor(233,69,96);pdf.setLineWidth(0.3);pdf.line(M,H-10,W-M,H-10);
+  pdf.setFontSize(7);pdf.setFont('helvetica','normal');pdf.setTextColor(180,180,180);
+  pdf.text('Creator Bible  |  '+name+'  |  Confidential',M,H-6);
+  if(d.date){pdf.text('nar. '+d.date,W-M,H-6,{align:'right'});}
 
   pdf.save(name.replace(/\s+/g,'_')+'_brand_card.pdf');
 }
 
-function exportPDF(){
+// ---- KOMPLETNI PDF ----
+function exportFullPDF(){
   const d = collectAll();
-  const name = d.model || 'Modelka';
-  const archs = d.s2.archetypy.join(', ') || d.s2.vlastni || '—';
+  const name = d.model||'Modelka';
   const {jsPDF} = window.jspdf;
   const pdf = new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
   const W=210,H=297,M=18,CW=W-M*2;
   let y=M;
   function chk(n){if(y+n>H-M){pdf.addPage();y=M;}}
-  function title(t){chk(20);pdf.setFontSize(16);pdf.setFont('helvetica','bold');pdf.setTextColor(233,69,96);pdf.text(t,M,y);y+=2;pdf.setDrawColor(233,69,96);pdf.setLineWidth(0.5);pdf.line(M,y,W-M,y);y+=6;}
-  function lbl(t){chk(8);pdf.setFontSize(8);pdf.setFont('helvetica','bold');pdf.setTextColor(150,150,150);pdf.text(t.toUpperCase(),M,y);y+=4;}
-  function val(t){if(!t||t==='')t='nevyplněno';chk(6);pdf.setFontSize(10);pdf.setFont('helvetica','normal');pdf.setTextColor(40,40,40);const ls=pdf.splitTextToSize(t,CW);ls.forEach(l=>{chk(6);pdf.text(l,M,y);y+=5;});y+=2;}
-  function buls(arr){if(!arr||!arr.length){val('nevyplněno');return;}arr.forEach(item=>{chk(6);pdf.setFontSize(10);pdf.setFont('helvetica','normal');pdf.setTextColor(40,40,40);const ls=pdf.splitTextToSize('• '+item,CW-4);ls.forEach((l,i)=>{chk(6);pdf.text(l,M+(i>0?4:0),y);y+=5;});});y+=2;}
-  function sp(){y+=4;}
+  function title(t){chk(20);pdf.setFontSize(15);pdf.setFont('helvetica','bold');pdf.setTextColor(233,69,96);pdf.text(t,M,y);y+=2;pdf.setDrawColor(233,69,96);pdf.setLineWidth(0.5);pdf.line(M,y,W-M,y);y+=6;}
+  function lbl(t){chk(8);pdf.setFontSize(7.5);pdf.setFont('helvetica','bold');pdf.setTextColor(140,140,140);pdf.text(t,M,y);y+=4;}
+  function val(t){if(!t||!t.trim())t='—';chk(6);pdf.setFontSize(10);pdf.setFont('helvetica','normal');pdf.setTextColor(30,30,30);const ls=pdf.splitTextToSize(t,CW);ls.forEach(l=>{chk(6);pdf.text(l,M,y);y+=5;});y+=2;}
+  function buls(arr){if(!arr||!arr.length){val('—');return;}arr.forEach(item=>{chk(6);pdf.setFontSize(10);pdf.setFont('helvetica','normal');pdf.setTextColor(30,30,30);const ls=pdf.splitTextToSize('• '+item,CW-4);ls.forEach((l,i)=>{chk(6);pdf.text(l,M+(i>0?4:0),y);y+=5;});});y+=2;}
+  function sp(){y+=5;}
 
-  y=60; pdf.setFontSize(32);pdf.setFont('helvetica','bold');pdf.setTextColor(233,69,96);pdf.text('CREATOR BIBLE',W/2,y,{align:'center'});
-  y+=12;pdf.setFontSize(20);pdf.setTextColor(40,40,40);pdf.text(name,W/2,y,{align:'center'});
-  y+=8;if(d.date){pdf.setFontSize(11);pdf.setTextColor(150,150,150);pdf.text('nar. '+d.date,W/2,y,{align:'center'});}
-  pdf.setDrawColor(233,69,96);pdf.setLineWidth(0.3);pdf.line(M+30,100,W-M-30,100);
+  // COVER
+  y=55;
+  pdf.setFontSize(30);pdf.setFont('helvetica','bold');pdf.setTextColor(233,69,96);
+  pdf.text('CREATOR BIBLE',W/2,y,{align:'center'});
+  y+=12;pdf.setFontSize(20);pdf.setTextColor(30,30,30);
+  pdf.text(name,W/2,y,{align:'center'});
+  if(d.date){y+=8;pdf.setFontSize(11);pdf.setTextColor(160,160,160);pdf.text('nar. '+d.date,W/2,y,{align:'center'});}
+  pdf.setDrawColor(233,69,96);pdf.setLineWidth(0.3);pdf.line(M+30,105,W-M-30,105);
 
   pdf.addPage();y=M;
   title('01  Kdo jsi');
-  lbl('Věk');val(d.s1.vek);lbl('Odkud');val(d.s1.lokace);lbl('Příběh');val(d.s1.pribeh);lbl('Osobnost');buls(d.s1.osobnost);lbl('Odlišení');val(d.s1.odliseni);sp();
-  title('02  Archetyp');
-  lbl('Vybrané typy');val(archs);lbl('Upřesnění');val(d.s2.vlastni);
+  lbl('Vek');val(d.s1.vek);
+  lbl('Odkud');val(d.s1.lokace);
+  lbl('Pribeh');val(d.s1.pribeh);
+  lbl('Osobnost');buls(d.s1.osobnost);
+  lbl('Odliseni od ostatnich');val(d.s1.odliseni);
+  sp();
+  title('02  Tvuj vibe');
+  lbl('Vybrane typy');val(d.s2.archetypy.join(', ')||d.s2.vlastni||'—');
+  lbl('Vlastni popis vibe');val(d.s2.vibe);
 
   pdf.addPage();y=M;
-  title('03  Inspirace & obsah');
-  lbl('Inspirační profily');buls(d.s3.reference);lbl('Oblíbené formáty');buls(d.s3.oblibena);lbl('Co nechce dělat');val(d.s3.nechce);sp();
-  title('04  Co nechce');
-  lbl('Tabu témata');buls(d.s4.temata);lbl('Nechce kolaborovat s');buls(d.s4.kolaborace);
+  title('03  Komunikace & TOV');
+  lbl('Styl komunikace');val(d.s3.tov);
+  lbl('Osloveni fanousku');val(d.s3.osloveni.join(', ')||'—');
+  lbl('Vlastni vyrazy');val(d.s3.slova.join(', ')||'—');
+  lbl('Priklady vyjadrovani');buls(d.s3.captions);
+  sp();
+  title('04  Obsah');
+  lbl('Oblibene formaty');buls(d.s4.oblibena);
+  lbl('Inspiracni profily');buls(d.s4.reference);
+  lbl('Co nikdy nechce tocit');val(d.s4.never);
 
   pdf.addPage();y=M;
-  title('05  Hlas & slovíčka');
-  lbl('Oslovení fanoušků');val(d.s5.osloveni.join('  •  ')||'—');lbl('Vlastní výrazy');val(d.s5.slova.join('  •  ')||'—');lbl('Styl komunikace');val(d.s5.styl);lbl('Catchphrase');val(d.s5.catchphrase);sp();
-  title('06  Motivace & cíle');
-  lbl('Co ji baví');val(d.s6.bavi);lbl('Dostupnost / čas');val(d.s6.fulltime||'—');lbl('Cíl za rok');val(d.s6.goal);
+  title('05  Hranice');
+  lbl('Tabu temata');buls(d.s5.temata);
+  lbl('Nechce kolaborovat s');buls(d.s5.kolaborace);
+  sp();
+  title('06  Dostupnost');
+  lbl('Situace');val(d.s6.dostupnost||'—');
+  lbl('Co ji bavi');val(d.s6.love);
+  sp();
+  title('07  Cil');
+  val(d.s7.goal);
 
   pdf.save(name.replace(/\s+/g,'_')+'_creator_bible.pdf');
 }
