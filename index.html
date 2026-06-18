@@ -409,106 +409,131 @@ function makePDF(){
 function exportBrandCard(){
   const d = collectAll();
   const name = d.model||'Modelka';
-  const {pdf,W,H,M,CW,chk,rule,lbl,val,buls,sp} = makePDF();
-  let y = 0;
+  const {jsPDF} = window.jspdf;
+  const pdf = new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+  const W=210,H=297,M=20,CW=W-M*2;
+  let y=M;
 
-  // Helper to set y
-  const sy = v => { y=v; };
-  const gy = () => y;
+  function chk(n){ if(y+n>H-16){pdf.addPage();y=M;} }
 
-  function pchk(n){ if(y+n>H-14){pdf.addPage();y=M;} }
-  function plbl(t,accent){ pchk(8);pdf.setFontSize(7);pdf.setFont('helvetica','bold');pdf.setTextColor(accent?233:130,accent?69:130,accent?96:130);pdf.text(t,M,y);y+=4; }
-  function pval(t){ if(!t||!t.trim())t='—';pdf.setFontSize(10);pdf.setFont('helvetica','normal');pdf.setTextColor(20,20,20);const ls=pdf.splitTextToSize(t,CW);ls.forEach(l=>{pchk(6);pdf.text(l,M,y);y+=5.5;});y+=1; }
-  function pbuls(arr){ if(!arr||!arr.length){pval('—');return;}arr.forEach(item=>{const ls=pdf.splitTextToSize('• '+item,CW-4);pdf.setFontSize(10);pdf.setFont('helvetica','normal');pdf.setTextColor(20,20,20);ls.forEach((l,i)=>{pchk(6);pdf.text(l,M+(i>0?4:0),y);y+=5.5;});});y+=1;}
-  function psecT(num,t){ pchk(16);pdf.setFillColor(248,248,248);pdf.rect(M,y-4,CW,11,'F');pdf.setFontSize(9);pdf.setFont('helvetica','bold');pdf.setTextColor(233,69,96);pdf.text(num,M+1,y+4);pdf.setTextColor(40,40,40);pdf.text(t,M+12,y+4);y+=12; }
-  function psp(){ y+=5; }
-
-  // HEADER
-  pdf.setFillColor(233,69,96);
-  pdf.rect(0,0,W,28,'F');
-  pdf.setFontSize(9);pdf.setFont('helvetica','bold');pdf.setTextColor(255,200,200);
-  pdf.text('BRAND IDENTITY BOOK',M,10);
-  pdf.setFontSize(20);pdf.setTextColor(255,255,255);
-  pdf.text(name,M,20);
-  const arch = d.s2.archetypy.join(' + ')||d.s2.vlastni||'';
-  if(arch){pdf.setFontSize(8);pdf.setTextColor(255,220,220);pdf.text(arch,W-M,20,{align:'right'});}
-  y = 34;
-
-  // 1. KDO JE
-  psecT('1.','Kdo je');
-  plbl('Vek / odkud');
-  pval([d.s1.vek, d.s1.lokace].filter(Boolean).join('  |  ')||'—');
-  plbl('Pribeh');
-  pval(d.s1.pribeh||'—');
-  plbl('Charakter');
-  pval(d.s1.osobnost.filter(Boolean).join(', ')||'—');
-  psp();
-
-  // 2. VIBE
-  psecT('2.','Tvuj vibe');
-  plbl('Archetyp / typ');
-  pval(arch||'—');
-  plbl('Energie vlastnimi slovy');
-  pval(d.s2.vibe||'—');
-  psp();
-
-  // 3. JAK SE ODLISUJE
-  psecT('3.','Jak se odlisuje');
-  pval(d.s1.odliseni||'—');
-  psp();
-
-  // 4. TONE OF VOICE
-  psecT('4.','Tone of Voice pro reels');
-  plbl('Styl');
-  pval(d.s3.tov||'—');
-  if(d.s3.osloveni.length){ plbl('Osloveni fanousku'); pval(d.s3.osloveni.join(', ')); }
-  if(d.s3.slova.length){ plbl('Vlastni vyrazy'); pval(d.s3.slova.join(', ')); }
-  if(d.s3.captions.filter(Boolean).length){
-    plbl('Priklady vyjadrovani');
-    d.s3.captions.filter(Boolean).forEach(c => {
-      pchk(7);
-      pdf.setFontSize(10);pdf.setFont('helvetica','italic');pdf.setTextColor(60,60,60);
-      const ls=pdf.splitTextToSize('"'+c+'"',CW-4);
-      ls.forEach(l=>{pchk(6);pdf.text(l,M+2,y);y+=5.5;});
-    });
-    y+=1;
+  // Big section heading like in reference doc
+  function heading(text){
+    chk(18);
+    pdf.setFontSize(16);
+    pdf.setFont('helvetica','bold');
+    pdf.setTextColor(20,20,20);
+    pdf.text(text,M,y);
+    y+=2;
+    pdf.setDrawColor(220,220,220);
+    pdf.setLineWidth(0.3);
+    pdf.line(M,y,W-M,y);
+    y+=6;
   }
-  psp();
 
-  // 5. OBSAH
-  psecT('5.','Co bude delat za obsah');
-  plbl('Oblibene formaty');
-  pbuls(d.s4.oblibena);
-  if(d.s4.never){ plbl('Co nikdy nechce tocit'); pval(d.s4.never); }
-  psp();
+  // Body text - no labels, just prose paragraphs
+  function body(text){
+    if(!text||!text.trim()) return;
+    chk(8);
+    pdf.setFontSize(10.5);
+    pdf.setFont('helvetica','normal');
+    pdf.setTextColor(40,40,40);
+    const lines = pdf.splitTextToSize(text, CW);
+    lines.forEach(l=>{ chk(6); pdf.text(l,M,y); y+=5.5; });
+    y+=3;
+  }
 
-  // SHRNUTÍ
-  pchk(20);
-  pdf.setFillColor(248,248,248);
-  pdf.rect(M,y-2,CW,8,'F');
-  pdf.setFontSize(9);pdf.setFont('helvetica','bold');pdf.setTextColor(233,69,96);
-  pdf.text('Shrnuti',M+2,y+4);
+  // Bullet points
+  function bullets(arr){
+    if(!arr||!arr.length) return;
+    arr.filter(Boolean).forEach(item=>{
+      chk(6);
+      pdf.setFontSize(10.5);
+      pdf.setFont('helvetica','normal');
+      pdf.setTextColor(40,40,40);
+      const ls = pdf.splitTextToSize('* '+item, CW-6);
+      ls.forEach((l,i)=>{ chk(6); pdf.text(l, M+(i>0?6:0), y); y+=5.5; });
+    });
+    y+=2;
+  }
+
+  function sp(){ y+=5; }
+
+  // TITLE
+  pdf.setFontSize(13);
+  pdf.setFont('helvetica','bold');
+  pdf.setTextColor(40,40,40);
+  pdf.text('Brand Identity Book - '+name, M, y);
   y+=12;
 
-  // build shrnutí text
-  const archStr = arch ? arch : 'kreativni tvurce';
-  const vibStr = d.s2.vibe ? d.s2.vibe.split('.')[0] : '';
-  const shrnutiParts = [
+  // 1. KDO JSI
+  heading('1. Kdo jsi');
+  const info = [d.s1.vek, d.s1.lokace].filter(Boolean).join('. ');
+  const kdo = [info, d.s1.pribeh, d.s1.osobnost.filter(Boolean).join('. ')].filter(Boolean).join(' ');
+  body(kdo||'—');
+  sp();
+
+  // 2. VIBE
+  heading('2. Tvuj vibe');
+  const arch = d.s2.archetypy.join(' + ')||d.s2.vlastni||'';
+  const vibeText = [arch ? arch+'.' : '', d.s2.vibe].filter(Boolean).join(' ');
+  body(vibeText||'—');
+  sp();
+
+  // 3. JAK SE ODLISUJES
+  heading('3. Jak se odlisujes');
+  body(d.s1.odliseni||'—');
+  sp();
+
+  // 4. TONE OF VOICE
+  heading('4. Tone of Voice pro reels');
+  const tovParts = [];
+  if(d.s3.tov) tovParts.push(d.s3.tov+'.');
+  if(d.s3.osloveni.length) tovParts.push('Fanousky oslovi: '+d.s3.osloveni.join(', ')+'.');
+  if(d.s3.slova.length) tovParts.push('Pouziva vyrazy: '+d.s3.slova.join(', ')+'.');
+  body(tovParts.join(' ')||'—');
+  if(d.s3.captions.filter(Boolean).length){
+    chk(8);
+    pdf.setFontSize(9);pdf.setFont('helvetica','normal');pdf.setTextColor(80,80,80);
+    pdf.text('Priklady:', M, y); y+=5;
+    d.s3.captions.filter(Boolean).forEach(c=>{
+      chk(6);
+      const ls=pdf.splitTextToSize('"'+c+'"', CW-6);
+      ls.forEach(l=>{ chk(6); pdf.setFontSize(10); pdf.setFont('helvetica','italic'); pdf.setTextColor(60,60,60); pdf.text(l,M+4,y); y+=5.5; });
+    });
+    y+=2;
+  }
+  sp();
+
+  // 5. CO BUDE DELAT
+  heading('5. Co bude tocit za obsah');
+  bullets(d.s4.oblibena);
+  if(d.s4.never){
+    chk(8);
+    pdf.setFontSize(10.5);pdf.setFont('helvetica','normal');pdf.setTextColor(40,40,40);
+    const ls=pdf.splitTextToSize('Nikdy: '+d.s4.never, CW);
+    ls.forEach(l=>{chk(6);pdf.text(l,M,y);y+=5.5;});
+    y+=3;
+  }
+  sp();
+
+  // SHRNUTI
+  heading('Shrnuti');
+  const shrParts = [
     name+'\'s brand =',
     arch ? arch+'.' : '',
-    d.s1.pribeh ? d.s1.pribeh.split('.')[0]+'.' : '',
-    d.s1.odliseni ? d.s1.odliseni.split('.')[0]+'.' : '',
-    vibStr ? vibStr+'.' : '',
+    d.s1.pribeh ? d.s1.pribeh.split(/[.!?]/)[0]+'.' : '',
+    d.s1.odliseni ? d.s1.odliseni.split(/[.!?]/)[0]+'.' : '',
+    d.s2.vibe ? d.s2.vibe.split(/[.!?]/)[0]+'.' : '',
   ].filter(Boolean).join(' ');
-  pdf.setFontSize(10);pdf.setFont('helvetica','normal');pdf.setTextColor(20,20,20);
-  const shrLines = pdf.splitTextToSize(shrnutiParts, CW);
-  shrLines.forEach(l=>{pchk(6);pdf.text(l,M,y);y+=5.5;});
+  body(shrParts);
 
   // FOOTER
-  pdf.setDrawColor(233,69,96);pdf.setLineWidth(0.3);pdf.line(M,H-10,W-M,H-10);
+  pdf.setDrawColor(200,200,200);
+  pdf.setLineWidth(0.2);
+  pdf.line(M,H-10,W-M,H-10);
   pdf.setFontSize(7);pdf.setFont('helvetica','normal');pdf.setTextColor(180,180,180);
-  pdf.text('Creator Bible  |  '+name+'  |  Confidential',M,H-6);
-  if(d.date){pdf.text('nar. '+d.date,W-M,H-6,{align:'right'});}
+  pdf.text('Brand Identity Book  |  '+name, M, H-6);
+  if(d.date){ pdf.text('nar. '+d.date, W-M, H-6, {align:'right'}); }
 
   pdf.save(name.replace(/\s+/g,'_')+'_brand_card.pdf');
 }
