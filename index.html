@@ -153,7 +153,7 @@
       <button class="arch-btn" onclick="toggleArch(this)">Complicated</button>
     </div>
   </div>
-  <div class="field"><label class="field-label">Koníčky a záliby</label><textarea id="s1-hobbies" placeholder="Co tě baví mimo OF, co děláš ve volném čase..."></textarea></div>
+  <div class="field"><label class="field-label">Koníčky a záliby</label><textarea id="s1-hobbies" placeholder="Např. fitness, plavání, wellness, cestování..."></textarea></div>
   <div class="field"><label class="field-label">Tvůj příběh (2-3 věty)</label><textarea id="s1-story" placeholder="Proč jsi začala, co tě k tomu dovedlo, co tě dělá autentickou..."></textarea></div>
   <div class="field">
     <label class="field-label">Jak bys popsala svou osobnost? (2-4 věci)</label>
@@ -299,7 +299,7 @@
     </div>
   </div>
   <div class="field"><label class="field-label">Pokud ano, jaká jsou omezení?</label><input type="text" id="s7-calls-limits" placeholder="Např. jen audio, max 10 min, bez tváře..."></div>
-  <div class="field"><label class="field-label">Jakékoli další poznámky k účtu</label><textarea id="s7-notes" placeholder="VIP program, speciální ceny, co chceš změnit..."></textarea></div>
+  <div class="field"><label class="field-label">Důležité informace pro chat</label><textarea id="s7-notes" placeholder="Např. má ráda dominanci, určité téma hlídá pečlivě, speciální přání..."></textarea></div>
 </div>
 
 <!-- EXPORT -->
@@ -386,44 +386,30 @@ function navigate(d){ goTo(Math.max(0, Math.min(TOTAL-1, cur+d))); }
 async function submitToAgency(){
   const d = collectAll();
   const body = {
-    _subject: 'Creator Bible - ' + d.model,
-    Dotaznik: `Dotazník pro tvůrce
+    _subject: 'Chatter Sheet - ' + d.model,
+    Dotaznik: `CHATTER SHEET
+====================
 
-Jméno modelky: ${d.model}
+Jméno (stage name): ${d.model}
 Datum narození: ${d.date}
 Výška: ${d.s1.vyska}
 Barva očí: ${d.s1.oci}
 Odkud: ${d.s1.lokace}
-Tetování (počet): ${d.s1.tetovani}
+Tetování: ${d.s1.tetovani}
 Domácí zvíře: ${d.s1.mazlicek}
-Relationship status: ${d.s1.vztah}
+Jste svobodná?: ${d.s1.vztah}
 Koníčky a záliby: ${d.s1.hobby}
-Osobnost: ${d.s1.osobnost.join(', ')}
-Příběh: ${d.s1.pribeh}
-Čím se odlišuje: ${d.s1.odliseni}
-
-Archetyp / vibe: ${d.s2.archetypy.join(', ')||d.s2.vlastni}
-Vlastní popis vibe: ${d.s2.vibe}
-
-Styl komunikace: ${d.s3.tov}
-Slova která často používá: ${d.s3.slova.join(', ')}
+Slova, která často používá: ${d.s3.slova.join(', ')}
 Oslovení fanoušků: ${d.s3.osloveni.join(', ')}
+Videohovory: ${d.s7.videohovory}${d.s7.video_limity ? ' — ' + d.s7.video_limity : ''}
+Minimální cena za custom obsah: ${d.s7.customs}
 
-Oblíbené formáty videí: ${d.s4.oblibena.join(', ')}
-Inspirační profily: ${d.s4.reference.join(', ')}
-Co nechce točit / zakázaný obsah: ${d.s4.never}
-
+DŮLEŽITÉ PRO CHAT:
+Osobnost: ${d.s1.osobnost.join(', ')}
+Styl komunikace: ${d.s3.tov}
 Tabu témata: ${d.s5.temata.join(', ')}
-Nechce kolaborovat s: ${d.s5.kolaborace.join(', ')}
-
-Dostupnost: ${d.s6.dostupnost}
-Co ji baví: ${d.s6.love}
-
-Minimální cena za CUSTOMY: ${d.s7.customs}
-Chce dělat videohovory: ${d.s7.videohovory}
-Omezení videohovorů: ${d.s7.video_limity}
-Poznámky k účtu: ${d.s7.poznamky}
-Cíl: ${d.s7.goal}`
+Co nechce točit: ${d.s4.never}
+Důležité informace pro chat: ${d.s7.poznamky}`
   };
   const btn = document.getElementById('btn-next');
   btn.textContent = 'Odesílám...';
@@ -479,7 +465,7 @@ function gArch(secId){ const sec=document.getElementById(secId); if(!sec)return[
 function collectAll(){
   return {
     model: gv('cv-name'), date: gv('cv-date'),
-    s1: { vek:'', vyska:gv('s1-height'), oci:gv('s1-eyes'), lokace:gv('s1-loc'), tetovani:gv('s1-tattoos'), mazlicek:gv('s1-pet'), vztah:gArch('sec1').join(', '), hobby:gv('s1-hobbies'), pribeh:gv('s1-story'), osobnost:gi('s1-traits'), odliseni:gv('s1-diff') },
+    s1: { vek:'', vyska:gv('s1-height'), oci:gv('s1-eyes'), lokace:gv('s1-loc'), tetovani:gv('s1-tattoos'), mazlicek:gv('s1-pet'), vztah:gArch('sec1').join(', '), hobby:gv('s1-hobbies'), zaliby:gv('s1-zaliby'), pribeh:gv('s1-story'), osobnost:gi('s1-traits'), odliseni:gv('s1-diff') },
     s2: { archetypy:gArch('sec2'), vlastni:gv('s2-custom'), vibe:gv('s2-vibe') },
     s3: { tov:gv('s3-tov'), osloveni:gk('kw-fans'), slova:gk('kw-words') },
     s4: { oblibena:gi('s4-fav'), reference:gi('s4-refs'), never:gv('s4-never') },
