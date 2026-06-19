@@ -172,14 +172,7 @@
       <button class="btn-add-kw" onclick="addKw('kw-words','kw-words-inp')">Přidat</button>
     </div>
   </div>
-  <div class="field">
-    <label class="field-label">Napiš 3 věty nebo titulky tak jak bys je napsala ty</label>
-    <div class="bullet-list" id="s3-captions">
-      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Příklad věty nebo titulku..."></div>
-      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Příklad věty nebo titulku..."></div>
-      <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Příklad věty nebo titulku..."></div>
-    </div>
-  </div>
+
 </div>
 
 <!-- 4. OBSAH -->
@@ -188,7 +181,7 @@
   <div class="sec-title">Tvůj obsah</div>
   <div class="sec-note">Co točíš, co tě baví, co nechceš.</div>
   <div class="field">
-    <label class="field-label">Jaká videa děláš nejraději?</label>
+    <label class="field-label">Jaká videa bys chtěla dělat nejraději?</label>
     <div class="bullet-list" id="s4-fav">
       <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Např. talking selfie reels..."></div>
       <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Např. outfit check, dance, POV..."></div>
@@ -364,7 +357,7 @@ function collectAll(){
     model: gv('cv-name'), date: gv('cv-date'),
     s1: { vek:gv('s1-age'), lokace:gv('s1-loc'), pribeh:gv('s1-story'), osobnost:gi('s1-traits'), odliseni:gv('s1-diff') },
     s2: { archetypy:gArch('sec2'), vlastni:gv('s2-custom'), vibe:gv('s2-vibe') },
-    s3: { tov:gv('s3-tov'), osloveni:gk('kw-fans'), slova:gk('kw-words'), captions:gi('s3-captions') },
+    s3: { tov:gv('s3-tov'), osloveni:gk('kw-fans'), slova:gk('kw-words') },
     s4: { oblibena:gi('s4-fav'), reference:gi('s4-refs'), never:gv('s4-never') },
     s5: { temata:gi('s5-top'), kolaborace:gi('s5-col') },
     s6: { dostupnost:gArch('sec6').join(', '), love:gv('s6-love') },
@@ -491,17 +484,6 @@ function exportBrandCard(){
   if(d.s3.osloveni.length) tovParts.push('Fanousky oslovi: '+d.s3.osloveni.join(', ')+'.');
   if(d.s3.slova.length) tovParts.push('Pouziva vyrazy: '+d.s3.slova.join(', ')+'.');
   body(tovParts.join(' ')||'—');
-  if(d.s3.captions.filter(Boolean).length){
-    chk(8);
-    pdf.setFontSize(9);pdf.setFont('helvetica','normal');pdf.setTextColor(80,80,80);
-    pdf.text('Priklady:', M, y); y+=5;
-    d.s3.captions.filter(Boolean).forEach(c=>{
-      chk(6);
-      const ls=pdf.splitTextToSize('"'+c+'"', CW-6);
-      ls.forEach(l=>{ chk(6); pdf.setFontSize(10); pdf.setFont('helvetica','italic'); pdf.setTextColor(60,60,60); pdf.text(l,M+4,y); y+=5.5; });
-    });
-    y+=2;
-  }
   sp();
 
   // 5. CO BUDE DELAT
@@ -573,20 +555,15 @@ function exportFullPDF(){
   title('02  Tvuj vibe');
   lbl('Vybrane typy');val(d.s2.archetypy.join(', ')||d.s2.vlastni||'—');
   lbl('Vlastni popis vibe');val(d.s2.vibe);
-
-  pdf.addPage();y=M;
+  sp();
   title('03  Komunikace & TOV');
   lbl('Styl komunikace');val(d.s3.tov);
-  lbl('Osloveni fanousku');val(d.s3.osloveni.join(', ')||'—');
-  lbl('Vlastni vyrazy');val(d.s3.slova.join(', ')||'—');
-  lbl('Priklady vyjadrovani');buls(d.s3.captions);
   sp();
   title('04  Obsah');
   lbl('Oblibene formaty');buls(d.s4.oblibena);
   lbl('Inspiracni profily');buls(d.s4.reference);
   lbl('Co nikdy nechce tocit');val(d.s4.never);
-
-  pdf.addPage();y=M;
+  sp();
   title('05  Hranice');
   lbl('Tabu temata');buls(d.s5.temata);
   lbl('Nechce kolaborovat s');buls(d.s5.kolaborace);
