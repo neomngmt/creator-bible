@@ -80,10 +80,42 @@
   .summary-row:last-child { border-bottom: none; }
   .summary-key { color: var(--text-muted); }
   .summary-val { color: var(--text); text-align: right; max-width: 60%; }
+  /* POPUP */
+  .popup-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 999; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+  .popup-box { background: #161616; border: 0.5px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2.5rem 2rem; max-width: 420px; width: 100%; text-align: center; }
+  .popup-logo { font-size: 11px; letter-spacing: 4px; color: var(--accent); text-transform: uppercase; margin-bottom: 1.25rem; }
+  .popup-title { font-size: 28px; font-weight: 700; color: #fff; margin-bottom: .5rem; letter-spacing: -.5px; }
+  .popup-note { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem; }
+  .popup-why { background: rgba(233,69,96,0.08); border: 0.5px solid rgba(233,69,96,0.2); border-radius: 12px; padding: 1rem 1.25rem; text-align: left; margin-bottom: 1.5rem; }
+  .popup-why-title { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--accent); margin-bottom: .5rem; }
+  .popup-why p { font-size: 12px; color: var(--text-muted); line-height: 1.65; }
+  .popup-why p + p { margin-top: .5rem; }
+  .popup-input-wrap { margin-bottom: 1.25rem; }
+  .popup-input-wrap input { text-align: center; font-size: 16px; padding: .85rem; border-radius: 10px; }
+  .popup-btn { width: 100%; padding: .9rem; background: var(--accent); border: none; border-radius: 10px; color: #fff; font-family: inherit; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .15s; }
+  .popup-btn:hover { opacity: .88; }
   @media (max-width: 480px) { .grid2 { grid-template-columns: 1fr; } .cover-inputs { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
+
+<!-- POPUP -->
+<div class="popup-overlay" id="popup">
+  <div class="popup-box">
+    <div class="popup-logo">Creator Bible</div>
+    <div class="popup-title">Vítej 👋</div>
+    <p class="popup-note">Než začneš, řekni nám jak se jmenuješ.</p>
+    <div class="popup-input-wrap">
+      <input type="text" id="popup-name" placeholder="Tvoje jméno nebo alias..." autocomplete="off">
+    </div>
+    <div class="popup-why">
+      <div class="popup-why-title">PROČ JE TENTO DOTAZNÍK DŮLEŽITÝ</div>
+      <p>Pomáhá nám zachytit tvoji osobnost, hlas a zájmy, aby každá konverzace s tvými fanoušky působila autenticky. Cílem je zajistit, aby chatting tým psal tak, jak bys psala ty přirozeně.</p>
+      <p>Vyplněním získáš nástroje pro silnější vztahy s fans, vyšší loajalitu a maximální sales při zachování tvé osobnosti.</p>
+    </div>
+    <button class="popup-btn" onclick="startForm()">Začít dotazník →</button>
+  </div>
+</div>
 
 <header class="app-header">
   <div class="header-logo">Creator Bible</div>
@@ -93,23 +125,12 @@
 
 <main class="main">
 
-<!-- COVER -->
-<div id="sec0" class="section active">
-  <div class="cover">
-    <div class="cover-eyebrow">Onboarding dokument</div>
-    <h1 class="cover-title">Creator Bible</h1>
-    <p class="cover-sub">Tvoje značka, tvoje pravidla. Vyplnění zabere cca 10 minut.</p>
-    <div style="display:flex;justify-content:center;margin-top:1rem">
-      <div class="field" style="width:280px;text-align:center">
-        <label class="field-label" style="display:block;text-align:center">Tvoje jméno / alias</label>
-        <input type="text" id="cv-name" placeholder="Např. Annika" style="text-align:center">
-      </div>
-    </div>
-  </div>
-</div>
+<!-- COVER removed, start from sec1 -->
+
+<input type="hidden" id="cv-name">
 
 <!-- 1. KDO JSI -->
-<div id="sec1" class="section">
+<div id="sec1" class="section active">
   <div class="sec-eyebrow">01 / 07</div>
   <div class="sec-title">Kdo jsi?</div>
   <div class="sec-note">Pár věcí o tobě. Nemusíš znít dokonale, chceme znát tebe skutečnou.</div>
@@ -297,8 +318,8 @@
 </nav>
 
 <script>
-const SECTIONS = ['sec0','sec1','sec2','sec3','sec4','sec5','sec6','sec7','sec-export'];
-const LABELS = ['Úvod','01 Kdo jsi','02 Tvůj vibe','03 Komunikace','04 Obsah','05 Hranice','06 Čas','07 Cíl','Hotovo'];
+const SECTIONS = ['sec1','sec2','sec3','sec4','sec5','sec6','sec7','sec-export'];
+const LABELS = ['01 Kdo jsi','02 Tvůj vibe','03 Komunikace','04 Obsah','05 Hranice','06 Čas','07 Cíl','Hotovo'];
 let cur = 0;
 const TOTAL = SECTIONS.length;
 
@@ -337,6 +358,21 @@ function goTo(idx){
   buildDots();
   window.scrollTo({top:0,behavior:'smooth'});
 }
+
+function startForm(){
+  const name = document.getElementById('popup-name').value.trim();
+  if(!name){ document.getElementById('popup-name').focus(); return; }
+  document.getElementById('cv-name').value = name;
+  document.getElementById('popup').style.display = 'none';
+  document.getElementById('hdr-step').textContent = LABELS[0];
+  buildDots();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('popup-name').addEventListener('keydown', e => {
+    if(e.key === 'Enter') startForm();
+  });
+});
 
 function navigate(d){ goTo(Math.max(0, Math.min(TOTAL-1, cur+d))); }
 
