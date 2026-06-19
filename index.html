@@ -305,7 +305,13 @@ function goTo(idx){
   const nextBtn = document.getElementById('btn-next');
   if(cur === TOTAL-1){ nextBtn.style.display = 'none'; } else {
     nextBtn.style.display = '';
-    nextBtn.textContent = cur === TOTAL-2 ? 'Dokončit ✓' : 'Další →';
+    if(cur === TOTAL-2){
+      nextBtn.textContent = 'Dokončit ✓';
+      nextBtn.onclick = submitToAgency;
+    } else {
+      nextBtn.textContent = 'Další →';
+      nextBtn.onclick = () => navigate(1);
+    }
   }
   if(cur === TOTAL-1) buildSummary();
   buildDots();
@@ -313,6 +319,47 @@ function goTo(idx){
 }
 
 function navigate(d){ goTo(Math.max(0, Math.min(TOTAL-1, cur+d))); }
+
+async function submitToAgency(){
+  const d = collectAll();
+  const body = {
+    Jmeno: d.model,
+    Datum_narozeni: d.date,
+    Vek: d.s1.vek,
+    Odkud: d.s1.lokace,
+    Pribeh: d.s1.pribeh,
+    Osobnost: d.s1.osobnost.join(', '),
+    Odliseni: d.s1.odliseni,
+    Archetypy: d.s2.archetypy.join(', '),
+    Vlastni_popis: d.s2.vlastni,
+    Vibe: d.s2.vibe,
+    Styl_komunikace: d.s3.tov,
+    Osloveni_fanousku: d.s3.osloveni.join(', '),
+    Vlastni_vyrazy: d.s3.slova.join(', '),
+    Oblibene_formaty: d.s4.oblibena.join(', '),
+    Inspiracni_profily: d.s4.reference.join(', '),
+    Nechce_tocit: d.s4.never,
+    Tabu_temata: d.s5.temata.join(', '),
+    Nechce_kolaborovat: d.s5.kolaborace.join(', '),
+    Dostupnost: d.s6.dostupnost,
+    Co_ji_bavi: d.s6.love,
+    Cil: d.s7.goal,
+  };
+  try {
+    const res = await fetch('https://formspree.io/f/mkoadwrq', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if(res.ok){
+      goTo(TOTAL-1);
+    } else {
+      alert('Nepodařilo se odeslat. Zkus to znovu.');
+    }
+  } catch(e) {
+    alert('Chyba při odesílání. Zkontroluj připojení.');
+  }
+}
 
 function addBullet(id){
   const list = document.getElementById(id);
