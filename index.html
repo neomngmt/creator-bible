@@ -113,8 +113,19 @@
   <div class="sec-eyebrow">01 / 07</div>
   <div class="sec-title">Kdo jsi?</div>
   <div class="sec-note">Pár věcí o tobě. Nemusíš znít dokonale, chceme znát tebe skutečnou.</div>
-  <div class="field"><label class="field-label">Datum narození</label><input type="text" id="cv-date" placeholder="Např. 24.11.2005"></div>
-  <div class="field"><label class="field-label">Odkud jsi</label><input type="text" id="s1-loc" placeholder="Město, země"></div>
+  <div class="grid2">
+    <div class="field"><label class="field-label">Datum narození</label><input type="text" id="cv-date" placeholder="Např. 24.11.2005"></div>
+    <div class="field"><label class="field-label">Výška</label><input type="text" id="s1-height" placeholder="Např. 168 cm"></div>
+  </div>
+  <div class="grid2">
+    <div class="field"><label class="field-label">Barva očí</label><input type="text" id="s1-eyes" placeholder="Např. modré, hnědé..."></div>
+    <div class="field"><label class="field-label">Odkud jsi</label><input type="text" id="s1-loc" placeholder="Město, země"></div>
+  </div>
+  <div class="grid2">
+    <div class="field"><label class="field-label">Tetování (počet)</label><input type="text" id="s1-tattoos" placeholder="Např. 3, žádné..."></div>
+    <div class="field"><label class="field-label">Domácí zvíře?</label><input type="text" id="s1-pet" placeholder="Např. pes, kočka, ne..."></div>
+  </div>
+  <div class="field"><label class="field-label">Koníčky a záliby</label><textarea id="s1-hobbies" placeholder="Co tě baví mimo OF, co děláš ve volném čase..."></textarea></div>
   <div class="field"><label class="field-label">Tvůj příběh (2-3 věty)</label><textarea id="s1-story" placeholder="Proč jsi začala, co tě k tomu dovedlo, co tě dělá autentickou..."></textarea></div>
   <div class="field">
     <label class="field-label">Jak bys popsala svou osobnost? (2-4 věci)</label>
@@ -252,6 +263,15 @@
   <div class="sec-title">Poslední otázka</div>
   <div class="sec-note">Pak jsi hotová!</div>
   <div class="field"><label class="field-label">Kde se vidíš za rok? Co chceš vybudovat?</label><textarea id="s7-goal" placeholder="Tvůj cíl, co chceš dosáhnout..."></textarea></div>
+  <div class="field"><label class="field-label">Minimální cena za custom obsah</label><input type="text" id="s7-customs" placeholder="Např. 150$, 200$, domluva..."></div>
+  <div class="field"><label class="field-label">Chceš dělat videohovory?</label>
+    <div class="arch-grid" style="grid-template-columns:1fr 1fr">
+      <button class="arch-btn" onclick="toggleArch(this)">Ano</button>
+      <button class="arch-btn" onclick="toggleArch(this)">Ne</button>
+    </div>
+  </div>
+  <div class="field"><label class="field-label">Pokud ano, jaká jsou omezení?</label><input type="text" id="s7-calls-limits" placeholder="Např. jen audio, max 10 min, bez tváře..."></div>
+  <div class="field"><label class="field-label">Jakékoli další poznámky k účtu</label><textarea id="s7-notes" placeholder="VIP program, speciální ceny, co chceš změnit..."></textarea></div>
 </div>
 
 <!-- EXPORT -->
@@ -323,14 +343,43 @@ function navigate(d){ goTo(Math.max(0, Math.min(TOTAL-1, cur+d))); }
 async function submitToAgency(){
   const d = collectAll();
   const body = {
-    Jmeno: d.model, Datum_narozeni: d.date, Vek: d.s1.vek, Odkud: d.s1.lokace,
-    Pribeh: d.s1.pribeh, Osobnost: d.s1.osobnost.join(', '), Odliseni: d.s1.odliseni,
-    Archetypy: d.s2.archetypy.join(', '), Vlastni_popis: d.s2.vlastni, Vibe: d.s2.vibe,
-    Styl_komunikace: d.s3.tov, Osloveni_fanousku: d.s3.osloveni.join(', '),
-    Vlastni_vyrazy: d.s3.slova.join(', '), Oblibene_formaty: d.s4.oblibena.join(', '),
-    Inspiracni_profily: d.s4.reference.join(', '), Nechce_tocit: d.s4.never,
-    Tabu_temata: d.s5.temata.join(', '), Nechce_kolaborovat: d.s5.kolaborace.join(', '),
-    Dostupnost: d.s6.dostupnost, Co_ji_bavi: d.s6.love, Cil: d.s7.goal,
+    _subject: 'Creator Bible - ' + d.model,
+    Dotaznik: `Dotazník pro tvůrce
+
+Jméno modelky: ${d.model}
+Datum narození: ${d.date}
+Výška: ${d.s1.vyska}
+Barva očí: ${d.s1.oci}
+Odkud: ${d.s1.lokace}
+Tetování (počet): ${d.s1.tetovani}
+Domácí zvíře: ${d.s1.mazlicek}
+Koníčky a záliby: ${d.s1.hobby}
+Osobnost: ${d.s1.osobnost.join(', ')}
+Příběh: ${d.s1.pribeh}
+Čím se odlišuje: ${d.s1.odliseni}
+
+Archetyp / vibe: ${d.s2.archetypy.join(', ')||d.s2.vlastni}
+Vlastní popis vibe: ${d.s2.vibe}
+
+Styl komunikace: ${d.s3.tov}
+Slova která často používá: ${d.s3.slova.join(', ')}
+Oslovení fanoušků: ${d.s3.osloveni.join(', ')}
+
+Oblíbené formáty videí: ${d.s4.oblibena.join(', ')}
+Inspirační profily: ${d.s4.reference.join(', ')}
+Co nechce točit / zakázaný obsah: ${d.s4.never}
+
+Tabu témata: ${d.s5.temata.join(', ')}
+Nechce kolaborovat s: ${d.s5.kolaborace.join(', ')}
+
+Dostupnost: ${d.s6.dostupnost}
+Co ji baví: ${d.s6.love}
+
+Minimální cena za CUSTOMY: ${d.s7.customs}
+Chce dělat videohovory: ${d.s7.videohovory}
+Omezení videohovorů: ${d.s7.video_limity}
+Poznámky k účtu: ${d.s7.poznamky}
+Cíl: ${d.s7.goal}`
   };
   const btn = document.getElementById('btn-next');
   btn.textContent = 'Odesílám...';
@@ -386,13 +435,13 @@ function gArch(secId){ const sec=document.getElementById(secId); if(!sec)return[
 function collectAll(){
   return {
     model: gv('cv-name'), date: gv('cv-date'),
-    s1: { vek:'', lokace:gv('s1-loc'), pribeh:gv('s1-story'), osobnost:gi('s1-traits'), odliseni:gv('s1-diff') },
+    s1: { vek:'', vyska:gv('s1-height'), oci:gv('s1-eyes'), lokace:gv('s1-loc'), tetovani:gv('s1-tattoos'), mazlicek:gv('s1-pet'), hobby:gv('s1-hobbies'), pribeh:gv('s1-story'), osobnost:gi('s1-traits'), odliseni:gv('s1-diff') },
     s2: { archetypy:gArch('sec2'), vlastni:gv('s2-custom'), vibe:gv('s2-vibe') },
     s3: { tov:gv('s3-tov'), osloveni:gk('kw-fans'), slova:gk('kw-words') },
     s4: { oblibena:gi('s4-fav'), reference:gi('s4-refs'), never:gv('s4-never') },
     s5: { temata:gi('s5-top'), kolaborace:gi('s5-col') },
     s6: { dostupnost:gArch('sec6').join(', '), love:gv('s6-love') },
-    s7: { goal:gv('s7-goal') }
+    s7: { goal:gv('s7-goal'), customs:gv('s7-customs'), videohovory:gArch('sec7').join(', '), video_limity:gv('s7-calls-limits'), poznamky:gv('s7-notes') }
   };
 }
 
