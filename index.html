@@ -99,9 +99,11 @@
     <div class="cover-eyebrow">Onboarding dokument</div>
     <h1 class="cover-title">Creator Bible</h1>
     <p class="cover-sub">Tvoje značka, tvoje pravidla. Vyplnění zabere cca 10 minut.</p>
-    <div class="cover-inputs">
-      <div class="field"><label class="field-label">Tvoje jméno / alias</label><input type="text" id="cv-name" placeholder="Např. Annika"></div>
-      <div class="field"><label class="field-label">Datum narození</label><input type="text" id="cv-date" placeholder="DD/MM/YYYY"></div>
+    <div style="display:flex;justify-content:center;margin-top:1rem">
+      <div class="field" style="width:280px;text-align:center">
+        <label class="field-label" style="display:block;text-align:center">Tvoje jméno / alias</label>
+        <input type="text" id="cv-name" placeholder="Např. Annika" style="text-align:center">
+      </div>
     </div>
   </div>
 </div>
@@ -111,10 +113,8 @@
   <div class="sec-eyebrow">01 / 07</div>
   <div class="sec-title">Kdo jsi?</div>
   <div class="sec-note">Pár věcí o tobě. Nemusíš znít dokonale, chceme znát tebe skutečnou.</div>
-  <div class="grid2">
-    <div class="field"><label class="field-label">Věk</label><input type="text" id="s1-age" placeholder="Např. 23 let"></div>
-    <div class="field"><label class="field-label">Odkud jsi</label><input type="text" id="s1-loc" placeholder="Město, země"></div>
-  </div>
+  <div class="field"><label class="field-label">Datum narození</label><input type="text" id="cv-date" placeholder="Např. 24.11.2005"></div>
+  <div class="field"><label class="field-label">Odkud jsi</label><input type="text" id="s1-loc" placeholder="Město, země"></div>
   <div class="field"><label class="field-label">Tvůj příběh (2-3 věty)</label><textarea id="s1-story" placeholder="Proč jsi začala, co tě k tomu dovedlo, co tě dělá autentickou..."></textarea></div>
   <div class="field">
     <label class="field-label">Jak bys popsala svou osobnost? (2-4 věci)</label>
@@ -386,7 +386,7 @@ function gArch(secId){ const sec=document.getElementById(secId); if(!sec)return[
 function collectAll(){
   return {
     model: gv('cv-name'), date: gv('cv-date'),
-    s1: { vek:gv('s1-age'), lokace:gv('s1-loc'), pribeh:gv('s1-story'), osobnost:gi('s1-traits'), odliseni:gv('s1-diff') },
+    s1: { vek:'', lokace:gv('s1-loc'), pribeh:gv('s1-story'), osobnost:gi('s1-traits'), odliseni:gv('s1-diff') },
     s2: { archetypy:gArch('sec2'), vlastni:gv('s2-custom'), vibe:gv('s2-vibe') },
     s3: { tov:gv('s3-tov'), osloveni:gk('kw-fans'), slova:gk('kw-words') },
     s4: { oblibena:gi('s4-fav'), reference:gi('s4-refs'), never:gv('s4-never') },
