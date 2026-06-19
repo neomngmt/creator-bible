@@ -146,6 +146,13 @@
     <div class="field"><label class="field-label">Tetování (počet)</label><input type="text" id="s1-tattoos" placeholder="Např. 3, žádné..."></div>
     <div class="field"><label class="field-label">Domácí zvíře?</label><input type="text" id="s1-pet" placeholder="Např. pes, kočka, ne..."></div>
   </div>
+  <div class="field"><label class="field-label">Jsi svobodná / relationship status?</label>
+    <div class="arch-grid" style="grid-template-columns:1fr 1fr 1fr">
+      <button class="arch-btn" onclick="toggleArch(this)">Svobodná</button>
+      <button class="arch-btn" onclick="toggleArch(this)">Ve vztahu</button>
+      <button class="arch-btn" onclick="toggleArch(this)">Complicated</button>
+    </div>
+  </div>
   <div class="field"><label class="field-label">Koníčky a záliby</label><textarea id="s1-hobbies" placeholder="Co tě baví mimo OF, co děláš ve volném čase..."></textarea></div>
   <div class="field"><label class="field-label">Tvůj příběh (2-3 věty)</label><textarea id="s1-story" placeholder="Proč jsi začala, co tě k tomu dovedlo, co tě dělá autentickou..."></textarea></div>
   <div class="field">
@@ -389,6 +396,7 @@ Barva očí: ${d.s1.oci}
 Odkud: ${d.s1.lokace}
 Tetování (počet): ${d.s1.tetovani}
 Domácí zvíře: ${d.s1.mazlicek}
+Relationship status: ${d.s1.vztah}
 Koníčky a záliby: ${d.s1.hobby}
 Osobnost: ${d.s1.osobnost.join(', ')}
 Příběh: ${d.s1.pribeh}
@@ -471,7 +479,7 @@ function gArch(secId){ const sec=document.getElementById(secId); if(!sec)return[
 function collectAll(){
   return {
     model: gv('cv-name'), date: gv('cv-date'),
-    s1: { vek:'', vyska:gv('s1-height'), oci:gv('s1-eyes'), lokace:gv('s1-loc'), tetovani:gv('s1-tattoos'), mazlicek:gv('s1-pet'), hobby:gv('s1-hobbies'), pribeh:gv('s1-story'), osobnost:gi('s1-traits'), odliseni:gv('s1-diff') },
+    s1: { vek:'', vyska:gv('s1-height'), oci:gv('s1-eyes'), lokace:gv('s1-loc'), tetovani:gv('s1-tattoos'), mazlicek:gv('s1-pet'), vztah:gArch('sec1').join(', '), hobby:gv('s1-hobbies'), pribeh:gv('s1-story'), osobnost:gi('s1-traits'), odliseni:gv('s1-diff') },
     s2: { archetypy:gArch('sec2'), vlastni:gv('s2-custom'), vibe:gv('s2-vibe') },
     s3: { tov:gv('s3-tov'), osloveni:gk('kw-fans'), slova:gk('kw-words') },
     s4: { oblibena:gi('s4-fav'), reference:gi('s4-refs'), never:gv('s4-never') },
