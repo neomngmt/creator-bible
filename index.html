@@ -566,16 +566,10 @@ function exportFullPDF(){
   function buls(arr){if(!arr||!arr.length){val('—');return;}arr.forEach(item=>{chk(6);pdf.setFontSize(10);pdf.setFont('helvetica','normal');pdf.setTextColor(30,30,30);const ls=pdf.splitTextToSize('• '+item,CW-4);ls.forEach((l,i)=>{chk(6);pdf.text(l,M+(i>0?4:0),y);y+=5;});});y+=2;}
   function sp(){y+=5;}
 
-  // COVER
-  y=55;
-  pdf.setFontSize(30);pdf.setFont('helvetica','bold');pdf.setTextColor(233,69,96);
-  pdf.text('CREATOR BIBLE',W/2,y,{align:'center'});
-  y+=12;pdf.setFontSize(20);pdf.setTextColor(30,30,30);
-  pdf.text(name,W/2,y,{align:'center'});
-  if(d.date){y+=8;pdf.setFontSize(11);pdf.setTextColor(160,160,160);pdf.text('nar. '+d.date,W/2,y,{align:'center'});}
-  pdf.setDrawColor(233,69,96);pdf.setLineWidth(0.3);pdf.line(M+30,105,W-M-30,105);
-
-  pdf.addPage();y=M;
+  y=M;
+  pdf.setFontSize(18);pdf.setFont('helvetica','bold');pdf.setTextColor(233,69,96);
+  pdf.text('CREATOR BIBLE  —  '+name,M,y);
+  y+=2;pdf.setDrawColor(233,69,96);pdf.setLineWidth(0.5);pdf.line(M,y,W-M,y);y+=8;
   title('01  Kdo jsi');
   lbl('Vek');val(d.s1.vek);
   lbl('Odkud');val(d.s1.lokace);
