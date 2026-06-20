@@ -443,7 +443,53 @@ ${d.s1.hobby}
 **Co nechce točit:** ${d.s4.never}
 **Nechce kolaborovat s:** ${d.s5.kolaborace.join(', ')}
 ---
-${d.s7.poznamky ? '⚠️ **POZNÁMKA**\n' + d.s7.poznamky : ''}`
+${d.s7.poznamky ? '⚠️ **POZNÁMKA**\n' + d.s7.poznamky : ''}`,
+    Cely_formular: `KOMPLETNI FORMULAR
+====================
+
+--- 01 KDO JSI ---
+Jméno: ${d.model}
+Datum narození: ${d.date}
+Výška: ${d.s1.vyska}
+Barva očí: ${d.s1.oci}
+Odkud: ${d.s1.lokace}
+Tetování: ${d.s1.tetovani}
+Domácí zvíře: ${d.s1.mazlicek}
+Vztah: ${d.s1.vztah}
+Koníčky a záliby: ${d.s1.hobby}
+Příběh: ${d.s1.pribeh}
+Osobnost: ${d.s1.osobnost.join(', ')}
+Čím se odlišuje: ${d.s1.odliseni}
+
+--- 02 TVUJ VIBE ---
+Archetyp: ${d.s2.archetypy.join(', ')}
+Vlastní popis archetypu: ${d.s2.vlastni}
+Vibe vlastními slovy: ${d.s2.vibe}
+
+--- 03 KOMUNIKACE ---
+Styl komunikace: ${d.s3.tov}
+Oslovení fanoušků: ${d.s3.osloveni.join(', ')}
+Vlastní výrazy: ${d.s3.slova.join(', ')}
+
+--- 04 OBSAH ---
+Oblíbené formáty videí: ${d.s4.oblibena.join(', ')}
+Inspirační profily: ${d.s4.reference.join(', ')}
+Co nechce točit: ${d.s4.never}
+
+--- 05 HRANICE ---
+Tabu témata: ${d.s5.temata.join(', ')}
+Nechce kolaborovat s: ${d.s5.kolaborace.join(', ')}
+
+--- 06 CAS & DOSTUPNOST ---
+Dostupnost: ${d.s6.dostupnost}
+Co ji baví: ${d.s6.love}
+
+--- 07 OSTATNI ---
+Videohovory: ${d.s7.videohovory}
+Co při videohovorech nechce: ${d.s7.video_limity}
+Custom obsah cena: ${d.s7.customs}
+Důležité info pro chat: ${d.s7.poznamky}
+Cíl: ${d.s7.goal}`
   };
   const btn = document.getElementById('btn-next');
   btn.textContent = 'Odesílám...';
