@@ -486,7 +486,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('keydown', e => {
-  if(e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && e.target.id !== 'kw-fans-inp' && e.target.id !== 'kw-words-inp' && cur < TOTAL-1){
+  if(e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && e.target.id !== 'kw-fans-inp' && e.target.id !== 'kw-words-inp' && e.target.id !== 'popup-name' && cur < TOTAL-1){
     e.preventDefault(); navigate(1);
   }
 });
