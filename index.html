@@ -94,6 +94,9 @@
   .popup-input-wrap input { text-align: center; font-size: 16px; padding: .85rem; border-radius: 10px; }
   .popup-btn { width: 100%; padding: .9rem; background: var(--accent); border: none; border-radius: 10px; color: #fff; font-family: inherit; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .15s; }
   .popup-btn:hover { opacity: .88; }
+  .lang-btn { flex:1; padding:.6rem; border-radius:8px; font-family:inherit; font-size:14px; font-weight:600; cursor:pointer; border:0.5px solid var(--border); background:var(--surface); color:var(--text-muted); transition:all .15s; }
+  .lang-btn.active { border-color:var(--accent); background:rgba(233,69,96,0.1); color:var(--accent); }
+  .lang-btn:hover { border-color:var(--border-hover); }
   @media (max-width: 480px) { .grid2 { grid-template-columns: 1fr; } .cover-inputs { grid-template-columns: 1fr; } }
 </style>
 </head>
@@ -103,17 +106,23 @@
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
     <div class="popup-logo">Creator Bible</div>
-    <div class="popup-title">Vítej 👋</div>
-    <p class="popup-note">Než začneš, řekni nám jak se jmenuješ.</p>
+    <div class="popup-title" id="popup-title">Vítej 👋</div>
+    <p class="popup-note" id="popup-note">Než začneš, vyber jazyk a řekni nám jak se jmenuješ.</p>
+    
+    <div style="display:flex;gap:10px;margin-bottom:1.25rem">
+      <button class="lang-btn active" id="lang-cz" onclick="setLang('cz')">🇨🇿 Čeština</button>
+      <button class="lang-btn" id="lang-en" onclick="setLang('en')">🇬🇧 English</button>
+    </div>
+
     <div class="popup-input-wrap">
       <input type="text" id="popup-name" placeholder="Tvoje jméno nebo alias..." autocomplete="off">
     </div>
     <div class="popup-why">
-      <div class="popup-why-title">PROČ JE TENTO DOTAZNÍK DŮLEŽITÝ</div>
-      <p>Pomáhá nám zachytit tvoji osobnost, hlas a zájmy, aby každá konverzace s tvými fanoušky působila autenticky. Cílem je zajistit, aby chatting tým psal tak, jak bys psala ty přirozeně.</p>
-      <p>Vyplněním získáš nástroje pro silnější vztahy s fans, vyšší loajalitu a maximální sales při zachování tvé osobnosti.</p>
+      <div class="popup-why-title" id="popup-why-title">PROČ JE TENTO DOTAZNÍK DŮLEŽITÝ</div>
+      <p id="popup-why-1">Pomáhá nám zachytit tvoji osobnost, hlas a zájmy, aby každá konverzace s tvými fanoušky působila autenticky. Cílem je zajistit, aby chatting tým psal tak, jak bys psala ty přirozeně.</p>
+      <p id="popup-why-2">Vyplněním získáš nástroje pro silnější vztahy s fans, vyšší loajalitu a maximální sales při zachování tvé osobnosti.</p>
     </div>
-    <button class="popup-btn" onclick="startForm()">Začít dotazník →</button>
+    <button class="popup-btn" id="popup-btn" onclick="startForm()">Začít dotazník →</button>
   </div>
 </div>
 
@@ -132,45 +141,45 @@
 <!-- 1. KDO JSI -->
 <div id="sec1" class="section active">
   <div class="sec-eyebrow">01 / 07</div>
-  <div class="sec-title">Kdo jsi?</div>
-  <div class="sec-note">Pár věcí o tobě. Nemusíš znít dokonale, chceme znát tebe skutečnou.</div>
+  <div class="sec-title" id="lbl-sec1-title">Kdo jsi?</div>
+  <div class="sec-note" id="lbl-sec1-note">Pár věcí o tobě. Nemusíš znít dokonale, chceme znát tebe skutečnou.</div>
   <div class="grid2">
-    <div class="field"><label class="field-label">Datum narození</label><input type="text" id="cv-date" placeholder="Např. 24.11.2005"></div>
-    <div class="field"><label class="field-label">Výška</label><input type="text" id="s1-height" placeholder="Např. 168 cm"></div>
+    <div class="field"><label class="field-label" id="lbl-date">Datum narození</label><input type="text" id="cv-date" placeholder="Např. 24.11.2005"></div>
+    <div class="field"><label class="field-label" id="lbl-height">Výška</label><input type="text" id="s1-height" placeholder="Např. 168 cm"></div>
   </div>
   <div class="grid2">
-    <div class="field"><label class="field-label">Barva očí</label><input type="text" id="s1-eyes" placeholder="Např. modré, hnědé..."></div>
-    <div class="field"><label class="field-label">Odkud jsi</label><input type="text" id="s1-loc" placeholder="Město, země"></div>
+    <div class="field"><label class="field-label" id="lbl-eyes">Barva očí</label><input type="text" id="s1-eyes" placeholder="Např. modré, hnědé..."></div>
+    <div class="field"><label class="field-label" id="lbl-loc">Odkud jsi</label><input type="text" id="s1-loc" placeholder="Město, země"></div>
   </div>
   <div class="grid2">
-    <div class="field"><label class="field-label">Tetování (počet)</label><input type="text" id="s1-tattoos" placeholder="Např. 3, žádné..."></div>
-    <div class="field"><label class="field-label">Domácí zvíře?</label><input type="text" id="s1-pet" placeholder="Např. pes, kočka, ne..."></div>
+    <div class="field"><label class="field-label" id="lbl-tattoos">Tetování (počet)</label><input type="text" id="s1-tattoos" placeholder="Např. 3, žádné..."></div>
+    <div class="field"><label class="field-label" id="lbl-pet">Domácí zvíře?</label><input type="text" id="s1-pet" placeholder="Např. pes, kočka, ne..."></div>
   </div>
-  <div class="field"><label class="field-label">Jsi svobodná / relationship status?</label>
+  <div class="field"><label class="field-label" id="lbl-rel">Jsi svobodná / relationship status?</label>
     <div class="arch-grid" style="grid-template-columns:1fr 1fr 1fr">
-      <button class="arch-btn" onclick="toggleArch(this)">Svobodná</button>
-      <button class="arch-btn" onclick="toggleArch(this)">Ve vztahu</button>
-      <button class="arch-btn" onclick="toggleArch(this)">Complicated</button>
+      <button class="arch-btn" id="btn-single" onclick="toggleArch(this)">Svobodná</button>
+      <button class="arch-btn" id="btn-taken" onclick="toggleArch(this)">Ve vztahu</button>
+      <button class="arch-btn" id="btn-comp" onclick="toggleArch(this)">Complicated</button>
     </div>
   </div>
-  <div class="field"><label class="field-label">Koníčky a záliby</label><textarea id="s1-hobbies" placeholder="Např. fitness, plavání, wellness, cestování..."></textarea></div>
-  <div class="field"><label class="field-label">Tvůj příběh (2-3 věty)</label><textarea id="s1-story" placeholder="Proč jsi začala, co tě k tomu dovedlo, co tě dělá autentickou..."></textarea></div>
+  <div class="field"><label class="field-label" id="lbl-hobbies">Koníčky a záliby</label><textarea id="s1-hobbies" placeholder="Např. fitness, plavání, wellness, cestování..."></textarea></div>
+  <div class="field"><label class="field-label" id="lbl-story">Tvůj příběh (2-3 věty)</label><textarea id="s1-story" placeholder="Proč jsi začala, co tě k tomu dovedlo, co tě dělá autentickou..."></textarea></div>
   <div class="field">
-    <label class="field-label">Jak bys popsala svou osobnost? (2-4 věci)</label>
+    <label class="field-label" id="lbl-personality">Jak bys popsala svou osobnost? (2-4 věci)</label>
     <div class="bullet-list" id="s1-traits">
       <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Např. odvážná, přímá, nedělám si starosti..."></div>
       <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Další vlastnost..."></div>
     </div>
     <button class="add-field-btn" onclick="addBullet('s1-traits')">+ přidat</button>
   </div>
-  <div class="field"><label class="field-label">Čím se odlišuješ od ostatních holek na OF?</label><textarea id="s1-diff" placeholder="Co ti ostatní nemají nebo co děláš jinak..."></textarea></div>
+  <div class="field"><label class="field-label" id="lbl-diff">Čím se odlišuješ od ostatních holek na OF?</label><textarea id="s1-diff" placeholder="Co ti ostatní nemají nebo co děláš jinak..."></textarea></div>
 </div>
 
 <!-- 2. VIBE & ARCHETYP -->
 <div id="sec2" class="section">
   <div class="sec-eyebrow">02 / 07</div>
-  <div class="sec-title">Tvůj vibe</div>
-  <div class="sec-note">Vyber typy které tě vystihují a popiš svou energii.</div>
+  <div class="sec-title" id="lbl-sec2-title">Tvůj vibe</div>
+  <div class="sec-note" id="lbl-sec2-note">Vyber typy které tě vystihují a popiš svou energii.</div>
   <div class="arch-grid" id="arch-grid">
     <button class="arch-btn" onclick="toggleArch(this)">Alternativní / tattoo vibe</button>
     <button class="arch-btn" onclick="toggleArch(this)">Holka ze sousedství</button>
@@ -185,30 +194,30 @@
     <button class="arch-btn" onclick="toggleArch(this)">Party holka</button>
     <button class="arch-btn" onclick="toggleArch(this)">Jiná...</button>
   </div>
-  <div class="field"><label class="field-label">Upřesnění nebo vlastní popis</label><input type="text" id="s2-custom" placeholder="Vlastní kombinace nebo popis..."></div>
-  <div class="field"><label class="field-label">Jak bys popsala svoji energii a vibe? (vlastními slovy)</label><textarea id="s2-vibe" placeholder="Např. jsem ta co říká co si myslí, baví mě být sexy ale bez přetvářky, mám ráda chaos..."></textarea></div>
+  <div class="field"><label class="field-label" id="lbl-arch-custom">Upřesnění nebo vlastní popis</label><input type="text" id="s2-custom" placeholder="Vlastní kombinace nebo popis..."></div>
+  <div class="field"><label class="field-label" id="lbl-vibe">Jak bys popsala svoji energii a vibe? (vlastními slovy)</label><textarea id="s2-vibe" placeholder="Např. jsem ta co říká co si myslí, baví mě být sexy ale bez přetvářky, mám ráda chaos..."></textarea></div>
 </div>
 
 <!-- 3. TOV & OBSAH -->
 <div id="sec3" class="section">
   <div class="sec-eyebrow">03 / 07</div>
-  <div class="sec-title">Jak komunikuješ?</div>
-  <div class="sec-note">Chceme mluvit tvým hlasem, ne kopií někoho jiného.</div>
-  <div class="field"><label class="field-label">Jak bys popsala svůj styl komunikace?</label><input type="text" id="s3-tov" placeholder="Např. sarkastická, hravá, flirtující, přímá, vtipná..."></div>
+  <div class="sec-title" id="lbl-sec3-title">Jak komunikuješ?</div>
+  <div class="sec-note" id="lbl-sec3-note">Chceme mluvit tvým hlasem, ne kopií někoho jiného.</div>
+  <div class="field"><label class="field-label" id="lbl-tov">Jak bys popsala svůj styl komunikace?</label><input type="text" id="s3-tov" placeholder="Např. sarkastická, hravá, flirtující, přímá, vtipná..."></div>
   <div class="field">
-    <label class="field-label">Jak oslovuješ své fanoušky?</label>
+    <label class="field-label" id="lbl-fans">Jak oslovuješ své fanoušky?</label>
     <div class="kw-wrap" id="kw-fans"></div>
     <div class="kw-input-row">
       <input type="text" id="kw-fans-inp" placeholder="Např. cukroušku, dorečku, miláčku... (Enter)">
-      <button class="btn-add-kw" onclick="addKw('kw-fans','kw-fans-inp')">Přidat</button>
+      <button class="btn-add-kw" id="btn-add-fans" onclick="addKw('kw-fans','kw-fans-inp')">Přidat</button>
     </div>
   </div>
   <div class="field">
-    <label class="field-label">Tvoje vlastní slova a výrazy které ráda používáš</label>
+    <label class="field-label" id="lbl-words">Tvoje vlastní slova a výrazy které ráda používáš</label>
     <div class="kw-wrap" id="kw-words"></div>
     <div class="kw-input-row">
       <input type="text" id="kw-words-inp" placeholder="Slang, vtipná slovíčka, typické výrazy... (Enter)">
-      <button class="btn-add-kw" onclick="addKw('kw-words','kw-words-inp')">Přidat</button>
+      <button class="btn-add-kw" id="btn-add-words" onclick="addKw('kw-words','kw-words-inp')">Přidat</button>
     </div>
   </div>
 
@@ -217,10 +226,10 @@
 <!-- 4. OBSAH -->
 <div id="sec4" class="section">
   <div class="sec-eyebrow">04 / 07</div>
-  <div class="sec-title">Tvůj obsah</div>
-  <div class="sec-note">Co točíš, co tě baví, co nechceš.</div>
+  <div class="sec-title" id="lbl-sec4-title">Tvůj obsah</div>
+  <div class="sec-note" id="lbl-sec4-note">Co točíš, co tě baví, co nechceš.</div>
   <div class="field">
-    <label class="field-label">Jaká videa bys chtěla dělat nejraději?</label>
+    <label class="field-label" id="lbl-fav">Jaká videa bys chtěla dělat nejraději?</label>
     <div class="bullet-list" id="s4-fav">
       <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Např. talking selfie reels..."></div>
       <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Např. outfit check, dance, POV..."></div>
@@ -228,23 +237,23 @@
     <button class="add-field-btn" onclick="addBullet('s4-fav')">+ přidat</button>
   </div>
   <div class="field">
-    <label class="field-label">Profily holek které sleduješ a líbí se ti jejich obsah</label>
+    <label class="field-label" id="lbl-profiles">Profily holek které sleduješ a líbí se ti jejich obsah</label>
     <div class="bullet-list" id="s4-refs">
       <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="@profil - co se ti na ní líbí..."></div>
       <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="@profil..."></div>
     </div>
     <button class="add-field-btn" onclick="addBullet('s4-refs')">+ přidat profil</button>
   </div>
-  <div class="field"><label class="field-label">Co bys nikdy nechtěla točit?</label><textarea id="s4-never" placeholder="Např. fake lifestyle, přehnané filtry, cringe lipsync..."></textarea></div>
+  <div class="field"><label class="field-label" id="lbl-never">Co bys nikdy nechtěla točit?</label><textarea id="s4-never" placeholder="Např. fake lifestyle, přehnané filtry, cringe lipsync..."></textarea></div>
 </div>
 
 <!-- 5. CO NECHCES -->
 <div id="sec5" class="section">
   <div class="sec-eyebrow">05 / 07</div>
-  <div class="sec-title">Tvoje hranice</div>
-  <div class="sec-note">Co nechceš aby se o tobě říkalo nebo s čím nechceš být spojována.</div>
+  <div class="sec-title" id="lbl-sec5-title">Tvoje hranice</div>
+  <div class="sec-note" id="lbl-sec5-note">Co nechceš aby se o tobě říkalo nebo s čím nechceš být spojována.</div>
   <div class="field">
-    <label class="field-label">Témata o kterých nechceš mluvit veřejně</label>
+    <label class="field-label" id="lbl-tabu">Témata o kterých nechceš mluvit veřejně</label>
     <div class="bullet-list" id="s5-top">
       <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Např. politika, rodina, ex..."></div>
       <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Další téma..."></div>
@@ -252,7 +261,7 @@
     <button class="add-field-btn" onclick="addBullet('s5-top')">+ přidat</button>
   </div>
   <div class="field">
-    <label class="field-label">Typy kolaborací a SFS které nechceš</label>
+    <label class="field-label" id="lbl-collab">Typy kolaborací a SFS které nechceš</label>
     <div class="bullet-list" id="s5-col">
       <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Např. profily se špatnou reputací..."></div>
     </div>
@@ -263,18 +272,18 @@
 <!-- 6. DOSTUPNOST -->
 <div id="sec6" class="section">
   <div class="sec-eyebrow">06 / 07</div>
-  <div class="sec-title">Tvůj čas</div>
-  <div class="sec-note">Pomáhá nám plánovat kolik obsahu reálně zvládneš.</div>
+  <div class="sec-title" id="lbl-sec6-title">Tvůj čas</div>
+  <div class="sec-note" id="lbl-sec6-note">Pomáhá nám plánovat kolik obsahu reálně zvládneš.</div>
   <div class="field">
-    <label class="field-label">Děláš OF na fulltime nebo máš i jinou práci / školu?</label>
+    <label class="field-label" id="lbl-fulltime">Děláš OF na fulltime nebo máš i jinou práci / školu?</label>
     <div class="arch-grid" style="grid-template-columns:1fr 1fr 1fr">
-      <button class="arch-btn" onclick="toggleArch(this)">OF fulltime</button>
-      <button class="arch-btn" onclick="toggleArch(this)">OF + práce / škola</button>
-      <button class="arch-btn" onclick="toggleArch(this)">OF je vedlejší</button>
+      <button class="arch-btn" id="btn-ft-full" onclick="toggleArch(this)">OF fulltime</button>
+      <button class="arch-btn" id="btn-ft-work" onclick="toggleArch(this)">OF + práce / škola</button>
+      <button class="arch-btn" id="btn-ft-side" onclick="toggleArch(this)">OF je vedlejší</button>
     </div>
   </div>
   <div class="field">
-    <label class="field-label">Kolik hodin denně můžeš věnovat tvorbě obsahu?</label>
+    <label class="field-label" id="lbl-hours">Kolik hodin denně můžeš věnovat tvorbě obsahu?</label>
     <div class="arch-grid" style="grid-template-columns:1fr 1fr 1fr 1fr">
       <button class="arch-btn" onclick="toggleArch(this)">1-2h</button>
       <button class="arch-btn" onclick="toggleArch(this)">2-4h</button>
@@ -282,24 +291,24 @@
       <button class="arch-btn" onclick="toggleArch(this)">6h+</button>
     </div>
   </div>
-  <div class="field"><label class="field-label">Co tě na tvé práci baví nejvíc?</label><textarea id="s6-love" placeholder="Co ti dělá radost, co tě nabíjí energií..."></textarea></div>
+  <div class="field"><label class="field-label" id="lbl-love">Co tě na tvé práci baví nejvíc?</label><textarea id="s6-love" placeholder="Co ti dělá radost, co tě nabíjí energií..."></textarea></div>
 </div>
 
 <!-- 7. CIL -->
 <div id="sec7" class="section">
   <div class="sec-eyebrow">07 / 07</div>
-  <div class="sec-title">Poslední otázka</div>
-  <div class="sec-note">Pak jsi hotová!</div>
-  <div class="field"><label class="field-label">Kde se vidíš za rok? Co chceš vybudovat?</label><textarea id="s7-goal" placeholder="Tvůj cíl, co chceš dosáhnout..."></textarea></div>
-  <div class="field"><label class="field-label">Minimální cena za custom obsah</label><input type="text" id="s7-customs" placeholder="Např. 150$, 200$, domluva..."></div>
-  <div class="field"><label class="field-label">Chceš dělat videohovory?</label>
+  <div class="sec-title" id="lbl-sec7-title">Poslední otázka</div>
+  <div class="sec-note" id="lbl-sec7-note">Pak jsi hotová!</div>
+  <div class="field"><label class="field-label" id="lbl-goal">Kde se vidíš za rok? Co chceš vybudovat?</label><textarea id="s7-goal" placeholder="Tvůj cíl, co chceš dosáhnout..."></textarea></div>
+  <div class="field"><label class="field-label" id="lbl-custom">Minimální cena za custom obsah</label><input type="text" id="s7-customs" placeholder="Např. 150$, 200$, domluva..."></div>
+  <div class="field"><label class="field-label" id="lbl-video">Chceš dělat videohovory?</label>
     <div class="arch-grid" style="grid-template-columns:1fr 1fr">
-      <button class="arch-btn" onclick="toggleArch(this)">Ano</button>
-      <button class="arch-btn" onclick="toggleArch(this)">Ne</button>
+      <button class="arch-btn" id="btn-vid-yes" onclick="toggleArch(this)">Ano</button>
+      <button class="arch-btn" id="btn-vid-no" onclick="toggleArch(this)">Ne</button>
     </div>
   </div>
-  <div class="field"><label class="field-label">Co při videohovorech nechceš?</label><input type="text" id="s7-calls-limits" placeholder="Např. bez tváře, bez porna, max 10 min..."></div>
-  <div class="field"><label class="field-label">Důležité informace pro chat</label><textarea id="s7-notes" placeholder="Např. má ráda dominanci, určité téma hlídá pečlivě, speciální přání..."></textarea></div>
+  <div class="field"><label class="field-label" id="lbl-vlimits">Co při videohovorech nechceš?</label><input type="text" id="s7-calls-limits" placeholder="Např. bez tváře, bez porna, max 10 min..."></div>
+  <div class="field"><label class="field-label" id="lbl-notes">Důležité informace pro chat</label><textarea id="s7-notes" placeholder="Např. má ráda dominanci, určité téma hlídá pečlivě, speciální přání..."></textarea></div>
 </div>
 
 <!-- EXPORT -->
@@ -309,8 +318,8 @@
     <div class="export-title" id="ex-title">Hotovo!</div>
     <div class="export-sub" id="ex-sub">Tvoje Creator Bible je vyplněná a připravená ke stažení.</div>
     <div class="export-btns">
-      <button class="btn-export primary" onclick="exportBrandCard()">&#9733; Stáhnout Brand Card</button>
-      <button class="btn-export secondary" onclick="exportFullPDF()">&#8595; Stáhnout kompletní PDF</button>
+      <button class="btn-export primary" id="btn-brand-card" onclick="exportBrandCard()">★ Stáhnout Brand Card</button>
+      <button class="btn-export secondary" id="btn-full-pdf" onclick="exportFullPDF()">↓ Stáhnout kompletní PDF</button>
     </div>
     <div class="summary-card" id="summary-card"></div>
   </div>
@@ -319,9 +328,9 @@
 </main>
 
 <nav class="nav-bar">
-  <button class="btn-nav" id="btn-prev" onclick="navigate(-1)" disabled>&#8592; Zpět</button>
+  <button class="btn-nav" id="btn-prev" onclick="navigate(-1)" disabled>← Zpět</button>
   <div class="nav-dots" id="nav-dots"></div>
-  <button class="btn-nav primary" id="btn-next" onclick="navigate(1)">Další &#8594;</button>
+  <button class="btn-nav primary" id="btn-next" onclick="navigate(1)">Další →</button>
 </nav>
 
 <script>
@@ -353,11 +362,12 @@ function goTo(idx){
   const nextBtn = document.getElementById('btn-next');
   if(cur === TOTAL-1){ nextBtn.style.display = 'none'; } else {
     nextBtn.style.display = '';
+    const t = translations[lang].labels;
     if(cur === TOTAL-2){
-      nextBtn.textContent = 'Dokončit ✓';
+      nextBtn.textContent = t.finishBtn;
       nextBtn.onclick = submitToAgency;
     } else {
-      nextBtn.textContent = 'Další →';
+      nextBtn.textContent = t.nextBtn;
       nextBtn.onclick = () => navigate(1);
     }
   }
@@ -366,12 +376,200 @@ function goTo(idx){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
+let lang = 'cz';
+
+const translations = {
+  cz: {
+    popupTitle: 'Vítej 👋',
+    popupNote: 'Než začneš, vyber jazyk a řekni nám jak se jmenuješ.',
+    popupWhyTitle: 'PROČ JE TENTO DOTAZNÍK DŮLEŽITÝ',
+    popupWhy1: 'Pomáhá nám zachytit tvoji osobnost, hlas a zájmy, aby každá konverzace s tvými fanoušky působila autenticky. Cílem je zajistit, aby chatting tým psal tak, jak bys psala ty přirozeně.',
+    popupWhy2: 'Vyplněním získáš nástroje pro silnější vztahy s fans, vyšší loajalitu a maximální sales při zachování tvé osobnosti.',
+    popupNamePlaceholder: 'Tvoje jméno nebo alias...',
+    popupBtn: 'Začít dotazník →',
+    labels: {
+      sec1Title: 'Kdo jsi?', sec1Note: 'Pár věcí o tobě. Nemusíš znít dokonale, chceme znát tebe skutečnou.',
+      dateOfBirth: 'Datum narození', datePlaceholder: 'Např. 24.11.2005',
+      height: 'Výška', heightPlaceholder: 'Např. 168 cm',
+      eyeColor: 'Barva očí', eyePlaceholder: 'Např. modré, hnědé...',
+      from: 'Odkud jsi', fromPlaceholder: 'Město, země',
+      tattoos: 'Tetování (počet)', tattoosPlaceholder: 'Např. 3, žádné...',
+      pet: 'Domácí zvíře?', petPlaceholder: 'Např. pes, kočka, ne...',
+      relationship: 'Jsi svobodná / relationship status?',
+      relSingle: 'Svobodná', relTaken: 'Ve vztahu', relComplicated: 'Complicated',
+      hobbies: 'Koníčky a záliby', hobbiesPlaceholder: 'Např. fitness, plavání, wellness, cestování...',
+      story: 'Tvůj příběh (2-3 věty)', storyPlaceholder: 'Proč jsi začala, co tě k tomu dovedlo, co tě dělá autentickou...',
+      personality: 'Jak bys popsala svou osobnost? (2-4 věci)', personalityPlaceholder: 'Např. odvážná, přímá...',
+      addMore: '+ přidat', diff: 'Čím se odlišuješ od ostatních holek na OF?', diffPlaceholder: 'Co ti ostatní nemají nebo co děláš jinak...',
+      sec2Title: 'Tvůj vibe', sec2Note: 'Vyber typy které tě vystihují a popiš svou energii.',
+      archetypeCustom: 'Upřesnění nebo vlastní popis', archetypeCustomPlaceholder: 'Vlastní kombinace nebo popis...',
+      vibeLabel: 'Jak bys popsala svoji energii a vibe? (vlastními slovy)', vibePlaceholder: 'Např. jsem ta co říká co si myslí...',
+      sec3Title: 'Jak komunikuješ?', sec3Note: 'Chceme mluvit tvým hlasem, ne kopií někoho jiného.',
+      tovLabel: 'Jak bys popsala svůj styl komunikace?', tovPlaceholder: 'Např. sarkastická, hravá, flirtující...',
+      fansLabel: 'Jak oslovuješ své fanoušky?', fansPlaceholder: 'Např. cukroušku, dorečku, miláčku... (Enter)',
+      wordsLabel: 'Tvoje vlastní slova a výrazy které ráda používáš', wordsPlaceholder: 'Slang, vtipná slovíčka, typické výrazy... (Enter)',
+      addBtn: 'Přidat',
+      sec4Title: 'Tvůj obsah', sec4Note: 'Co točíš, co tě baví, co nechceš.',
+      favVideos: 'Jaká videa bys chtěla dělat nejraději?', favPlaceholder: 'Např. talking selfie reels...',
+      addProfile: '+ přidat profil', profiles: 'Profily holek které sleduješ a líbí se ti jejich obsah', profilePlaceholder: '@profil - co se ti na ní líbí...',
+      neverShoot: 'Co bys nikdy nechtěla točit?', neverPlaceholder: 'Např. fake lifestyle, přehnané filtry...',
+      sec5Title: 'Tvoje hranice', sec5Note: 'Co nechceš aby se o tobě říkalo nebo s čím nechceš být spojována.',
+      tabuLabel: 'Témata o kterých nechceš mluvit veřejně', tabuPlaceholder: 'Např. politika, rodina, ex...',
+      collabLabel: 'Typy kolaborací a SFS které nechceš', collabPlaceholder: 'Např. profily se špatnou reputací...',
+      sec6Title: 'Tvůj čas', sec6Note: 'Pomáhá nám plánovat kolik obsahu reálně zvládneš.',
+      fulltimeLabel: 'Děláš OF na fulltime nebo máš i jinou práci / školu?',
+      ftFulltime: 'OF fulltime', ftWork: 'OF + práce / škola', ftSide: 'OF je vedlejší',
+      hoursLabel: 'Kolik hodin denně můžeš věnovat tvorbě obsahu?',
+      loveLabel: 'Co tě na tvé práci baví nejvíc?', lovePlaceholder: 'Co ti dělá radost, co tě nabíjí energií...',
+      sec7Title: 'Poslední otázka', sec7Note: 'Pak jsi hotová!',
+      goalLabel: 'Kde se vidíš za rok? Co chceš vybudovat?', goalPlaceholder: 'Tvůj cíl, co chceš dosáhnout...',
+      customLabel: 'Minimální cena za custom obsah', customPlaceholder: 'Např. 150$, 200$, domluva...',
+      videoLabel: 'Chceš dělat videohovory?', videoYes: 'Ano', videoNo: 'Ne',
+      videoLimitsLabel: 'Co při videohovorech nechceš?', videoLimitsPlaceholder: 'Např. bez tváře, bez porna...',
+      notesLabel: 'Důležité informace pro chat', notesPlaceholder: 'Např. má ráda dominanci, určité téma hlídá pečlivě...',
+      finishBtn: 'Dokončit ✓', nextBtn: 'Další →', backBtn: '← Zpět',
+      exportTitle: 'hotovo!', exportSub: 'Tvoje Creator Bible je vyplněná a připravená ke stažení.',
+      brandCardBtn: '★ Stáhnout Brand Card', fullPdfBtn: '↓ Stáhnout kompletní PDF',
+    }
+  },
+  en: {
+    popupTitle: 'Welcome 👋',
+    popupNote: 'Before you start, choose your language and tell us your name.',
+    popupWhyTitle: 'WHY IS THIS QUESTIONNAIRE IMPORTANT',
+    popupWhy1: 'It helps us capture your personality, voice and interests so every conversation with your fans feels authentic. The goal is to make sure your chatting team writes just like you would naturally.',
+    popupWhy2: 'By completing this, you\'ll get tools to build stronger fan relationships, increase loyalty and maximize sales — while staying true to your personality.',
+    popupNamePlaceholder: 'Your name or alias...',
+    popupBtn: 'Start questionnaire →',
+    labels: {
+      sec1Title: 'Who are you?', sec1Note: 'A few things about you. You don\'t have to sound perfect — we want to know the real you.',
+      dateOfBirth: 'Date of birth', datePlaceholder: 'E.g. 24.11.2005',
+      height: 'Height', heightPlaceholder: 'E.g. 5\'6" or 168 cm',
+      eyeColor: 'Eye color', eyePlaceholder: 'E.g. blue, brown...',
+      from: 'Where are you from?', fromPlaceholder: 'City, country',
+      tattoos: 'Tattoos (how many)', tattoosPlaceholder: 'E.g. 3, none...',
+      pet: 'Do you have a pet?', petPlaceholder: 'E.g. dog, cat, no...',
+      relationship: 'Are you single / relationship status?',
+      relSingle: 'Single', relTaken: 'In a relationship', relComplicated: 'Complicated',
+      hobbies: 'Hobbies & interests', hobbiesPlaceholder: 'E.g. fitness, swimming, wellness, travel...',
+      story: 'Your story (2-3 sentences)', storyPlaceholder: 'Why did you start, what led you here, what makes you authentic...',
+      personality: 'How would you describe your personality? (2-4 things)', personalityPlaceholder: 'E.g. bold, direct, carefree...',
+      addMore: '+ add', diff: 'What makes you different from other girls on OF?', diffPlaceholder: 'What others don\'t have, or what you do differently...',
+      sec2Title: 'Your vibe', sec2Note: 'Pick the types that fit you and describe your energy.',
+      archetypeCustom: 'Custom description or clarification', archetypeCustomPlaceholder: 'Your own combination or description...',
+      vibeLabel: 'How would you describe your energy and vibe? (in your own words)', vibePlaceholder: 'E.g. I\'m the one who says what she thinks...',
+      sec3Title: 'How do you communicate?', sec3Note: 'We want to speak in your voice, not a copy of someone else.',
+      tovLabel: 'How would you describe your communication style?', tovPlaceholder: 'E.g. sarcastic, playful, flirty, direct...',
+      fansLabel: 'How do you address your fans?', fansPlaceholder: 'E.g. baby, sweetheart, love... (Enter)',
+      wordsLabel: 'Your own words and expressions you love using', wordsPlaceholder: 'Slang, funny phrases, signature sayings... (Enter)',
+      addBtn: 'Add',
+      sec4Title: 'Your content', sec4Note: 'What you shoot, what you enjoy, what you don\'t want.',
+      favVideos: 'What kind of videos would you love to make?', favPlaceholder: 'E.g. talking selfie reels...',
+      addProfile: '+ add profile', profiles: 'Profiles of girls you follow and like their content', profilePlaceholder: '@profile - what you like about them...',
+      neverShoot: 'What would you never want to film?', neverPlaceholder: 'E.g. fake lifestyle, heavy filters...',
+      sec5Title: 'Your boundaries', sec5Note: 'What you don\'t want said about you or associated with you.',
+      tabuLabel: 'Topics you don\'t want to talk about publicly', tabuPlaceholder: 'E.g. politics, family, ex...',
+      collabLabel: 'Types of collabs and SFS you don\'t want', collabPlaceholder: 'E.g. profiles with bad reputation...',
+      sec6Title: 'Your time', sec6Note: 'Helps us plan how much content you can realistically handle.',
+      fulltimeLabel: 'Is OF your full-time job or do you have other work / school?',
+      ftFulltime: 'OF fulltime', ftWork: 'OF + work / school', ftSide: 'OF is a side thing',
+      hoursLabel: 'How many hours a day can you dedicate to content creation?',
+      loveLabel: 'What do you enjoy most about your work?', lovePlaceholder: 'What makes you happy, what energizes you...',
+      sec7Title: 'Last question', sec7Note: 'Then you\'re done!',
+      goalLabel: 'Where do you see yourself in a year? What do you want to build?', goalPlaceholder: 'Your goal, what you want to achieve...',
+      customLabel: 'Minimum price for custom content', customPlaceholder: 'E.g. $150, $200, negotiable...',
+      videoLabel: 'Would you like to do video calls?', videoYes: 'Yes', videoNo: 'No',
+      videoLimitsLabel: 'What don\'t you want during video calls?', videoLimitsPlaceholder: 'E.g. no face, no explicit content...',
+      notesLabel: 'Important information for chat', notesPlaceholder: 'E.g. likes dominance, very careful about certain topics...',
+      finishBtn: 'Submit ✓', nextBtn: 'Next →', backBtn: '← Back',
+      exportTitle: 'done!', exportSub: 'Your Creator Bible is complete and ready to download.',
+      brandCardBtn: '★ Download Brand Card', fullPdfBtn: '↓ Download full PDF',
+    }
+  }
+};
+
+function setLang(l) {
+  lang = l;
+  document.getElementById('lang-cz').classList.toggle('active', l === 'cz');
+  document.getElementById('lang-en').classList.toggle('active', l === 'en');
+  const t = translations[l];
+  document.getElementById('popup-title').textContent = t.popupTitle;
+  document.getElementById('popup-note').textContent = t.popupNote;
+  document.getElementById('popup-why-title').textContent = t.popupWhyTitle;
+  document.getElementById('popup-why-1').textContent = t.popupWhy1;
+  document.getElementById('popup-why-2').textContent = t.popupWhy2;
+  document.getElementById('popup-name').placeholder = t.popupNamePlaceholder;
+  document.getElementById('popup-btn').textContent = t.popupBtn;
+}
+
+function applyTranslations() {
+  const t = translations[lang].labels;
+  const setT = (id, text) => { const el = document.getElementById(id); if(el) el.textContent = text; };
+  const setP = (id, text) => { const el = document.getElementById(id); if(el) el.placeholder = text; };
+
+  // Sec 1
+  setT('lbl-sec1-title', t.sec1Title); setT('lbl-sec1-note', t.sec1Note);
+  setT('lbl-date', t.dateOfBirth); setP('cv-date', t.datePlaceholder);
+  setT('lbl-height', t.height); setP('s1-height', t.heightPlaceholder);
+  setT('lbl-eyes', t.eyeColor); setP('s1-eyes', t.eyePlaceholder);
+  setT('lbl-loc', t.from); setP('s1-loc', t.fromPlaceholder);
+  setT('lbl-tattoos', t.tattoos); setP('s1-tattoos', t.tattoosPlaceholder);
+  setT('lbl-pet', t.pet); setP('s1-pet', t.petPlaceholder);
+  setT('lbl-rel', t.relationship);
+  setT('btn-single', t.relSingle); setT('btn-taken', t.relTaken); setT('btn-comp', t.relComplicated);
+  setT('lbl-hobbies', t.hobbies); setP('s1-hobbies', t.hobbiesPlaceholder);
+  setT('lbl-story', t.story); setP('s1-story', t.storyPlaceholder);
+  setT('lbl-personality', t.personality);
+  setT('lbl-diff', t.diff); setP('s1-diff', t.diffPlaceholder);
+  // Sec 2
+  setT('lbl-sec2-title', t.sec2Title); setT('lbl-sec2-note', t.sec2Note);
+  setT('lbl-arch-custom', t.archetypeCustom); setP('s2-custom', t.archetypeCustomPlaceholder);
+  setT('lbl-vibe', t.vibeLabel); setP('s2-vibe', t.vibePlaceholder);
+  // Sec 3
+  setT('lbl-sec3-title', t.sec3Title); setT('lbl-sec3-note', t.sec3Note);
+  setT('lbl-tov', t.tovLabel); setP('s3-tov', t.tovPlaceholder);
+  setT('lbl-fans', t.fansLabel); setP('kw-fans-inp', t.fansPlaceholder);
+  setT('lbl-words', t.wordsLabel); setP('kw-words-inp', t.wordsPlaceholder);
+  setT('btn-add-fans', t.addBtn); setT('btn-add-words', t.addBtn);
+  // Sec 4
+  setT('lbl-sec4-title', t.sec4Title); setT('lbl-sec4-note', t.sec4Note);
+  setT('lbl-fav', t.favVideos);
+  setT('lbl-profiles', t.profiles);
+  setT('lbl-never', t.neverShoot); setP('s4-never', t.neverPlaceholder);
+  // Sec 5
+  setT('lbl-sec5-title', t.sec5Title); setT('lbl-sec5-note', t.sec5Note);
+  setT('lbl-tabu', t.tabuLabel);
+  setT('lbl-collab', t.collabLabel);
+  // Sec 6
+  setT('lbl-sec6-title', t.sec6Title); setT('lbl-sec6-note', t.sec6Note);
+  setT('lbl-fulltime', t.fulltimeLabel);
+  setT('btn-ft-full', t.ftFulltime); setT('btn-ft-work', t.ftWork); setT('btn-ft-side', t.ftSide);
+  setT('lbl-hours', t.hoursLabel);
+  setT('lbl-love', t.loveLabel); setP('s6-love', t.lovePlaceholder);
+  // Sec 7
+  setT('lbl-sec7-title', t.sec7Title); setT('lbl-sec7-note', t.sec7Note);
+  setT('lbl-goal', t.goalLabel); setP('s7-goal', t.goalPlaceholder);
+  setT('lbl-custom', t.customLabel); setP('s7-customs', t.customPlaceholder);
+  setT('lbl-video', t.videoLabel);
+  setT('btn-vid-yes', t.videoYes); setT('btn-vid-no', t.videoNo);
+  setT('lbl-vlimits', t.videoLimitsLabel); setP('s7-calls-limits', t.videoLimitsPlaceholder);
+  setT('lbl-notes', t.notesLabel); setP('s7-notes', t.notesPlaceholder);
+  // Nav
+  setT('btn-next', t.nextBtn); setT('btn-prev', t.backBtn);
+  // Export
+  const exportSub = document.getElementById('ex-sub');
+  if(exportSub) exportSub.textContent = t.exportSub;
+  const brandBtn = document.getElementById('btn-brand-card');
+  if(brandBtn) brandBtn.textContent = t.brandCardBtn;
+  const fullBtn = document.getElementById('btn-full-pdf');
+  if(fullBtn) fullBtn.textContent = t.fullPdfBtn;
+}
+
 function startForm(){
   const name = document.getElementById('popup-name').value.trim();
   if(!name){ document.getElementById('popup-name').focus(); return; }
   document.getElementById('cv-name').value = name;
   document.getElementById('popup').style.display = 'none';
-  document.getElementById('hdr-step').textContent = LABELS[0];
+  applyTranslations();
   buildDots();
 }
 
@@ -529,8 +727,8 @@ function collectAll(){
 function buildSummary(){
   const d = collectAll();
   const name = d.model || 'Modelka';
-  document.getElementById('ex-title').textContent = name + ' — hotovo!';
-  document.getElementById('ex-sub').textContent = 'Tvoje Creator Bible je vyplněná a připravená ke stažení.';
+  document.getElementById('ex-title').textContent = name + ' — ' + translations[lang].labels.exportTitle;
+  document.getElementById('ex-sub').textContent = translations[lang].labels.exportSub;
   const card = document.getElementById('summary-card');
   const rows = [
     ['Jméno', name],
