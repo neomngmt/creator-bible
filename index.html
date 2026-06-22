@@ -583,9 +583,8 @@ function navigate(d){ goTo(Math.max(0, Math.min(TOTAL-1, cur+d))); }
 
 async function submitToAgency(){
   const d = collectAll();
-  const body = {
-    _subject: 'Creator Bible - ' + d.model,
-    Chatter_Sheet: `**CHATTER SHEET**
+  const isCZ = lang === 'cz';
+  const chatterSheet = isCZ ? `**CHATTER SHEET**
 ====================
 **Jméno:** ${d.model}
 **Datum narození:** ${d.date}
@@ -612,8 +611,36 @@ ${d.s1.hobby}
 **Co nechce točit:** ${d.s4.never}
 **Nechce kolaborovat s:** ${d.s5.kolaborace.join(', ')}
 ---
-${d.s7.poznamky ? '⚠️ **POZNÁMKA**\n' + d.s7.poznamky : ''}`,
-    Cely_formular: `KOMPLETNI FORMULAR
+${d.s7.poznamky ? '⚠️ **POZNÁMKA**\n' + d.s7.poznamky : ''}` : `**CHATTER SHEET**
+====================
+**Name:** ${d.model}
+**Date of birth:** ${d.date}
+**Height:** ${d.s1.vyska}
+**Eye color:** ${d.s1.oci}
+**From:** ${d.s1.lokace}
+**Tattoos:** ${d.s1.tetovani}
+**Pet:** ${d.s1.mazlicek}
+**Relationship:** ${d.s1.vztah}
+---
+**HOBBIES & INTERESTS**
+${d.s1.hobby}
+---
+**COMMUNICATION**
+**Style:** ${[d.s3.tov, d.s1.osobnost.filter(Boolean).join(', ')].filter(Boolean).join(', ')}
+**Words she often uses:** ${d.s3.slova.join(', ')}
+**How she addresses fans:** ${d.s3.osloveni.join(', ')}
+**Taboo topics:** ${d.s5.temata.join(', ')}
+---
+**CONTENT & PRICING**
+**Video calls:** ${d.s7.videohovory}
+**What she doesn't want during video calls:** ${d.s7.video_limity}
+**Custom content:** ${d.s7.customs}
+**Won't film:** ${d.s4.never}
+**Won't collab with:** ${d.s5.kolaborace.join(', ')}
+---
+${d.s7.poznamky ? '⚠️ **NOTE**\n' + d.s7.poznamky : ''}`;
+
+  const celyFormular = isCZ ? `KOMPLETNI FORMULAR
 ====================
 
 --- 01 KDO JSI ---
@@ -658,7 +685,57 @@ Videohovory: ${d.s7.videohovory}
 Co při videohovorech nechce: ${d.s7.video_limity}
 Custom obsah cena: ${d.s7.customs}
 Důležité info pro chat: ${d.s7.poznamky}
-Cíl: ${d.s7.goal}`
+Cíl: ${d.s7.goal}` : `COMPLETE FORM
+====================
+
+--- 01 WHO ARE YOU ---
+Name: ${d.model}
+Date of birth: ${d.date}
+Height: ${d.s1.vyska}
+Eye color: ${d.s1.oci}
+From: ${d.s1.lokace}
+Tattoos: ${d.s1.tetovani}
+Pet: ${d.s1.mazlicek}
+Relationship status: ${d.s1.vztah}
+Hobbies & interests: ${d.s1.hobby}
+Story: ${d.s1.pribeh}
+Personality: ${d.s1.osobnost.join(', ')}
+What makes her different: ${d.s1.odliseni}
+
+--- 02 VIBE ---
+Archetype: ${d.s2.archetypy.join(', ')}
+Custom description: ${d.s2.vlastni}
+Vibe in her own words: ${d.s2.vibe}
+
+--- 03 COMMUNICATION ---
+Communication style: ${d.s3.tov}
+How she addresses fans: ${d.s3.osloveni.join(', ')}
+Own expressions: ${d.s3.slova.join(', ')}
+
+--- 04 CONTENT ---
+Favorite video formats: ${d.s4.oblibena.join(', ')}
+Inspirational profiles: ${d.s4.reference.join(', ')}
+Won't film: ${d.s4.never}
+
+--- 05 BOUNDARIES ---
+Taboo topics: ${d.s5.temata.join(', ')}
+Won't collab with: ${d.s5.kolaborace.join(', ')}
+
+--- 06 TIME & AVAILABILITY ---
+Availability: ${d.s6.dostupnost}
+What she enjoys: ${d.s6.love}
+
+--- 07 OTHER ---
+Video calls: ${d.s7.videohovory}
+What she doesn't want during video calls: ${d.s7.video_limity}
+Custom content price: ${d.s7.customs}
+Important info for chat: ${d.s7.poznamky}
+Goal: ${d.s7.goal}`;
+
+  const body = {
+    _subject: 'Creator Bible - ' + d.model,
+    Chatter_Sheet: chatterSheet,
+    Cely_formular: celyFormular
   };
   const btn = document.getElementById('btn-next');
   btn.textContent = 'Odesílám...';
