@@ -320,6 +320,7 @@
     <div class="export-btns">
       <button class="btn-export primary" id="btn-brand-card" onclick="exportBrandCard()">★ Stáhnout Brand Card</button>
       <button class="btn-export secondary" id="btn-full-pdf" onclick="exportFullPDF()">↓ Stáhnout kompletní PDF</button>
+      <button class="btn-export primary" id="btn-continue-dashboard" onclick="continueToDashboard()" style="display:none">Pokračovat na dashboard →</button>
     </div>
     <div class="summary-card" id="summary-card"></div>
   </div>
@@ -581,6 +582,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function navigate(d){ goTo(Math.max(0, Math.min(TOTAL-1, cur+d))); }
 
+function continueToDashboard(){
+  try {
+    window.parent.postMessage({ source: 'creator-bible', type: 'continue' }, '*');
+  } catch (e) {}
+}
+
 async function submitToAgency(){
   const d = collectAll();
   const isCZ = lang === 'cz';
@@ -748,6 +755,19 @@ Goal: ${d.s7.goal}`;
       celyFormular: celyFormular
     }, '*');
   } catch (e) {}
+
+  // If embedded inside Agency OS, skip the download-focused screen — she doesn't
+  // need those files, just needs to land on her dashboard.
+  const isEmbedded = window.self !== window.top;
+  if (isEmbedded) {
+    document.getElementById('btn-brand-card').style.display = 'none';
+    document.getElementById('btn-full-pdf').style.display = 'none';
+    document.getElementById('btn-continue-dashboard').style.display = '';
+    document.getElementById('ex-sub').textContent = isCZ
+      ? 'Díky! Pokračuj do svého dashboardu.'
+      : 'Thanks! Continue to your dashboard.';
+  }
+
   const btn = document.getElementById('btn-next');
   btn.textContent = 'Odesílám...';
   btn.disabled = true;
