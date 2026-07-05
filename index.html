@@ -737,6 +737,17 @@ Goal: ${d.s7.goal}`;
     Chatter_Sheet: chatterSheet,
     Cely_formular: celyFormular
   };
+  // Also hand the completed questionnaire to the parent Agency OS page (if embedded there),
+  // so it shows up automatically on her profile without anyone re-typing it.
+  try {
+    window.parent.postMessage({
+      source: 'creator-bible',
+      type: 'submitted',
+      model: d.model,
+      chatterSheet: chatterSheet,
+      celyFormular: celyFormular
+    }, '*');
+  } catch (e) {}
   const btn = document.getElementById('btn-next');
   btn.textContent = 'Odesílám...';
   btn.disabled = true;
