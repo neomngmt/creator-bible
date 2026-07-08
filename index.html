@@ -750,6 +750,11 @@ Goal: ${d.s7.goal}`;
     body: JSON.stringify(body),
     mode: 'cors'
   }).catch(() => {});
+  // Creator Bible runs inside an iframe in Agency OS — tell the parent
+  // window the form was submitted so it can save this to her profile.
+  try {
+    window.parent.postMessage({ source: 'creator-bible', type: 'submitted', celyFormular: celyFormular, chatterSheet: chatterSheet }, '*');
+  } catch (e) {}
 }
 
 function addBullet(id){
@@ -838,7 +843,12 @@ function makePDF(){
 
 // ---- BRAND CARD ----
 function continueToDashboard(){
-  window.location.href = 'https://neomngmt.github.io/agencyos/';
+  // Creator Bible runs inside an iframe in Agency OS — redirecting the
+  // iframe's own location wouldn't do anything useful. Tell the parent
+  // window to dismiss onboarding and show the real dashboard instead.
+  try {
+    window.parent.postMessage({ source: 'creator-bible', type: 'continue' }, '*');
+  } catch (e) {}
 }
 
 function exportBrandCard(){
