@@ -8,8 +8,8 @@
 <style>
   :root {
     --bg: #0d0d0d; --surface: #161616; --surface2: #1f1f1f;
-    --border: rgba(255,255,255,0.08); --border-hover: rgba(233,69,96,0.5);
-    --accent: #E94560; --accent2: #ff6b6b;
+    --border: rgba(255,255,255,0.08); --border-hover: rgba(18,179,76,0.5);
+    --accent: #12b34c; --accent2: #39e673;
     --text: #f0f0f0; --text-muted: #888; --text-hint: #444;
     --radius: 12px; --radius-sm: 8px;
   }
@@ -47,10 +47,10 @@
   .arch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1.25rem; }
   .arch-btn { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius-sm); color: var(--text-muted); font-family: inherit; font-size: 13px; padding: .7rem .9rem; cursor: pointer; text-align: left; transition: all .15s; line-height: 1.3; }
   .arch-btn:hover { border-color: var(--accent); color: var(--text); }
-  .arch-btn.selected { border-color: var(--accent); background: rgba(233,69,96,0.1); color: var(--accent); font-weight: 600; }
+  .arch-btn.selected { border-color: var(--accent); background: rgba(18,179,76,0.1); color: var(--accent); font-weight: 600; }
   .kw-wrap { display: flex; flex-wrap: wrap; gap: 6px; min-height: 36px; margin-bottom: .75rem; }
-  .kw-tag { display: flex; align-items: center; gap: 5px; background: rgba(233,69,96,0.12); border: 0.5px solid rgba(233,69,96,0.3); border-radius: 99px; padding: .25rem .65rem; font-size: 13px; color: var(--accent); }
-  .kw-tag button { background: none; border: none; color: rgba(233,69,96,0.6); cursor: pointer; font-size: 15px; line-height: 1; padding: 0; font-family: inherit; }
+  .kw-tag { display: flex; align-items: center; gap: 5px; background: rgba(18,179,76,0.12); border: 0.5px solid rgba(18,179,76,0.3); border-radius: 99px; padding: .25rem .65rem; font-size: 13px; color: var(--accent); }
+  .kw-tag button { background: none; border: none; color: rgba(18,179,76,0.6); cursor: pointer; font-size: 15px; line-height: 1; padding: 0; font-family: inherit; }
   .kw-input-row { display: flex; gap: 8px; }
   .kw-input-row input { flex: 1; }
   .btn-add-kw { background: var(--surface2); border: 0.5px solid var(--border); border-radius: var(--radius-sm); color: var(--text-muted); font-family: inherit; font-size: 14px; padding: .7rem 1rem; cursor: pointer; white-space: nowrap; transition: all .15s; }
@@ -60,20 +60,20 @@
   .nav-dots { display: flex; gap: 5px; }
   .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--surface2); border: 0.5px solid var(--border); cursor: pointer; transition: all .15s; }
   .nav-dot.active { background: var(--accent); border-color: var(--accent); width: 18px; border-radius: 99px; }
-  .nav-dot.done { border-color: var(--accent); background: rgba(233,69,96,0.3); }
+  .nav-dot.done { border-color: var(--accent); background: rgba(18,179,76,0.3); }
   .btn-nav { background: var(--surface2); border: 0.5px solid var(--border); border-radius: var(--radius-sm); color: var(--text-muted); font-family: inherit; font-size: 14px; font-weight: 500; padding: .6rem 1.1rem; cursor: pointer; transition: all .15s; }
   .btn-nav:hover { border-color: var(--border-hover); color: var(--text); }
-  .btn-nav.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn-nav.primary { background: var(--accent); border-color: var(--accent); color: #0d0d0d; }
   .btn-nav.primary:hover { background: var(--accent2); }
   .btn-nav:disabled { opacity: .3; pointer-events: none; }
   .export-screen { padding: 2rem 0; text-align: center; }
-  .export-icon { width: 64px; height: 64px; border-radius: 50%; background: rgba(233,69,96,0.12); border: 0.5px solid rgba(233,69,96,0.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; font-size: 28px; }
+  .export-icon { width: 64px; height: 64px; border-radius: 50%; background: rgba(18,179,76,0.12); border: 0.5px solid rgba(18,179,76,0.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; font-size: 28px; }
   .export-title { font-size: 22px; font-weight: 700; margin-bottom: .4rem; letter-spacing: -.5px; }
   .export-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 2rem; }
   .export-btns { display: flex; flex-direction: column; gap: 10px; }
   .btn-export { width: 100%; padding: .85rem; border-radius: var(--radius-sm); font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer; border: none; transition: opacity .15s; display: flex; align-items: center; justify-content: center; gap: 8px; }
   .btn-export:hover { opacity: .88; }
-  .btn-export.primary { background: var(--accent); color: #fff; }
+  .btn-export.primary { background: var(--accent); color: #0d0d0d; }
   .btn-export.secondary { background: var(--surface2); color: var(--text); border: 0.5px solid var(--border); }
   .summary-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1rem 1.25rem; text-align: left; margin-top: 1.5rem; }
   .summary-row { display: flex; justify-content: space-between; padding: .4rem 0; border-bottom: 0.5px solid var(--border); font-size: 13px; }
@@ -86,16 +86,16 @@
   .popup-logo { font-size: 11px; letter-spacing: 4px; color: var(--accent); text-transform: uppercase; margin-bottom: 1.25rem; }
   .popup-title { font-size: 28px; font-weight: 700; color: #fff; margin-bottom: .5rem; letter-spacing: -.5px; }
   .popup-note { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem; }
-  .popup-why { background: rgba(233,69,96,0.08); border: 0.5px solid rgba(233,69,96,0.2); border-radius: 12px; padding: 1rem 1.25rem; text-align: left; margin-bottom: 1.5rem; }
+  .popup-why { background: rgba(18,179,76,0.08); border: 0.5px solid rgba(18,179,76,0.2); border-radius: 12px; padding: 1rem 1.25rem; text-align: left; margin-bottom: 1.5rem; }
   .popup-why-title { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--accent); margin-bottom: .5rem; }
   .popup-why p { font-size: 12px; color: var(--text-muted); line-height: 1.65; }
   .popup-why p + p { margin-top: .5rem; }
   .popup-input-wrap { margin-bottom: 1.25rem; }
   .popup-input-wrap input { text-align: center; font-size: 16px; padding: .85rem; border-radius: 10px; }
-  .popup-btn { width: 100%; padding: .9rem; background: var(--accent); border: none; border-radius: 10px; color: #fff; font-family: inherit; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .15s; }
+  .popup-btn { width: 100%; padding: .9rem; background: var(--accent); border: none; border-radius: 10px; color: #0d0d0d; font-family: inherit; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .15s; }
   .popup-btn:hover { opacity: .88; }
   .lang-btn { flex:1; padding:.6rem; border-radius:8px; font-family:inherit; font-size:14px; font-weight:600; cursor:pointer; border:0.5px solid var(--border); background:var(--surface); color:var(--text-muted); transition:all .15s; }
-  .lang-btn.active { border-color:var(--accent); background:rgba(233,69,96,0.1); color:var(--accent); }
+  .lang-btn.active { border-color:var(--accent); background:rgba(18,179,76,0.1); color:var(--accent); }
   .lang-btn:hover { border-color:var(--border-hover); }
   @media (max-width: 480px) { .grid2 { grid-template-columns: 1fr; } .cover-inputs { grid-template-columns: 1fr; } }
 </style>
@@ -320,7 +320,6 @@
     <div class="export-btns">
       <button class="btn-export primary" id="btn-brand-card" onclick="exportBrandCard()">★ Stáhnout Brand Card</button>
       <button class="btn-export secondary" id="btn-full-pdf" onclick="exportFullPDF()">↓ Stáhnout kompletní PDF</button>
-      <button class="btn-export primary" id="btn-continue-dashboard" onclick="continueToDashboard()" style="display:none">Pokračovat na dashboard →</button>
     </div>
     <div class="summary-card" id="summary-card"></div>
   </div>
@@ -582,12 +581,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function navigate(d){ goTo(Math.max(0, Math.min(TOTAL-1, cur+d))); }
 
-function continueToDashboard(){
-  try {
-    window.parent.postMessage({ source: 'creator-bible', type: 'continue' }, '*');
-  } catch (e) {}
-}
-
 async function submitToAgency(){
   const d = collectAll();
   const isCZ = lang === 'cz';
@@ -744,30 +737,6 @@ Goal: ${d.s7.goal}`;
     Chatter_Sheet: chatterSheet,
     Cely_formular: celyFormular
   };
-  // Also hand the completed questionnaire to the parent Agency OS page (if embedded there),
-  // so it shows up automatically on her profile without anyone re-typing it.
-  try {
-    window.parent.postMessage({
-      source: 'creator-bible',
-      type: 'submitted',
-      model: d.model,
-      chatterSheet: chatterSheet,
-      celyFormular: celyFormular
-    }, '*');
-  } catch (e) {}
-
-  // If embedded inside Agency OS, skip the download-focused screen — she doesn't
-  // need those files, just needs to land on her dashboard.
-  const isEmbedded = window.self !== window.top;
-  if (isEmbedded) {
-    document.getElementById('btn-brand-card').style.display = 'none';
-    document.getElementById('btn-full-pdf').style.display = 'none';
-    document.getElementById('btn-continue-dashboard').style.display = '';
-    document.getElementById('ex-sub').textContent = isCZ
-      ? 'Díky! Pokračuj do svého dashboardu.'
-      : 'Thanks! Continue to your dashboard.';
-  }
-
   const btn = document.getElementById('btn-next');
   btn.textContent = 'Odesílám...';
   btn.disabled = true;
@@ -996,16 +965,16 @@ function exportFullPDF(){
   const W=210,H=297,M=18,CW=W-M*2;
   let y=M;
   function chk(n){if(y+n>H-M){pdf.addPage();y=M;}}
-  function title(t){chk(20);pdf.setFontSize(15);pdf.setFont('helvetica','bold');pdf.setTextColor(233,69,96);pdf.text(t,M,y);y+=2;pdf.setDrawColor(233,69,96);pdf.setLineWidth(0.5);pdf.line(M,y,W-M,y);y+=6;}
+  function title(t){chk(20);pdf.setFontSize(15);pdf.setFont('helvetica','bold');pdf.setTextColor(18,179,76);pdf.text(t,M,y);y+=2;pdf.setDrawColor(18,179,76);pdf.setLineWidth(0.5);pdf.line(M,y,W-M,y);y+=6;}
   function lbl(t){chk(8);pdf.setFontSize(7.5);pdf.setFont('helvetica','bold');pdf.setTextColor(140,140,140);pdf.text(t,M,y);y+=4;}
   function val(t){if(!t||!t.trim())t='—';chk(6);pdf.setFontSize(10);pdf.setFont('helvetica','normal');pdf.setTextColor(30,30,30);const ls=pdf.splitTextToSize(t,CW);ls.forEach(l=>{chk(6);pdf.text(l,M,y);y+=5;});y+=2;}
   function buls(arr){if(!arr||!arr.length){val('—');return;}arr.forEach(item=>{chk(6);pdf.setFontSize(10);pdf.setFont('helvetica','normal');pdf.setTextColor(30,30,30);const ls=pdf.splitTextToSize('• '+item,CW-4);ls.forEach((l,i)=>{chk(6);pdf.text(l,M+(i>0?4:0),y);y+=5;});});y+=2;}
   function sp(){y+=5;}
 
   y=M;
-  pdf.setFontSize(18);pdf.setFont('helvetica','bold');pdf.setTextColor(233,69,96);
+  pdf.setFontSize(18);pdf.setFont('helvetica','bold');pdf.setTextColor(18,179,76);
   pdf.text('CREATOR BIBLE  —  '+name,M,y);
-  y+=2;pdf.setDrawColor(233,69,96);pdf.setLineWidth(0.5);pdf.line(M,y,W-M,y);y+=8;
+  y+=2;pdf.setDrawColor(18,179,76);pdf.setLineWidth(0.5);pdf.line(M,y,W-M,y);y+=8;
   title('01  Kdo jsi');
   lbl('Vek');val(d.s1.vek);
   lbl('Odkud');val(d.s1.lokace);
