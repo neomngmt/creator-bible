@@ -316,12 +316,12 @@
   <div class="export-screen">
     <div class="export-icon">&#10003;</div>
     <div class="export-title" id="ex-title">Hotovo!</div>
-    <div class="export-sub" id="ex-sub">Tvoje Creator Bible je vyplněná a připravená ke stažení.</div>
+    <div class="export-sub" id="ex-sub">Tvoje Creator Bible je vyplněná a připravená.</div>
     <div class="export-btns">
-      <button class="btn-export primary" id="btn-brand-card" onclick="exportBrandCard()">★ Stáhnout Brand Card</button>
-      <button class="btn-export secondary" id="btn-full-pdf" onclick="exportFullPDF()">↓ Stáhnout kompletní PDF</button>
+      <button class="btn-export primary" id="btn-continue" onclick="continueToDashboard()">Continue to Dashboard →</button>
     </div>
     <div class="summary-card" id="summary-card"></div>
+    <button class="btn-export secondary" id="btn-full-pdf" onclick="exportFullPDF()" style="margin-top:1.25rem;">↓ Stáhnout vyplněný formulář (PDF)</button>
   </div>
 </div>
 
@@ -428,8 +428,8 @@ const translations = {
       videoLimitsLabel: 'Co při videohovorech nechceš?', videoLimitsPlaceholder: 'Např. bez tváře, bez porna...',
       notesLabel: 'Důležité informace pro chat', notesPlaceholder: 'Např. má ráda dominanci, určité téma hlídá pečlivě...',
       finishBtn: 'Dokončit ✓', nextBtn: 'Další →', backBtn: '← Zpět',
-      exportTitle: 'hotovo!', exportSub: 'Tvoje Creator Bible je vyplněná a připravená ke stažení.',
-      brandCardBtn: '★ Stáhnout Brand Card', fullPdfBtn: '↓ Stáhnout kompletní PDF',
+      exportTitle: 'hotovo!', exportSub: 'Tvoje Creator Bible je vyplněná a připravená.',
+      brandCardBtn: '★ Stáhnout Brand Card', fullPdfBtn: '↓ Stáhnout vyplněný formulář (PDF)', continueBtn: 'Continue to Dashboard →',
     }
   },
   en: {
@@ -481,8 +481,8 @@ const translations = {
       videoLimitsLabel: 'What don\'t you want during video calls?', videoLimitsPlaceholder: 'E.g. no face, no explicit content...',
       notesLabel: 'Important information for chat', notesPlaceholder: 'E.g. likes dominance, very careful about certain topics...',
       finishBtn: 'Submit ✓', nextBtn: 'Next →', backBtn: '← Back',
-      exportTitle: 'done!', exportSub: 'Your Creator Bible is complete and ready to download.',
-      brandCardBtn: '★ Download Brand Card', fullPdfBtn: '↓ Download full PDF',
+      exportTitle: 'done!', exportSub: 'Your Creator Bible is complete and ready.',
+      brandCardBtn: '★ Download Brand Card', fullPdfBtn: '↓ Download filled form (PDF)', continueBtn: 'Continue to Dashboard →',
     }
   }
 };
@@ -562,6 +562,8 @@ function applyTranslations() {
   if(brandBtn) brandBtn.textContent = t.brandCardBtn;
   const fullBtn = document.getElementById('btn-full-pdf');
   if(fullBtn) fullBtn.textContent = t.fullPdfBtn;
+  const continueBtn = document.getElementById('btn-continue');
+  if(continueBtn) continueBtn.textContent = t.continueBtn;
 }
 
 function startForm(){
@@ -835,6 +837,10 @@ function makePDF(){
 }
 
 // ---- BRAND CARD ----
+function continueToDashboard(){
+  window.location.href = 'https://neomngmt.github.io/agencyos/';
+}
+
 function exportBrandCard(){
   const d = collectAll();
   const name = d.model||'Modelka';
