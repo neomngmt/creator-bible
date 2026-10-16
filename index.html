@@ -900,6 +900,15 @@ Goal: ${d.s7.goal}`;
     body: JSON.stringify(body),
     mode: 'cors'
   }).catch(() => {});
+  // Put her answers straight into Agency OS as her persona. The language she
+  // picked at the start decides the agency (cz = CZ, en = US). Formspree above
+  // is the backup copy, so a failure here is silent for her.
+  fetch('https://kvwwjyvkoiqsvpyzbcmn.supabase.co/functions/v1/creator-bible-submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: d.model, lang: lang, celyFormular: celyFormular, chatterSheet: chatterSheet }),
+    mode: 'cors'
+  }).catch(() => {});
   // When this page is framed inside Agency OS (Zion), tell the parent window
   // the form was submitted so it can save the answers to her profile.
   // A plain no-op when the form is opened on its own from a link.
