@@ -140,12 +140,29 @@
 
 <!-- 1. KDO JSI -->
 <div id="sec1" class="section active">
-  <div class="sec-eyebrow">01 / 08</div>
+  <div class="sec-eyebrow">01 / 09</div>
   <div class="sec-title" id="lbl-sec1-title">Kdo jsi?</div>
   <div class="sec-note" id="lbl-sec1-note">Pár věcí o tobě. Nemusíš znít dokonale, chceme znát tebe skutečnou.</div>
   <div class="grid2">
     <div class="field"><label class="field-label" id="lbl-date">Datum narození</label><input type="text" id="cv-date" placeholder="Např. 24.11.2005"></div>
     <div class="field"><label class="field-label" id="lbl-height">Výška</label><input type="text" id="s1-height" placeholder="Např. 168 cm"></div>
+  </div>
+  <div class="grid2">
+    <div class="field"><label class="field-label" id="lbl-stagebd">Veřejné datum narození (stage)</label><input type="text" id="s1-stagebd" placeholder="Datum které používáme pro fanoušky"></div>
+    <div class="field"><label class="field-label" id="lbl-stageage">Veřejný věk (stage age)</label><input type="text" id="s1-stageage" placeholder="Např. 20"></div>
+  </div>
+  <div class="grid2">
+    <div class="field"><label class="field-label" id="lbl-nat">Národnost</label><input type="text" id="s1-nat" placeholder="Např. česká, slovenská..."></div>
+    <div class="field"><label class="field-label" id="lbl-stagenick">Přezdívky (stage)</label><input type="text" id="s1-stagenick" placeholder="Např. Lili, Lilka..."></div>
+  </div>
+  <div class="field"><label class="field-label" id="lbl-english">Úroveň angličtiny</label>
+    <div class="arch-grid" id="s1-english" style="grid-template-columns:1fr 1fr 1fr">
+      <button class="arch-btn" onclick="pickOne(this)">Neumím anglicky</button>
+      <button class="arch-btn" onclick="pickOne(this)">Základní</button>
+      <button class="arch-btn" onclick="pickOne(this)">Konverzační</button>
+      <button class="arch-btn" onclick="pickOne(this)">Plynulá</button>
+      <button class="arch-btn" onclick="pickOne(this)">Rodilá</button>
+    </div>
   </div>
   <div class="grid2">
     <div class="field"><label class="field-label" id="lbl-eyes">Barva očí</label><input type="text" id="s1-eyes" placeholder="Např. modré, hnědé..."></div>
@@ -156,7 +173,7 @@
     <div class="field"><label class="field-label" id="lbl-pet">Domácí zvíře?</label><input type="text" id="s1-pet" placeholder="Např. pes, kočka, ne..."></div>
   </div>
   <div class="field"><label class="field-label" id="lbl-rel">Jsi svobodná / relationship status?</label>
-    <div class="arch-grid" style="grid-template-columns:1fr 1fr 1fr">
+    <div class="arch-grid" id="s1-rel" style="grid-template-columns:1fr 1fr 1fr">
       <button class="arch-btn" id="btn-single" onclick="toggleArch(this)">Svobodná</button>
       <button class="arch-btn" id="btn-taken" onclick="toggleArch(this)">Ve vztahu</button>
       <button class="arch-btn" id="btn-comp" onclick="toggleArch(this)">Complicated</button>
@@ -177,7 +194,7 @@
 
 <!-- 2. VIBE & ARCHETYP -->
 <div id="sec2" class="section">
-  <div class="sec-eyebrow">02 / 08</div>
+  <div class="sec-eyebrow">02 / 09</div>
   <div class="sec-title" id="lbl-sec2-title">Tvůj vibe</div>
   <div class="sec-note" id="lbl-sec2-note">Vyber typy které tě vystihují a popiš svou energii.</div>
   <div class="arch-grid" id="arch-grid">
@@ -200,7 +217,7 @@
 
 <!-- 3. TOV & OBSAH -->
 <div id="sec3" class="section">
-  <div class="sec-eyebrow">03 / 08</div>
+  <div class="sec-eyebrow">03 / 09</div>
   <div class="sec-title" id="lbl-sec3-title">Jak komunikuješ?</div>
   <div class="sec-note" id="lbl-sec3-note">Chceme mluvit tvým hlasem, ne kopií někoho jiného.</div>
   <div class="field"><label class="field-label" id="lbl-tov">Jak bys popsala svůj styl komunikace?</label><input type="text" id="s3-tov" placeholder="Např. sarkastická, hravá, flirtující, přímá, vtipná..."></div>
@@ -225,7 +242,7 @@
 
 <!-- 3b. OSOBNI INFO -->
 <div id="sec3b" class="section">
-  <div class="sec-eyebrow" id="lbl-sec3b-eyebrow">04 / 08</div>
+  <div class="sec-eyebrow" id="lbl-sec3b-eyebrow">04 / 09</div>
   <div class="sec-title" id="lbl-sec3b-title">Osobní info</div>
   <div class="sec-note" id="lbl-sec3b-note">Víme, že je to osobní — ale pro udržení whale fanoušků (lidí, kteří hodně utrácejí) jsou tyto detaily klíčové. Pomáhají nám vytvořit opravdu autentické a osobní spojení s fanoušky.</div>
 
@@ -260,13 +277,18 @@
       <div><label class="field-label" id="lbl-shoe" style="font-size:0.8rem">Velikost bot</label><input type="text" id="s3b-shoe" placeholder="Např. 38, EU 38"></div>
       <div><label class="field-label" id="lbl-dress" style="font-size:0.8rem">Velikost oblečení</label><input type="text" id="s3b-dress" placeholder="Např. S/M, 36"></div>
     </div>
-    <div style="margin-top:10px"><label class="field-label" id="lbl-hair" style="font-size:0.8rem">Barva vlasů</label><input type="text" id="s3b-hair" placeholder="Např. tmavě hnědá s blond melírem..."></div>
+    <div style="margin-top:10px"><label class="field-label" id="lbl-hair" style="font-size:0.8rem">Barva vlasů</label><input type="text" id="s3b-hair" placeholder="Např. tmavě hnědá s blond melírem...">
+      <div class="arch-grid" id="s3b-hairtype" style="grid-template-columns:1fr 1fr;margin-top:8px;margin-bottom:0">
+        <button class="arch-btn" onclick="pickOne(this)">Přírodní</button>
+        <button class="arch-btn" onclick="pickOne(this)">Barvené</button>
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- 5. OBSAH -->
 <div id="sec4" class="section">
-  <div class="sec-eyebrow">05 / 08</div>
+  <div class="sec-eyebrow">05 / 09</div>
   <div class="sec-title" id="lbl-sec4-title">Tvůj obsah</div>
   <div class="sec-note" id="lbl-sec4-note">Co točíš, co tě baví, co nechceš.</div>
   <div class="field">
@@ -290,7 +312,7 @@
 
 <!-- 5. CO NECHCES -->
 <div id="sec5" class="section">
-  <div class="sec-eyebrow">06 / 08</div>
+  <div class="sec-eyebrow">06 / 09</div>
   <div class="sec-title" id="lbl-sec5-title">Tvoje hranice</div>
   <div class="sec-note" id="lbl-sec5-note">Co nechceš aby se o tobě říkalo nebo s čím nechceš být spojována.</div>
   <div class="field">
@@ -312,7 +334,7 @@
 
 <!-- 6. DOSTUPNOST -->
 <div id="sec6" class="section">
-  <div class="sec-eyebrow">07 / 08</div>
+  <div class="sec-eyebrow">07 / 09</div>
   <div class="sec-title" id="lbl-sec6-title">Tvůj čas</div>
   <div class="sec-note" id="lbl-sec6-note">Pomáhá nám plánovat kolik obsahu reálně zvládneš.</div>
   <div class="field">
@@ -335,9 +357,63 @@
   <div class="field"><label class="field-label" id="lbl-love">Co tě na tvé práci baví nejvíc?</label><textarea id="s6-love" placeholder="Co ti dělá radost, co tě nabíjí energií..."></textarea></div>
 </div>
 
+<!-- 8. CHATTING -->
+<div id="sec6b" class="section">
+  <div class="sec-eyebrow">08 / 09</div>
+  <div class="sec-title" id="lbl-sec8-title">Obsah a limity pro chat</div>
+  <div class="sec-note" id="lbl-sec8-note">Díky tomu chatteři vědí, co smí nabízet a co nikdy. Vyber vše, co sedí.</div>
+  <div class="field"><label class="field-label" id="lbl-content">Obsah, který jsi ochotná dělat (vyber vše, co sedí)</label>
+    <div class="arch-grid" id="s8-content">
+      <button class="arch-btn" onclick="toggleArch(this)">Obsah s obličejem</button>
+      <button class="arch-btn" onclick="toggleArch(this)">Obsah bez obličeje</button>
+      <button class="arch-btn" onclick="toggleArch(this)">Solo obsah</button>
+      <button class="arch-btn" onclick="toggleArch(this)">Obsah s hračkami</button>
+      <button class="arch-btn" onclick="toggleArch(this)">GG obsah</button>
+      <button class="arch-btn" onclick="toggleArch(this)">BG obsah</button>
+      <button class="arch-btn" onclick="toggleArch(this)">Blow job obsah</button>
+      <button class="arch-btn" onclick="toggleArch(this)">Anal obsah</button>
+      <button class="arch-btn" onclick="toggleArch(this)">Threesome obsah</button>
+      <button class="arch-btn" onclick="toggleArch(this)">Roleplay obsah</button>
+      <button class="arch-btn" onclick="toggleArch(this)">Hlasové zprávy / audio</button>
+      <button class="arch-btn" onclick="toggleArch(this)">Videohovory</button>
+      <button class="arch-btn" onclick="toggleArch(this)">Live streamy</button>
+      <button class="arch-btn" onclick="toggleArch(this)">Custom obsah na přání</button>
+      <button class="arch-btn" onclick="toggleArch(this)">JOI (obsah s vedením)</button>
+      <button class="arch-btn" onclick="toggleArch(this)">Dick rating</button>
+      <button class="arch-btn" onclick="toggleArch(this)">Verifikační fotky / videa</button>
+      <button class="arch-btn" onclick="toggleArch(this)">Prodej nošených věcí (např. kalhotky)</button>
+    </div>
+  </div>
+  <div class="field"><label class="field-label" id="lbl-delivery">Průměrná doba dodání customu</label>
+    <div class="arch-grid" id="s8-delivery" style="grid-template-columns:1fr 1fr">
+      <button class="arch-btn" onclick="pickOne(this)">Ten samý den</button>
+      <button class="arch-btn" onclick="pickOne(this)">1-3 dny</button>
+      <button class="arch-btn" onclick="pickOne(this)">1 týden</button>
+      <button class="arch-btn" onclick="pickOne(this)">Podle zakázky</button>
+    </div>
+  </div>
+  <div class="field"><label class="field-label" id="lbl-live">Děláš live na OnlyFans?</label>
+    <div class="arch-grid" id="s8-live" style="grid-template-columns:1fr 1fr;margin-bottom:.6rem">
+      <button class="arch-btn" onclick="pickOne(this)">Ano</button>
+      <button class="arch-btn" onclick="pickOne(this)">Ne</button>
+    </div>
+    <input type="text" id="s8-live-schedule" placeholder="Pokud ano, kdy obvykle (dny a časy)">
+  </div>
+  <div class="field"><label class="field-label" id="lbl-limits">Tvrdé limity (cokoliv, co nikdy nechceš, aby chatter nabízel)</label>
+    <div class="arch-grid" id="s8-limits" style="margin-bottom:.6rem">
+      <button class="arch-btn" onclick="toggleArch(this)">Žádný explicitní fetiš obsah</button>
+      <button class="arch-btn" onclick="toggleArch(this)">Žádné BG</button>
+      <button class="arch-btn" onclick="toggleArch(this)">Žádné videohovory</button>
+      <button class="arch-btn" onclick="toggleArch(this)">Žádný prodej nošených věcí</button>
+    </div>
+    <input type="text" id="s8-limits-other" placeholder="Další limity (napiš vlastní)">
+  </div>
+  <div class="field"><label class="field-label" id="lbl-fansdesc">Jak mají fanoušci popsat tebe?</label><textarea id="s8-fansdesc" placeholder="Např. sladká, drzá, přirozená, někdo kdo je u nich pořád..."></textarea></div>
+</div>
+
 <!-- 7. CIL -->
 <div id="sec7" class="section">
-  <div class="sec-eyebrow">08 / 08</div>
+  <div class="sec-eyebrow">09 / 09</div>
   <div class="sec-title" id="lbl-sec7-title">Poslední otázka</div>
   <div class="sec-note" id="lbl-sec7-note">Pak jsi hotová!</div>
   <div class="field"><label class="field-label" id="lbl-goal">Kde se vidíš za rok? Co chceš vybudovat?</label><textarea id="s7-goal" placeholder="Tvůj cíl, co chceš dosáhnout..."></textarea></div>
@@ -376,8 +452,9 @@
 </nav>
 
 <script>
-const SECTIONS = ['sec1','sec2','sec3','sec3b','sec4','sec5','sec6','sec7','sec-export'];
-const LABELS = ['01 Kdo jsi','02 Tvůj vibe','03 Komunikace','04 Osobní info','05 Obsah','06 Hranice','07 Čas','08 Cíl','Hotovo'];
+const SECTIONS = ['sec1','sec2','sec3','sec3b','sec4','sec5','sec6','sec6b','sec7','sec-export'];
+const LABELS = ['01 Kdo jsi','02 Tvůj vibe','03 Komunikace','04 Osobní info','05 Obsah','06 Hranice','07 Čas','08 Chatting','09 Cíl','Hotovo'];
+const LABELS_EN = ['01 Who you are','02 Your vibe','03 Communication','04 Personal info','05 Content','06 Boundaries','07 Time','08 Chatting','09 Goal','Done'];
 let cur = 0;
 const TOTAL = SECTIONS.length;
 
@@ -399,7 +476,7 @@ function goTo(idx){
   document.getElementById(SECTIONS[cur]).classList.add('active');
   const pct = cur === 0 ? 0 : Math.round((cur / (TOTAL-1)) * 100);
   document.getElementById('prog').style.width = pct + '%';
-  document.getElementById('hdr-step').textContent = LABELS[cur];
+  document.getElementById('hdr-step').textContent = (lang === 'en' ? LABELS_EN : LABELS)[cur];
   document.getElementById('btn-prev').disabled = cur === 0;
   const nextBtn = document.getElementById('btn-next');
   if(cur === TOTAL-1){ nextBtn.style.display = 'none'; } else {
@@ -487,6 +564,23 @@ const translations = {
       videoLabel: 'Chceš dělat videohovory?', videoYes: 'Ano', videoNo: 'Ne',
       videoLimitsLabel: 'Co při videohovorech nechceš?', videoLimitsPlaceholder: 'Např. bez tváře, bez porna...',
       notesLabel: 'Důležité informace pro chat', notesPlaceholder: 'Např. má ráda dominanci, určité téma hlídá pečlivě...',
+      stageBd: 'Veřejné datum narození (stage)', stageBdPh: 'Datum které používáme pro fanoušky',
+      stageAge: 'Veřejný věk (stage age)', stageAgePh: 'Např. 20',
+      nationality: 'Národnost', nationalityPh: 'Např. česká, slovenská...',
+      stageNick: 'Přezdívky (stage)', stageNickPh: 'Např. Lili, Lilka...',
+      englishLabel: 'Úroveň angličtiny',
+      englishOptions: ['Neumím anglicky', 'Základní', 'Konverzační', 'Plynulá', 'Rodilá'],
+      hairTypeOptions: ['Přírodní', 'Barvené'],
+      sec8Title: 'Obsah a limity pro chat', sec8Note: 'Díky tomu chatteři vědí, co smí nabízet a co nikdy. Vyber vše, co sedí.',
+      contentLabel: 'Obsah, který jsi ochotná dělat (vyber vše, co sedí)',
+      contentOptions: ['Obsah s obličejem', 'Obsah bez obličeje', 'Solo obsah', 'Obsah s hračkami', 'GG obsah', 'BG obsah', 'Blow job obsah', 'Anal obsah', 'Threesome obsah', 'Roleplay obsah', 'Hlasové zprávy / audio', 'Videohovory', 'Live streamy', 'Custom obsah na přání', 'JOI (obsah s vedením)', 'Dick rating', 'Verifikační fotky / videa', 'Prodej nošených věcí (např. kalhotky)'],
+      deliveryLabel: 'Průměrná doba dodání customu',
+      deliveryOptions: ['Ten samý den', '1-3 dny', '1 týden', 'Podle zakázky'],
+      liveLabel: 'Děláš live na OnlyFans?', liveOptions: ['Ano', 'Ne'], liveSchedulePh: 'Pokud ano, kdy obvykle (dny a časy)',
+      limitsLabel: 'Tvrdé limity (cokoliv, co nikdy nechceš, aby chatter nabízel)',
+      limitsOptions: ['Žádný explicitní fetiš obsah', 'Žádné BG', 'Žádné videohovory', 'Žádný prodej nošených věcí'],
+      limitsOtherPh: 'Další limity (napiš vlastní)',
+      fansDescLabel: 'Jak mají fanoušci popsat tebe?', fansDescPh: 'Např. sladká, drzá, přirozená, někdo kdo je u nich pořád...',
       finishBtn: 'Dokončit ✓', nextBtn: 'Další →', backBtn: '← Zpět',
       exportTitle: 'hotovo!', exportSub: 'Tvoje Creator Bible je vyplněná a připravená ke stažení.',
       brandCardBtn: '★ Stáhnout Brand Card', fullPdfBtn: '↓ Stáhnout kompletní PDF',
@@ -558,6 +652,23 @@ const translations = {
       videoLabel: 'Would you like to do video calls?', videoYes: 'Yes', videoNo: 'No',
       videoLimitsLabel: 'What don\'t you want during video calls?', videoLimitsPlaceholder: 'E.g. no face, no explicit content...',
       notesLabel: 'Important information for chat', notesPlaceholder: 'E.g. likes dominance, very careful about certain topics...',
+      stageBd: 'Public birthday (stage)', stageBdPh: 'The date we use for fans',
+      stageAge: 'Public age (stage age)', stageAgePh: 'E.g. 20',
+      nationality: 'Nationality', nationalityPh: 'E.g. Czech, Slovak...',
+      stageNick: 'Nicknames (stage)', stageNickPh: 'E.g. Lili, Lilka...',
+      englishLabel: 'English level',
+      englishOptions: ['Cannot speak English', 'Basic', 'Conversational', 'Fluent', 'Native'],
+      hairTypeOptions: ['Natural', 'Dyed'],
+      sec8Title: 'Content and limits for chat', sec8Note: 'This tells the chatters what they may offer and what never to touch. Select everything that applies.',
+      contentLabel: 'Content you are comfortable creating (select everything that applies)',
+      contentOptions: ['Face content (showing your face)', 'Non-face content (no face shown)', 'Solo content', 'Toy content', 'GG content', 'BG content', 'Blow job content', 'Anal content', 'Threesome content', 'Roleplay content', 'Voice notes / audio messages', 'Video calls', 'Live streaming', 'Custom content requests', 'JOI (guided instruction content)', 'Dick rating', 'Verification pics / videos', 'Selling worn items (e.g. panties)'],
+      deliveryLabel: 'Average custom delivery time',
+      deliveryOptions: ['Same day', '1-3 days', '1 week', 'Depends'],
+      liveLabel: 'Do you go live on OnlyFans?', liveOptions: ['Yes', 'No'], liveSchedulePh: 'If yes, when you usually go live (days and times)',
+      limitsLabel: 'Hard limits (anything you never want a chatter to offer or discuss)',
+      limitsOptions: ['No explicit fetish content', 'No BG', 'No video calls', 'No selling of worn items'],
+      limitsOtherPh: 'Other limits (write your own)',
+      fansDescLabel: 'How should fans describe you?', fansDescPh: 'E.g. sweet, sassy, natural, someone who is always there for them...',
       finishBtn: 'Submit ✓', nextBtn: 'Next →', backBtn: '← Back',
       exportTitle: 'done!', exportSub: 'Your Creator Bible is complete and ready to download.',
       brandCardBtn: '★ Download Brand Card', fullPdfBtn: '↓ Download full PDF',
@@ -583,6 +694,8 @@ function applyTranslations() {
   const t = translations[lang].labels;
   const setT = (id, text) => { const el = document.getElementById(id); if(el) el.textContent = text; };
   const setP = (id, text) => { const el = document.getElementById(id); if(el) el.placeholder = text; };
+  // Option buttons of one group, in order (keeps the selection, only swaps the text)
+  const setGroup = (id, texts) => { const g = document.getElementById(id); if(!g) return; g.querySelectorAll('.arch-btn').forEach((b, i) => { if(texts[i] !== undefined) b.textContent = texts[i]; }); };
 
   // Sec 1
   setT('lbl-sec1-title', t.sec1Title); setT('lbl-sec1-note', t.sec1Note);
@@ -649,6 +762,21 @@ function applyTranslations() {
   setT('btn-vid-yes', t.videoYes); setT('btn-vid-no', t.videoNo);
   setT('lbl-vlimits', t.videoLimitsLabel); setP('s7-calls-limits', t.videoLimitsPlaceholder);
   setT('lbl-notes', t.notesLabel); setP('s7-notes', t.notesPlaceholder);
+  // Profile additions (sec 1) and hair type (sec 3b)
+  setT('lbl-stagebd', t.stageBd); setP('s1-stagebd', t.stageBdPh);
+  setT('lbl-stageage', t.stageAge); setP('s1-stageage', t.stageAgePh);
+  setT('lbl-nat', t.nationality); setP('s1-nat', t.nationalityPh);
+  setT('lbl-stagenick', t.stageNick); setP('s1-stagenick', t.stageNickPh);
+  setT('lbl-english', t.englishLabel);
+  setGroup('s1-english', t.englishOptions);
+  setGroup('s3b-hairtype', t.hairTypeOptions);
+  // Sec 8 (chatting)
+  setT('lbl-sec8-title', t.sec8Title); setT('lbl-sec8-note', t.sec8Note);
+  setT('lbl-content', t.contentLabel); setGroup('s8-content', t.contentOptions);
+  setT('lbl-delivery', t.deliveryLabel); setGroup('s8-delivery', t.deliveryOptions);
+  setT('lbl-live', t.liveLabel); setGroup('s8-live', t.liveOptions); setP('s8-live-schedule', t.liveSchedulePh);
+  setT('lbl-limits', t.limitsLabel); setGroup('s8-limits', t.limitsOptions); setP('s8-limits-other', t.limitsOtherPh);
+  setT('lbl-fansdesc', t.fansDescLabel); setP('s8-fansdesc', t.fansDescPh);
   // Nav
   setT('btn-next', t.nextBtn); setT('btn-prev', t.backBtn);
   // Export
@@ -690,6 +818,11 @@ async function submitToAgency(){
 **Tetování:** ${d.s1.tetovani}
 **Domácí zvíře:** ${d.s1.mazlicek}
 **Vztah:** ${d.s1.vztah}
+**Veřejné datum narození:** ${d.s1.stageBd}
+**Veřejný věk:** ${d.s1.stageAge}
+**Národnost:** ${d.s1.nationality}
+**Přezdívky:** ${d.s1.stageNick}
+**Angličtina:** ${d.s1.english}
 ---
 **KONÍČKY & ZÁLIBY**
 ${d.s1.hobby}
@@ -709,7 +842,7 @@ ${d.s1.hobby}
 **Hudba:** ${d.s3b.music}
 **Mazlíčci:** ${d.s3b.pets}
 **Míry:** ${[d.s3b.weight, d.s3b.bra, d.s3b.waist && 'pas '+d.s3b.waist, d.s3b.hips && 'boky '+d.s3b.hips, d.s3b.shoe && 'boty '+d.s3b.shoe, d.s3b.dress && 'vel. '+d.s3b.dress].filter(Boolean).join(' | ')}
-**Barva vlasů:** ${d.s3b.hair}
+**Barva vlasů:** ${[d.s3b.hair, d.s3b.hairType].filter(Boolean).join(', ')}
 ---
 **OBSAH & CENY**
 **Videohovory:** ${d.s7.videohovory}
@@ -717,6 +850,13 @@ ${d.s1.hobby}
 **Custom obsah:** ${d.s7.customs}
 **Co nechce točit:** ${d.s4.never}
 **Nechce kolaborovat s:** ${d.s5.kolaborace.join(', ')}
+---
+**CHATTING: CO SMÍ A NESMÍ**
+**Obsah, který dělá:** ${d.s8.content.join(', ')}
+**Doba dodání customu:** ${d.s8.delivery}
+**Live na OF:** ${[d.s8.live, d.s8.liveSchedule].filter(Boolean).join(' | ')}
+**Tvrdé limity:** ${d.s8.limits.join(', ')}
+**Jak ji mají fanoušci popsat:** ${d.s8.fansDesc}
 ---
 ${d.s7.poznamky ? '⚠️ **POZNÁMKA**\n' + d.s7.poznamky : ''}` : `**CHATTER SHEET**
 ====================
@@ -728,6 +868,11 @@ ${d.s7.poznamky ? '⚠️ **POZNÁMKA**\n' + d.s7.poznamky : ''}` : `**CHATTER S
 **Tattoos:** ${d.s1.tetovani}
 **Pet:** ${d.s1.mazlicek}
 **Relationship:** ${d.s1.vztah}
+**Public birthday:** ${d.s1.stageBd}
+**Public age:** ${d.s1.stageAge}
+**Nationality:** ${d.s1.nationality}
+**Nicknames:** ${d.s1.stageNick}
+**English level:** ${d.s1.english}
 ---
 **HOBBIES & INTERESTS**
 ${d.s1.hobby}
@@ -747,7 +892,7 @@ ${d.s1.hobby}
 **Music:** ${d.s3b.music}
 **Pets:** ${d.s3b.pets}
 **Measurements:** ${[d.s3b.weight, d.s3b.bra, d.s3b.waist && 'waist '+d.s3b.waist, d.s3b.hips && 'hips '+d.s3b.hips, d.s3b.shoe && 'shoe '+d.s3b.shoe, d.s3b.dress && 'dress '+d.s3b.dress].filter(Boolean).join(' | ')}
-**Hair color:** ${d.s3b.hair}
+**Hair color:** ${[d.s3b.hair, d.s3b.hairType].filter(Boolean).join(', ')}
 ---
 **CONTENT & PRICING**
 **Video calls:** ${d.s7.videohovory}
@@ -755,6 +900,13 @@ ${d.s1.hobby}
 **Custom content:** ${d.s7.customs}
 **Won't film:** ${d.s4.never}
 **Won't collab with:** ${d.s5.kolaborace.join(', ')}
+---
+**CHATTING: WHAT SHE DOES AND DOESN'T**
+**Content she does:** ${d.s8.content.join(', ')}
+**Custom delivery time:** ${d.s8.delivery}
+**Live on OF:** ${[d.s8.live, d.s8.liveSchedule].filter(Boolean).join(' | ')}
+**Hard limits:** ${d.s8.limits.join(', ')}
+**How fans should describe her:** ${d.s8.fansDesc}
 ---
 ${d.s7.poznamky ? '⚠️ **NOTE**\n' + d.s7.poznamky : ''}`;
 
@@ -774,6 +926,11 @@ Koníčky a záliby: ${d.s1.hobby}
 Příběh: ${d.s1.pribeh}
 Osobnost: ${d.s1.osobnost.join(', ')}
 Čím se odlišuje: ${d.s1.odliseni}
+Veřejné datum narození: ${d.s1.stageBd}
+Veřejný věk: ${d.s1.stageAge}
+Národnost: ${d.s1.nationality}
+Přezdívky: ${d.s1.stageNick}
+Angličtina: ${d.s1.english}
 
 --- 02 TVUJ VIBE ---
 Archetyp: ${d.s2.archetypy.join(', ')}
@@ -800,7 +957,7 @@ Pas: ${d.s3b.waist}
 Boky: ${d.s3b.hips}
 Velikost bot: ${d.s3b.shoe}
 Velikost oblečení: ${d.s3b.dress}
-Barva vlasů: ${d.s3b.hair}
+Barva vlasů: ${[d.s3b.hair, d.s3b.hairType].filter(Boolean).join(', ')}
 
 --- 05 OBSAH ---
 Oblíbené formáty videí: ${d.s4.oblibena.join(', ')}
@@ -815,7 +972,14 @@ Nechce kolaborovat s: ${d.s5.kolaborace.join(', ')}
 Dostupnost: ${d.s6.dostupnost}
 Co ji baví: ${d.s6.love}
 
---- 08 OSTATNI ---
+--- 08 CHATTING ---
+Obsah, který dělá: ${d.s8.content.join(', ')}
+Doba dodání customu: ${d.s8.delivery}
+Live na OF: ${[d.s8.live, d.s8.liveSchedule].filter(Boolean).join(' | ')}
+Tvrdé limity: ${d.s8.limits.join(', ')}
+Jak ji mají fanoušci popsat: ${d.s8.fansDesc}
+
+--- 09 OSTATNI ---
 Videohovory: ${d.s7.videohovory}
 Co při videohovorech nechce: ${d.s7.video_limity}
 Custom obsah cena: ${d.s7.customs}
@@ -836,6 +1000,11 @@ Hobbies & interests: ${d.s1.hobby}
 Story: ${d.s1.pribeh}
 Personality: ${d.s1.osobnost.join(', ')}
 What makes her different: ${d.s1.odliseni}
+Public birthday: ${d.s1.stageBd}
+Public age: ${d.s1.stageAge}
+Nationality: ${d.s1.nationality}
+Nicknames: ${d.s1.stageNick}
+English level: ${d.s1.english}
 
 --- 02 VIBE ---
 Archetype: ${d.s2.archetypy.join(', ')}
@@ -862,7 +1031,7 @@ Waist: ${d.s3b.waist}
 Hips: ${d.s3b.hips}
 Shoe size: ${d.s3b.shoe}
 Dress size: ${d.s3b.dress}
-Hair color: ${d.s3b.hair}
+Hair color: ${[d.s3b.hair, d.s3b.hairType].filter(Boolean).join(', ')}
 
 --- 05 CONTENT ---
 Favorite video formats: ${d.s4.oblibena.join(', ')}
@@ -877,7 +1046,14 @@ Won't collab with: ${d.s5.kolaborace.join(', ')}
 Availability: ${d.s6.dostupnost}
 What she enjoys: ${d.s6.love}
 
---- 08 OTHER ---
+--- 08 CHATTING ---
+Content she does: ${d.s8.content.join(', ')}
+Custom delivery time: ${d.s8.delivery}
+Live on OF: ${[d.s8.live, d.s8.liveSchedule].filter(Boolean).join(' | ')}
+Hard limits: ${d.s8.limits.join(', ')}
+How fans should describe her: ${d.s8.fansDesc}
+
+--- 09 OTHER ---
 Video calls: ${d.s7.videohovory}
 What she doesn't want during video calls: ${d.s7.video_limity}
 Custom content price: ${d.s7.customs}
@@ -926,6 +1102,8 @@ function addBullet(id){
 }
 
 function toggleArch(btn){ btn.classList.toggle('selected'); }
+// Single choice: selecting one button clears the others in the same group (click again to clear).
+function pickOne(btn){ const was = btn.classList.contains('selected'); btn.parentElement.querySelectorAll('.arch-btn').forEach(b => b.classList.remove('selected')); if(!was) btn.classList.add('selected'); }
 
 function addKw(wrapId, inputId){
   const inp = document.getElementById(inputId);
@@ -953,18 +1131,20 @@ document.addEventListener('keydown', e => {
 function gv(id){ const el=document.getElementById(id); return el?el.value.trim():''; }
 function gi(cid){ const el=document.getElementById(cid); if(!el)return[]; return Array.from(el.querySelectorAll('input[type=text]')).map(i=>i.value.trim()).filter(Boolean); }
 function gk(wid){ const w=document.getElementById(wid); if(!w)return[]; return Array.from(w.querySelectorAll('.kw-tag')).map(t=>t.textContent.replace('×','').trim()); }
+function gGroup(id){ const g=document.getElementById(id); if(!g)return[]; return Array.from(g.querySelectorAll('.arch-btn.selected')).map(b=>b.textContent); }
 function gArch(secId){ const sec=document.getElementById(secId); if(!sec)return[]; return Array.from(sec.querySelectorAll('.arch-btn.selected')).map(b=>b.textContent); }
 
 function collectAll(){
   return {
     model: gv('cv-name'), date: gv('cv-date'),
-    s1: { vek:'', vyska:gv('s1-height'), oci:gv('s1-eyes'), lokace:gv('s1-loc'), tetovani:gv('s1-tattoos'), mazlicek:gv('s1-pet'), vztah:gArch('sec1').join(', '), hobby:gv('s1-hobbies'), zaliby:gv('s1-zaliby'), pribeh:gv('s1-story'), osobnost:gi('s1-traits'), odliseni:gv('s1-diff') },
+    s1: { vek:'', vyska:gv('s1-height'), oci:gv('s1-eyes'), lokace:gv('s1-loc'), tetovani:gv('s1-tattoos'), mazlicek:gv('s1-pet'), vztah:gGroup('s1-rel').join(', '), stageBd:gv('s1-stagebd'), stageAge:gv('s1-stageage'), nationality:gv('s1-nat'), stageNick:gv('s1-stagenick'), english:gGroup('s1-english').join(', '), hobby:gv('s1-hobbies'), zaliby:gv('s1-zaliby'), pribeh:gv('s1-story'), osobnost:gi('s1-traits'), odliseni:gv('s1-diff') },
     s2: { archetypy:gArch('sec2'), vlastni:gv('s2-custom'), vibe:gv('s2-vibe') },
     s3: { tov:gv('s3-tov'), osloveni:gk('kw-fans'), slova:gk('kw-words') },
-    s3b: { color:gv('s3b-color'), food:gv('s3b-food'), movie:gv('s3b-movie'), music:gv('s3b-music'), nickname:[...gArch('sec3b-nick'), gv('s3b-nick-other')].filter(Boolean).join(', '), emoji:gv('s3b-emoji'), pets:gv('s3b-pets'), day:gv('s3b-day'), weight:gv('s3b-weight'), bra:gv('s3b-bra'), waist:gv('s3b-waist'), hips:gv('s3b-hips'), shoe:gv('s3b-shoe'), dress:gv('s3b-dress'), hair:gv('s3b-hair') },
+    s3b: { color:gv('s3b-color'), food:gv('s3b-food'), movie:gv('s3b-movie'), music:gv('s3b-music'), nickname:[...gArch('sec3b-nick'), gv('s3b-nick-other')].filter(Boolean).join(', '), emoji:gv('s3b-emoji'), pets:gv('s3b-pets'), day:gv('s3b-day'), weight:gv('s3b-weight'), bra:gv('s3b-bra'), waist:gv('s3b-waist'), hips:gv('s3b-hips'), shoe:gv('s3b-shoe'), dress:gv('s3b-dress'), hair:gv('s3b-hair'), hairType:gGroup('s3b-hairtype').join(', ') },
     s4: { oblibena:gi('s4-fav'), reference:gi('s4-refs'), never:gv('s4-never') },
     s5: { temata:gi('s5-top'), kolaborace:gi('s5-col') },
     s6: { dostupnost:gArch('sec6').join(', '), love:gv('s6-love') },
+    s8: { content:gGroup('s8-content'), delivery:gGroup('s8-delivery').join(', '), live:gGroup('s8-live').join(', '), liveSchedule:gv('s8-live-schedule'), limits:[...gGroup('s8-limits'), gv('s8-limits-other')].filter(Boolean), fansDesc:gv('s8-fansdesc') },
     s7: { goal:gv('s7-goal'), customs:gv('s7-customs'), videohovory:gArch('sec7').join(', '), video_limity:gv('s7-calls-limits'), poznamky:gv('s7-notes') }
   };
 }
@@ -1158,6 +1338,9 @@ function exportFullPDF(){
   y+=2;pdf.setDrawColor(233,69,96);pdf.setLineWidth(0.5);pdf.line(M,y,W-M,y);y+=8;
   title('01  Kdo jsi');
   lbl('Vek');val(d.s1.vek);
+  lbl('Verejny vek');val(d.s1.stageAge);
+  lbl('Narodnost');val(d.s1.nationality);
+  lbl('Anglictina');val(d.s1.english);
   lbl('Odkud');val(d.s1.lokace);
   lbl('Pribeh');val(d.s1.pribeh);
   lbl('Osobnost');buls(d.s1.osobnost);
@@ -1183,7 +1366,14 @@ function exportFullPDF(){
   lbl('Situace');val(d.s6.dostupnost||'—');
   lbl('Co ji bavi');val(d.s6.love);
   sp();
-  title('07  Cil');
+  title('07  Chatting');
+  lbl('Obsah ktery dela');buls(d.s8.content);
+  lbl('Doba dodani customu');val(d.s8.delivery);
+  lbl('Live na OF');val([d.s8.live,d.s8.liveSchedule].filter(Boolean).join(' | '));
+  lbl('Tvrde limity');buls(d.s8.limits);
+  lbl('Jak ji maji fanousci popsat');val(d.s8.fansDesc);
+  sp();
+  title('08  Cil');
   val(d.s7.goal);
 
   pdf.save(name.replace(/\s+/g,'_')+'_creator_bible.pdf');
