@@ -153,6 +153,50 @@
   .popup-logo { letter-spacing: 3px; white-space: nowrap; }
   .popup-logo .pl-dot { margin: 0 -2px; }
   @media (max-width: 520px) { .header-logo .mgmt { display: none; } .popup-logo { flex-direction: column; gap: 6px; letter-spacing: 3px; } .popup-logo .pl-dot { display: none; } }
+  /* FORM SCREENS: ambient particles, directional section transitions, staggered rows, control feedback, finish screen */
+  .pg-canvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+  .pg-shift { position: fixed; z-index: 0; pointer-events: none; transition: transform 1.4s cubic-bezier(.2,.8,.2,1); }
+  .pg-shift.s1 { left: -8vmax; top: -10vmax; transform: translate(calc(var(--sec, 0) * 2.2vw), calc(var(--sec, 0) * 1.6vh)); }
+  .pg-shift.s2 { right: -10vmax; bottom: -12vmax; transform: translate(calc(var(--sec, 0) * -2vw), calc(var(--sec, 0) * -1.4vh)); }
+  .pg-blob { width: 38vmax; height: 38vmax; border-radius: 50%; background: radial-gradient(circle, rgba(18,179,76,0.20), transparent 66%); will-change: transform; }
+  .pg-shift.s1 .pg-blob { animation: drift1 26s ease-in-out infinite alternate; }
+  .pg-shift.s2 .pg-blob { background: radial-gradient(circle, rgba(10,120,56,0.24), transparent 66%); animation: drift2 30s ease-in-out infinite alternate; }
+  .section.active { animation: secInR .55s cubic-bezier(.2,.8,.2,1); }
+  .section.active.from-l { animation-name: secInL; }
+  .section.active > * { animation: rowIn .65s cubic-bezier(.2,.8,.2,1) backwards; }
+  .section.active > *:nth-child(1) { animation-delay: .03s; } .section.active > *:nth-child(2) { animation-delay: .08s; }
+  .section.active > *:nth-child(3) { animation-delay: .13s; } .section.active > *:nth-child(4) { animation-delay: .18s; }
+  .section.active > *:nth-child(5) { animation-delay: .23s; } .section.active > *:nth-child(6) { animation-delay: .28s; }
+  .section.active > *:nth-child(7) { animation-delay: .33s; } .section.active > *:nth-child(8) { animation-delay: .38s; }
+  .section.active > *:nth-child(n+9) { animation-delay: .43s; }
+  @keyframes secInR { from { opacity: 0; translate: 38px 0; } to { opacity: 1; translate: 0 0; } }
+  @keyframes secInL { from { opacity: 0; translate: -38px 0; } to { opacity: 1; translate: 0 0; } }
+  @keyframes rowIn { from { opacity: 0; translate: 0 16px; } to { opacity: 1; translate: 0 0; } }
+  .arch-btn.selected { animation: chipPop .45s cubic-bezier(.3,1.7,.5,1); }
+  @keyframes chipPop { 0% { transform: scale(.93); box-shadow: 0 0 0 0 rgba(57,230,115,0.6); } 55% { transform: scale(1.04); } 100% { transform: scale(1); box-shadow: 0 0 16px rgba(18,179,76,0.18); } }
+  input[type=text]:focus, textarea:focus { box-shadow: 0 0 0 3px rgba(18,179,76,0.16), 0 0 28px rgba(18,179,76,0.16); }
+  .bullet-dot { transition: transform .2s, box-shadow .2s; }
+  .bullet-row:focus-within .bullet-dot { transform: scale(1.5); box-shadow: 0 0 14px var(--glow); }
+  .bullet-row.new { animation: bulletIn .45s cubic-bezier(.2,.8,.2,1); }
+  @keyframes bulletIn { from { opacity: 0; translate: -14px 0; } to { opacity: 1; translate: 0 0; } }
+  .kw-tag { animation: chipPop .4s cubic-bezier(.3,1.7,.5,1); }
+  .btn-nav.primary { position: relative; overflow: hidden; }
+  .btn-nav.primary::after { content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; transform: skewX(-20deg); pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent); transition: left .7s ease; }
+  .btn-nav.primary:hover::after { left: 130%; }
+  .progress-bar { position: relative; }
+  .progress-bar::after { content: ""; position: absolute; right: -3px; top: 50%; width: 8px; height: 8px; margin-top: -4px; border-radius: 50%; background: #c9ffdc; box-shadow: 0 0 10px 3px var(--accent-soft); animation: headPulse 1.7s ease-in-out infinite; }
+  .progress-bar[style*="width:0%"]::after, .progress-bar[style*="width: 0%"]::after { display: none; }
+  @keyframes headPulse { 0%, 100% { opacity: .75; transform: scale(.85); } 50% { opacity: 1; transform: scale(1.25); } }
+  .nav-dot { animation: dotIn .5s cubic-bezier(.3,1.6,.5,1) backwards; animation-delay: calc(var(--i, 0) * 30ms); }
+  @keyframes dotIn { from { opacity: 0; transform: scale(.2); } to { opacity: 1; transform: scale(1); } }
+  #sec-export .export-screen { transform: perspective(1100px) rotateX(var(--erx, 0deg)) rotateY(var(--ery, 0deg)); transform-style: preserve-3d; will-change: transform; }
+  #sec-export .export-icon { transform: translateZ(50px); animation: iconIn 1s cubic-bezier(.2,1.4,.4,1) .15s backwards; }
+  #sec-export .export-title { transform: translateZ(34px); background: linear-gradient(90deg, var(--text) 40%, var(--accent-soft) 50%, var(--text) 60%); background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: titleShine 3.4s ease .5s 1 both; }
+  #sec-export .export-sub, #sec-export .export-btns { transform: translateZ(22px); }
+  #sec-export .summary-card { transform: translateZ(12px); box-shadow: 0 24px 50px rgba(0,0,0,0.45), 0 0 30px rgba(18,179,76,0.08); }
+  @keyframes iconIn { from { opacity: 0; scale: .3; rotate: -45deg; } to { opacity: 1; scale: 1; rotate: 0deg; } }
+  @keyframes titleShine { from { background-position: 100% 0; } to { background-position: 0 0; } }
   @media (max-width: 480px) { .grid2 { grid-template-columns: 1fr; } .sec-title { font-size: 26px; } }
 </style>
 </head>
@@ -184,6 +228,9 @@
     <button class="popup-btn" id="popup-btn" onclick="startForm()">Začít dotazník →</button>
   </div>
 </div>
+
+<div class="pg-shift s1"><div class="pg-blob"></div></div><div class="pg-shift s2"><div class="pg-blob"></div></div>
+<canvas class="pg-canvas" id="pg-fx" aria-hidden="true"></canvas>
 
 <header class="app-header">
   <div class="header-logo"><svg class="star" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1L23 12L12 23L1 12Z" stroke="url(#zgH)" stroke-width="1.2"/><path d="M12 7L17 12L12 17L7 12Z" fill="url(#zgH)"/><defs><linearGradient id="zgH" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#39e673"/><stop offset="1" stop-color="#12b34c"/></linearGradient></defs></svg><span>Zion<span class="mgmt"> Management</span></span><span class="tag">Creator Bible</span></div>
@@ -524,6 +571,7 @@ function buildDots(){
   for(let i=0;i<TOTAL;i++){
     const d = document.createElement('div');
     d.className = 'nav-dot' + (i===cur?' active':i<cur?' done':'');
+    d.style.setProperty('--i', i);
     const idx = i;
     d.onclick = () => goTo(idx);
     c.appendChild(d);
@@ -531,9 +579,13 @@ function buildDots(){
 }
 
 function goTo(idx){
+  const dir = idx < cur ? 'from-l' : 'from-r';
   document.getElementById(SECTIONS[cur]).classList.remove('active');
   cur = idx;
-  document.getElementById(SECTIONS[cur]).classList.add('active');
+  const nxt = document.getElementById(SECTIONS[cur]);
+  nxt.classList.remove('from-l', 'from-r');
+  nxt.classList.add(dir, 'active');
+  document.body.style.setProperty('--sec', cur);
   const pct = cur === 0 ? 0 : Math.round((cur / (TOTAL-1)) * 100);
   document.getElementById('prog').style.width = pct + '%';
   document.getElementById('hdr-step').textContent = ({cz: LABELS, en: LABELS_EN, es: LABELS_ES})[lang][cur];
@@ -550,7 +602,7 @@ function goTo(idx){
       nextBtn.onclick = () => navigate(1);
     }
   }
-  if(cur === TOTAL-1) buildSummary();
+  if(cur === TOTAL-1){ buildSummary(); celebrate(); }
   buildDots();
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -968,6 +1020,7 @@ function startForm(){
   document.getElementById('popup').style.display = 'none';
   applyTranslations();
   buildDots();
+  if(window.startPageFx) window.startPageFx();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -1079,6 +1132,116 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('visibilitychange', () => { if(document.hidden){ cancelAnimationFrame(raf); raf = 0; } else run(); });
   run();
 });
+
+// Form screens: faint particle field behind the questions (reacts to the pointer), and the finish screen tilts.
+document.addEventListener('DOMContentLoaded', () => {
+  const cvs = document.getElementById('pg-fx');
+  if(!cvs || !cvs.getContext) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ cvs.style.display = 'none'; return; }
+  const ctx = cvs.getContext('2d');
+  let W = 0, H = 0, dpr = 1, parts = [], px = -999, py = -999, lastMove = 0, raf = 0, last = 0;
+  let erx = 0, ery = 0;
+
+  function spawn(){
+    const d = Math.random() < 0.2;
+    return { x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .18, vy: (Math.random() - .5) * .18 - .03,
+      r: d ? 4 + Math.random() * 5 : 1 + Math.random() * 1.8, a: .25 + Math.random() * .4, d, rot: Math.random() * 6.28, vr: (Math.random() - .5) * .003 };
+  }
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    cvs.width = W * dpr; cvs.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.round(Math.min(34, Math.max(14, W * H / 42000)));
+    while(parts.length < n) parts.push(spawn());
+    parts.length = n;
+  }
+  function frame(now){
+    if(document.hidden || document.getElementById('popup').style.display !== 'none'){ raf = 0; return; }
+    const dt = Math.min(48, now - (last || now)); last = now;
+    const step = dt / 16.7;
+    ctx.clearRect(0, 0, W, H);
+    for(const p of parts){
+      const dx = p.x - px, dy = p.y - py, dist = Math.hypot(dx, dy);
+      if(dist < 140 && dist > 0){ const f = (1 - dist / 140) * .3 * step; p.vx += dx / dist * f; p.vy += dy / dist * f; }
+      p.vx *= .985; p.vy *= .985;
+      if(Math.abs(p.vx) < .05) p.vx += (Math.random() - .5) * .008;
+      if(Math.abs(p.vy) < .05) p.vy += (Math.random() - .5) * .008;
+      p.x += p.vx * step; p.y += p.vy * step; p.rot += p.vr * dt;
+      if(p.x < -20) p.x = W + 20; else if(p.x > W + 20) p.x = -20;
+      if(p.y < -20) p.y = H + 20; else if(p.y > H + 20) p.y = -20;
+    }
+    ctx.lineWidth = 1;
+    for(let i = 0; i < parts.length; i++){
+      const a = parts[i];
+      for(let j = i + 1; j < parts.length; j++){
+        const b = parts[j], d = Math.hypot(a.x - b.x, a.y - b.y);
+        if(d < 120){ ctx.strokeStyle = 'rgba(57,230,115,' + ((1 - d / 120) * .2).toFixed(3) + ')'; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+      }
+      const dm = Math.hypot(a.x - px, a.y - py);
+      if(dm < 160){ ctx.strokeStyle = 'rgba(120,255,170,' + ((1 - dm / 160) * .34).toFixed(3) + ')'; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(px, py); ctx.stroke(); }
+    }
+    for(const p of parts){
+      if(p.d){
+        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot); ctx.strokeStyle = 'rgba(57,230,115,' + (p.a * .8).toFixed(3) + ')';
+        ctx.beginPath(); ctx.moveTo(0, -p.r); ctx.lineTo(p.r, 0); ctx.lineTo(0, p.r); ctx.lineTo(-p.r, 0); ctx.closePath(); ctx.stroke(); ctx.restore();
+      } else { ctx.fillStyle = 'rgba(57,230,115,' + p.a.toFixed(3) + ')'; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.2832); ctx.fill(); }
+    }
+    // finish screen: tilt like the intro panel (pointer, or a slow breathing when idle)
+    if(cur === TOTAL - 1){
+      const idle = now - lastMove > 2200;
+      const tx = idle ? Math.sin(now / 2300) * 2.2 : -((py / H) - .5) * 2 * 5;
+      const ty = idle ? Math.cos(now / 2900) * 3 : ((px / W) - .5) * 2 * 6;
+      const k = 1 - Math.pow(.001, dt / 1000);
+      erx += (tx - erx) * k; ery += (ty - ery) * k;
+      const ex = document.getElementById('sec-export');
+      ex.style.setProperty('--erx', erx.toFixed(2) + 'deg'); ex.style.setProperty('--ery', ery.toFixed(2) + 'deg');
+    }
+    raf = requestAnimationFrame(frame);
+  }
+  window.startPageFx = function(){ if(!raf && !document.hidden){ last = 0; raf = requestAnimationFrame(frame); } };
+  resize();
+  window.addEventListener('resize', resize);
+  window.addEventListener('pointermove', e => { px = e.clientX; py = e.clientY; lastMove = performance.now(); });
+  document.addEventListener('pointerleave', () => { px = py = -999; lastMove = 0; });
+  document.addEventListener('visibilitychange', () => { if(document.hidden){ cancelAnimationFrame(raf); raf = 0; } else if(document.getElementById('popup').style.display === 'none') window.startPageFx(); });
+});
+
+// Confetti of green diamonds when the questionnaire is finished.
+function celebrate(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const c = document.createElement('canvas');
+  c.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;z-index:400;pointer-events:none';
+  document.body.appendChild(c);
+  const dpr = Math.min(window.devicePixelRatio || 1, 2), W = window.innerWidth, H = window.innerHeight;
+  c.width = W * dpr; c.height = H * dpr;
+  const ctx = c.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const colors = ['#39e673', '#12b34c', '#c9ffdc', '#0a8c3e', '#f2f5f0'];
+  const bursts = [[W * .5, H * .34], [W * .2, H * .5], [W * .8, H * .5]];
+  const ps = [];
+  bursts.forEach(([ox, oy], bi) => { for(let i = 0; i < (bi ? 38 : 60); i++){
+    const ang = (bi === 0 ? -Math.PI / 2 : bi === 1 ? -Math.PI / 3 : -2 * Math.PI / 3) + (Math.random() - .5) * 1.8, sp = 5 + Math.random() * 9;
+    ps.push({ x: ox, y: oy, vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp, r: 3 + Math.random() * 5, rot: Math.random() * 6.28, vr: (Math.random() - .5) * .3,
+      col: colors[(Math.random() * colors.length) | 0], dia: Math.random() < .65, delay: bi * 180 });
+  } });
+  const t0 = performance.now(); let prev = t0;
+  (function tick(now){
+    const t = now - t0, dt = Math.min(48, now - prev) / 16.7; prev = now;
+    ctx.clearRect(0, 0, W, H);
+    let alive = 0;
+    for(const p of ps){
+      if(t < p.delay){ alive++; continue; }
+      p.vy += .22 * dt; p.vx *= Math.pow(.992, dt); p.vy *= Math.pow(.992, dt); p.x += p.vx * dt; p.y += p.vy * dt; p.rot += p.vr * dt;
+      const life = (t - p.delay) / 3400; if(life >= 1 || p.y > H + 30) continue; alive++;
+      ctx.globalAlpha = life > .65 ? 1 - (life - .65) / .35 : 1; ctx.fillStyle = p.col;
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+      if(p.dia){ ctx.beginPath(); ctx.moveTo(0, -p.r); ctx.lineTo(p.r * .7, 0); ctx.lineTo(0, p.r); ctx.lineTo(-p.r * .7, 0); ctx.closePath(); ctx.fill(); }
+      else { ctx.beginPath(); ctx.arc(0, 0, p.r * .45, 0, 6.2832); ctx.fill(); }
+      ctx.restore();
+    }
+    ctx.globalAlpha = 1;
+    if(alive && t < 4200) requestAnimationFrame(tick); else c.remove();
+  })(t0);
+}
 
 function navigate(d){ goTo(Math.max(0, Math.min(TOTAL-1, cur+d))); }
 
@@ -1375,7 +1538,7 @@ Goal: ${d.s7.goal}`;
 function addBullet(id){
   const list = document.getElementById(id);
   const row = document.createElement('div');
-  row.className = 'bullet-row';
+  row.className = 'bullet-row new';
   row.innerHTML = '<div class="bullet-dot"></div><input type="text" placeholder="...">';
   list.appendChild(row);
 }
