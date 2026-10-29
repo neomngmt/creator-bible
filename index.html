@@ -197,6 +197,9 @@
   #sec-export .summary-card { transform: translateZ(12px); box-shadow: 0 24px 50px rgba(0,0,0,0.45), 0 0 30px rgba(18,179,76,0.08); }
   @keyframes iconIn { from { opacity: 0; scale: .3; rotate: -45deg; } to { opacity: 1; scale: 1; rotate: 0deg; } }
   @keyframes titleShine { from { background-position: 100% 0; } to { background-position: 0 0; } }
+  /* progress bar lives inside the header, so it always sits exactly on its bottom edge */
+  .app-header { border-bottom: none; }
+  .app-header .progress-wrap { position: absolute; top: auto; left: 0; right: 0; bottom: 0; z-index: 1; }
   @media (max-width: 480px) { .grid2 { grid-template-columns: 1fr; } .sec-title { font-size: 26px; } }
 </style>
 </head>
@@ -235,8 +238,8 @@
 <header class="app-header">
   <div class="header-logo"><svg class="star" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1L23 12L12 23L1 12Z" stroke="url(#zgH)" stroke-width="1.2"/><path d="M12 7L17 12L12 17L7 12Z" fill="url(#zgH)"/><defs><linearGradient id="zgH" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#39e673"/><stop offset="1" stop-color="#12b34c"/></linearGradient></defs></svg><span>Zion<span class="mgmt"> Management</span></span><span class="tag">Creator Bible</span></div>
   <div class="header-step" id="hdr-step">Úvod</div>
+  <div class="progress-wrap"><div class="progress-bar" id="prog" style="width:0%"></div></div>
 </header>
-<div class="progress-wrap"><div class="progress-bar" id="prog" style="width:0%"></div></div>
 
 <main class="main">
 
