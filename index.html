@@ -118,6 +118,37 @@
   .lang-btn { flex: 1; padding: .65rem; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); transition: all .15s; }
   .lang-btn.active { border-color: var(--accent-soft); background: rgba(57,230,115,0.12); color: var(--accent-soft); box-shadow: 0 0 14px rgba(18,179,76,0.2); }
   .lang-btn:hover { border-color: var(--border-hover); }
+  /* INTRO: tilting 3D panel, drifting aurora, interactive particles */
+  .popup-overlay { perspective: 1100px; overflow-y: auto; overflow-x: hidden; align-items: flex-start; --rx: 0deg; --ry: 0deg; --mx: 50%; --my: 30%; --sheen: 0; }
+  .popup-overlay::before { z-index: 0; }
+  .popup-box { margin: auto; z-index: 2; transform: rotateX(var(--rx)) rotateY(var(--ry)); transform-style: preserve-3d; will-change: transform; animation: boxIn .9s cubic-bezier(.2,.8,.2,1) backwards; }
+  .popup-box::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: var(--sheen);
+    background: radial-gradient(420px circle at var(--mx) var(--my), rgba(120,255,170,0.16), transparent 55%); transition: opacity .25s; }
+  .popup-box > * { animation: popIn .75s cubic-bezier(.2,.8,.2,1) backwards; }
+  .popup-box > *:nth-child(1) { animation-delay: .20s; } .popup-box > *:nth-child(2) { animation-delay: .28s; }
+  .popup-box > *:nth-child(3) { animation-delay: .36s; } .popup-box > *:nth-child(4) { animation-delay: .44s; }
+  .popup-box > *:nth-child(5) { animation-delay: .52s; } .popup-box > *:nth-child(6) { animation-delay: .60s; }
+  .popup-box > *:nth-child(7) { animation-delay: .68s; }
+  .popup-logo { transform: translateZ(34px); } .popup-title { transform: translateZ(46px); } .popup-note { transform: translateZ(22px); }
+  .popup-langs { transform: translateZ(26px); } .popup-input-wrap { transform: translateZ(18px); } .popup-btn { transform: translateZ(40px); }
+  .popup-btn { position: relative; overflow: hidden; }
+  .popup-btn::after { content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; transform: skewX(-20deg); pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent); transition: left .7s ease; }
+  .popup-btn:hover::after { left: 130%; }
+  .popup-btn:hover { transform: translateZ(40px) translateY(-2px); }
+  .popup-title.swap, .popup-note.swap, .popup-why p.swap, .popup-why-title.swap, .popup-btn.swap { animation: swapIn .35s ease; }
+  .fx-canvas, .fx-blob { position: fixed; pointer-events: none; }
+  .fx-canvas { inset: 0; width: 100%; height: 100%; z-index: 1; }
+  .fx-blob { z-index: 0; border-radius: 50%; filter: blur(70px); opacity: .5; will-change: transform; }
+  .fx-blob.b1 { width: 46vmax; height: 46vmax; left: -12vmax; top: -14vmax; background: rgba(18,179,76,0.38); animation: drift1 19s ease-in-out infinite alternate; }
+  .fx-blob.b2 { width: 40vmax; height: 40vmax; right: -14vmax; bottom: -16vmax; background: rgba(10,92,44,0.55); animation: drift2 23s ease-in-out infinite alternate; }
+  .fx-blob.b3 { width: 26vmax; height: 26vmax; left: 52%; top: 8%; background: rgba(57,230,115,0.20); animation: drift3 27s ease-in-out infinite alternate; }
+  @keyframes boxIn { from { opacity: 0; translate: 0 26px; scale: .965; } to { opacity: 1; translate: 0 0; scale: 1; } }
+  @keyframes popIn { from { opacity: 0; translate: 0 16px; } to { opacity: 1; translate: 0 0; } }
+  @keyframes swapIn { from { opacity: .15; translate: 0 6px; } to { opacity: 1; translate: 0 0; } }
+  @keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(14vw,10vh) scale(1.18); } }
+  @keyframes drift2 { from { transform: translate(0,0) scale(1.1); } to { transform: translate(-12vw,-12vh) scale(.92); } }
+  @keyframes drift3 { from { transform: translate(0,0) scale(.9); } to { transform: translate(-18vw,16vh) scale(1.15); } }
   @media (max-width: 480px) { .grid2 { grid-template-columns: 1fr; } .sec-title { font-size: 26px; } }
 </style>
 </head>
@@ -125,12 +156,14 @@
 
 <!-- POPUP -->
 <div class="popup-overlay" id="popup">
+  <div class="fx-blob b1"></div><div class="fx-blob b2"></div><div class="fx-blob b3"></div>
+  <canvas class="fx-canvas" id="popup-fx" aria-hidden="true"></canvas>
   <div class="popup-box">
     <div class="popup-logo"><svg class="star" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1L23 12L12 23L1 12Z" stroke="url(#zgP)" stroke-width="1.2"/><path d="M12 7L17 12L12 17L7 12Z" fill="url(#zgP)"/><defs><linearGradient id="zgP" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#39e673"/><stop offset="1" stop-color="#12b34c"/></linearGradient></defs></svg><span>Zion &middot; Creator Bible</span></div>
     <div class="popup-title" id="popup-title">Vítej 👋</div>
     <p class="popup-note" id="popup-note">Než začneš, vyber jazyk a řekni nám jak se jmenuješ.</p>
     
-    <div style="display:flex;gap:10px;margin-bottom:1.25rem">
+    <div class="popup-langs" style="display:flex;gap:10px;margin-bottom:1.25rem">
       <button class="lang-btn active" id="lang-cz" onclick="setLang('cz')">🇨🇿 Čeština</button>
       <button class="lang-btn" id="lang-en" onclick="setLang('en')">🇬🇧 English</button>
     </div>
@@ -709,6 +742,7 @@ function setLang(l) {
   document.getElementById('popup-why-2').textContent = t.popupWhy2;
   document.getElementById('popup-name').placeholder = t.popupNamePlaceholder;
   document.getElementById('popup-btn').textContent = t.popupBtn;
+  ['popup-title','popup-note','popup-why-title','popup-why-1','popup-why-2','popup-btn'].forEach(id => { const el = document.getElementById(id); el.classList.remove('swap'); void el.offsetWidth; el.classList.add('swap'); });
 }
 
 function applyTranslations() {
@@ -822,6 +856,110 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('popup-name').addEventListener('keydown', e => {
     if(e.key === 'Enter') startForm();
   });
+});
+
+// Intro screen: panel tilts toward the pointer, particles drift and react to it.
+// Everything is skipped for "reduce motion" and stops once the questionnaire starts.
+document.addEventListener('DOMContentLoaded', () => {
+  const overlay = document.getElementById('popup');
+  const box = overlay && overlay.querySelector('.popup-box');
+  const cvs = document.getElementById('popup-fx');
+  if(!overlay || !box || !cvs || !cvs.getContext) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ cvs.style.display = 'none'; return; }
+  const ctx = cvs.getContext('2d');
+  const MAX_TILT = 7;
+  let W = 0, H = 0, dpr = 1, parts = [];
+  let rx = 0, ry = 0, tx = 0, ty = 0, sheen = 0, tSheen = 0;
+  let px = -999, py = -999, lastMove = 0, raf = 0, last = 0;
+
+  function seed(){
+    const n = Math.round(Math.min(70, Math.max(24, W * H / 20000)));
+    while(parts.length < n) parts.push(spawn());
+    parts.length = n;
+  }
+  function spawn(){
+    const diamond = Math.random() < 0.22;
+    return { x: Math.random() * W, y: Math.random() * H,
+      vx: (Math.random() - .5) * .22, vy: (Math.random() - .5) * .22 - .04,
+      r: diamond ? 5 + Math.random() * 6 : 1.1 + Math.random() * 2, a: .45 + Math.random() * .5,
+      d: diamond, rot: Math.random() * 6.28, vr: (Math.random() - .5) * .004 };
+  }
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    cvs.width = W * dpr; cvs.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    seed();
+  }
+  function onMove(e){
+    px = e.clientX; py = e.clientY; lastMove = performance.now();
+    const typing = document.activeElement && document.activeElement.tagName === 'INPUT';
+    if(typing){ tx = 0; ty = 0; tSheen = .35; }
+    else { tx = -((py / H) - .5) * 2 * MAX_TILT; ty = ((px / W) - .5) * 2 * MAX_TILT; tSheen = 1; }
+    const r = box.getBoundingClientRect();
+    overlay.style.setProperty('--mx', ((px - r.left) / r.width * 100).toFixed(1) + '%');
+    overlay.style.setProperty('--my', ((py - r.top) / r.height * 100).toFixed(1) + '%');
+  }
+  function onLeave(){ lastMove = 0; px = py = -999; }
+
+  function frame(now){
+    if(overlay.style.display === 'none'){ raf = 0; return; }
+    const dt = Math.min(48, now - (last || now)); last = now;
+    // idle: slow breathing tilt so it feels alive without a pointer (phones)
+    if(now - lastMove > 2200){
+      tx = Math.sin(now / 2100) * 2.4; ty = Math.cos(now / 2700) * 3; tSheen = 0;
+      const t = now / 3000; overlay.style.setProperty('--mx', (50 + Math.cos(t) * 30).toFixed(1) + '%'); overlay.style.setProperty('--my', (35 + Math.sin(t) * 25).toFixed(1) + '%');
+    }
+    const k = 1 - Math.pow(.001, dt / 1000);
+    rx += (tx - rx) * k; ry += (ty - ry) * k; sheen += (tSheen - sheen) * k;
+    overlay.style.setProperty('--rx', rx.toFixed(2) + 'deg'); overlay.style.setProperty('--ry', ry.toFixed(2) + 'deg');
+    overlay.style.setProperty('--sheen', sheen.toFixed(2));
+
+    ctx.clearRect(0, 0, W, H);
+    const step = dt / 16.7;
+    for(const p of parts){
+      const dx = p.x - px, dy = p.y - py, dist = Math.hypot(dx, dy);
+      if(dist < 150 && dist > 0){ const f = (1 - dist / 150) * .35 * step; p.vx += dx / dist * f; p.vy += dy / dist * f; }
+      p.vx *= .985; p.vy *= .985;
+      if(Math.abs(p.vx) < .06) p.vx += (Math.random() - .5) * .01;
+      if(Math.abs(p.vy) < .06) p.vy += (Math.random() - .5) * .01;
+      p.x += p.vx * step; p.y += p.vy * step; p.rot += p.vr * dt;
+      if(p.x < -20) p.x = W + 20; else if(p.x > W + 20) p.x = -20;
+      if(p.y < -20) p.y = H + 20; else if(p.y > H + 20) p.y = -20;
+    }
+    // faint links between neighbours and to the pointer
+    ctx.lineWidth = 1;
+    for(let i = 0; i < parts.length; i++){
+      const a = parts[i];
+      for(let j = i + 1; j < parts.length; j++){
+        const b = parts[j], d = Math.hypot(a.x - b.x, a.y - b.y);
+        if(d < 120){ ctx.strokeStyle = 'rgba(57,230,115,' + ((1 - d / 120) * .26).toFixed(3) + ')'; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+      }
+      const dm = Math.hypot(a.x - px, a.y - py);
+      if(dm < 170){ ctx.strokeStyle = 'rgba(120,255,170,' + ((1 - dm / 170) * .35).toFixed(3) + ')'; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(px, py); ctx.stroke(); }
+    }
+    for(const p of parts){
+      if(p.d){
+        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+        ctx.strokeStyle = 'rgba(57,230,115,' + (p.a * .7).toFixed(3) + ')'; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(0, -p.r); ctx.lineTo(p.r, 0); ctx.lineTo(0, p.r); ctx.lineTo(-p.r, 0); ctx.closePath(); ctx.stroke();
+        ctx.restore();
+      } else {
+        ctx.fillStyle = 'rgba(57,230,115,' + p.a.toFixed(3) + ')';
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.2832); ctx.fill();
+      }
+    }
+    raf = requestAnimationFrame(frame);
+  }
+  function run(){ if(!raf && !document.hidden){ last = 0; raf = requestAnimationFrame(frame); } }
+
+  resize();
+  window.addEventListener('resize', resize);
+  overlay.addEventListener('pointermove', onMove);
+  overlay.addEventListener('pointerleave', onLeave);
+  overlay.addEventListener('pointerup', e => { if(e.pointerType === 'touch') onLeave(); });
+  document.addEventListener('visibilitychange', () => { if(document.hidden){ cancelAnimationFrame(raf); raf = 0; } else run(); });
+  run();
 });
 
 function navigate(d){ goTo(Math.max(0, Math.min(TOTAL-1, cur+d))); }
