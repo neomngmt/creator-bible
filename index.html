@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Creator Bible | Zion</title>
+<title>Creator Bible | Zion Management</title>
 <meta name="theme-color" content="#07090a">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -149,6 +149,9 @@
   @keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(14vw,10vh) scale(1.18); } }
   @keyframes drift2 { from { transform: translate(0,0) scale(1.1); } to { transform: translate(-12vw,-12vh) scale(.92); } }
   @keyframes drift3 { from { transform: translate(0,0) scale(.9); } to { transform: translate(-18vw,16vh) scale(1.15); } }
+  .popup-logo { letter-spacing: 3px; white-space: nowrap; }
+  .popup-logo .pl-dot { margin: 0 -2px; }
+  @media (max-width: 520px) { .header-logo .mgmt { display: none; } .popup-logo { flex-direction: column; gap: 6px; letter-spacing: 3px; } .popup-logo .pl-dot { display: none; } }
   @media (max-width: 480px) { .grid2 { grid-template-columns: 1fr; } .sec-title { font-size: 26px; } }
 </style>
 </head>
@@ -159,7 +162,7 @@
   <div class="fx-blob b1"></div><div class="fx-blob b2"></div><div class="fx-blob b3"></div>
   <canvas class="fx-canvas" id="popup-fx" aria-hidden="true"></canvas>
   <div class="popup-box">
-    <div class="popup-logo"><svg class="star" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1L23 12L12 23L1 12Z" stroke="url(#zgP)" stroke-width="1.2"/><path d="M12 7L17 12L12 17L7 12Z" fill="url(#zgP)"/><defs><linearGradient id="zgP" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#39e673"/><stop offset="1" stop-color="#12b34c"/></linearGradient></defs></svg><span>Zion &middot; Creator Bible</span></div>
+    <div class="popup-logo"><svg class="star" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1L23 12L12 23L1 12Z" stroke="url(#zgP)" stroke-width="1.2"/><path d="M12 7L17 12L12 17L7 12Z" fill="url(#zgP)"/><defs><linearGradient id="zgP" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#39e673"/><stop offset="1" stop-color="#12b34c"/></linearGradient></defs></svg><span class="pl-a">Zion Management</span><span class="pl-dot">&middot;</span><span class="pl-b">Creator Bible</span></div>
     <div class="popup-title" id="popup-title">Vítej 👋</div>
     <p class="popup-note" id="popup-note">Než začneš, vyber jazyk a řekni nám jak se jmenuješ.</p>
     
@@ -181,7 +184,7 @@
 </div>
 
 <header class="app-header">
-  <div class="header-logo"><svg class="star" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1L23 12L12 23L1 12Z" stroke="url(#zgH)" stroke-width="1.2"/><path d="M12 7L17 12L12 17L7 12Z" fill="url(#zgH)"/><defs><linearGradient id="zgH" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#39e673"/><stop offset="1" stop-color="#12b34c"/></linearGradient></defs></svg><span>Zion</span><span class="tag">Creator Bible</span></div>
+  <div class="header-logo"><svg class="star" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1L23 12L12 23L1 12Z" stroke="url(#zgH)" stroke-width="1.2"/><path d="M12 7L17 12L12 17L7 12Z" fill="url(#zgH)"/><defs><linearGradient id="zgH" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#39e673"/><stop offset="1" stop-color="#12b34c"/></linearGradient></defs></svg><span>Zion<span class="mgmt"> Management</span></span><span class="tag">Creator Bible</span></div>
   <div class="header-step" id="hdr-step">Úvod</div>
 </header>
 <div class="progress-wrap"><div class="progress-bar" id="prog" style="width:0%"></div></div>
