@@ -136,6 +136,7 @@
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent); transition: left .7s ease; }
   .popup-btn:hover::after { left: 130%; }
   .popup-btn:hover { transform: translateZ(40px) translateY(-2px); }
+  .popup-langs .lang-btn { padding: .65rem .3rem; font-size: 13.5px; white-space: nowrap; }
   .popup-title.swap, .popup-note.swap, .popup-why p.swap, .popup-why-title.swap, .popup-btn.swap { animation: swapIn .35s ease; }
   .fx-canvas, .fx-blob { position: fixed; pointer-events: none; }
   .fx-canvas { inset: 0; width: 100%; height: 100%; z-index: 1; }
@@ -166,9 +167,10 @@
     <div class="popup-title" id="popup-title">Vítej 👋</div>
     <p class="popup-note" id="popup-note">Než začneš, vyber jazyk a řekni nám jak se jmenuješ.</p>
     
-    <div class="popup-langs" style="display:flex;gap:10px;margin-bottom:1.25rem">
+    <div class="popup-langs" style="display:flex;gap:8px;margin-bottom:1.25rem">
       <button class="lang-btn active" id="lang-cz" onclick="setLang('cz')">🇨🇿 Čeština</button>
       <button class="lang-btn" id="lang-en" onclick="setLang('en')">🇬🇧 English</button>
+      <button class="lang-btn" id="lang-es" onclick="setLang('es')">🇦🇷 Español</button>
     </div>
 
     <div class="popup-input-wrap">
@@ -512,6 +514,7 @@
 const SECTIONS = ['sec1','sec2','sec3','sec3b','sec4','sec5','sec6','sec6b','sec7','sec-export'];
 const LABELS = ['01 Kdo jsi','02 Tvůj vibe','03 Komunikace','04 Osobní info','05 Obsah','06 Hranice','07 Čas','08 Chatting','09 Cíl','Hotovo'];
 const LABELS_EN = ['01 Who you are','02 Your vibe','03 Communication','04 Personal info','05 Content','06 Boundaries','07 Time','08 Chatting','09 Goal','Done'];
+const LABELS_ES = ['01 Quién sos','02 Tu vibra','03 Comunicación','04 Info personal','05 Contenido','06 Límites','07 Tiempo','08 Chatting','09 Meta','Listo'];
 let cur = 0;
 const TOTAL = SECTIONS.length;
 
@@ -533,7 +536,7 @@ function goTo(idx){
   document.getElementById(SECTIONS[cur]).classList.add('active');
   const pct = cur === 0 ? 0 : Math.round((cur / (TOTAL-1)) * 100);
   document.getElementById('prog').style.width = pct + '%';
-  document.getElementById('hdr-step').textContent = (lang === 'en' ? LABELS_EN : LABELS)[cur];
+  document.getElementById('hdr-step').textContent = ({cz: LABELS, en: LABELS_EN, es: LABELS_ES})[lang][cur];
   document.getElementById('btn-prev').disabled = cur === 0;
   const nextBtn = document.getElementById('btn-next');
   if(cur === TOTAL-1){ nextBtn.style.display = 'none'; } else {
@@ -638,6 +641,11 @@ const translations = {
       limitsOptions: ['Žádný explicitní fetiš obsah', 'Žádné BG', 'Žádné videohovory', 'Žádný prodej nošených věcí'],
       limitsOtherPh: 'Další limity (napiš vlastní)',
       fansDescLabel: 'Jak mají fanoušci popsat tebe?', fansDescPh: 'Např. sladká, drzá, přirozená, někdo kdo je u nich pořád...',
+      archetypeOptions: ['Alternativní / tattoo vibe','Holka ze sousedství','Rozmazlená princezna','Gymrat / fitness holka','Gamerka / nerd','Jemná a nevinná','Latina / temperamentní','Tichá introvertka','Máma / MILF vibe','Dark / gothic','Party holka','Jiná...'],
+      traitPh: ['Např. odvážná, přímá, nedělám si starosti...','Další vlastnost...'], favPh: ['Např. talking selfie reels...','Např. outfit check, dance, POV...'],
+      refsPh: ['@profil - co se ti na ní líbí...','@profil...'], topPh: ['Např. politika, rodina, ex...','Další téma...'], colPh: ['Např. profily se špatnou reputací...'],
+      removeLabel: 'Odstranit', sending: 'Odesílám...',
+      sumName: 'Jméno', sumBirth: 'Datum narození', sumArch: 'Archetyp', sumStyle: 'Styl', sumAddr: 'Oslovení', sumAvail: 'Dostupnost', defName: 'Modelka',
       finishBtn: 'Dokončit ✓', nextBtn: 'Další →', backBtn: '← Zpět',
       exportTitle: 'hotovo!', exportSub: 'Tvoje Creator Bible je vyplněná a připravená ke stažení.',
       brandCardBtn: '★ Stáhnout Brand Card', fullPdfBtn: '↓ Stáhnout kompletní PDF',
@@ -726,9 +734,108 @@ const translations = {
       limitsOptions: ['No explicit fetish content', 'No BG', 'No video calls', 'No selling of worn items'],
       limitsOtherPh: 'Other limits (write your own)',
       fansDescLabel: 'How should fans describe you?', fansDescPh: 'E.g. sweet, sassy, natural, someone who is always there for them...',
+      archetypeOptions: ['Alternative / tattoo vibe','Girl next door','Spoiled princess','Gym rat / fitness girl','Gamer / nerd','Soft and innocent','Latina / fiery','Quiet introvert','Mom / MILF vibe','Dark / gothic','Party girl','Other...'],
+      traitPh: ['E.g. bold, direct, carefree...','Another trait...'], favPh: ['E.g. talking selfie reels...','E.g. outfit check, dance, POV...'],
+      refsPh: ['@profile - what you like about her...','@profile...'], topPh: ['E.g. politics, family, ex...','Another topic...'], colPh: ['E.g. profiles with a bad reputation...'],
+      removeLabel: 'Remove', sending: 'Sending...',
+      sumName: 'Name', sumBirth: 'Date of birth', sumArch: 'Archetype', sumStyle: 'Style', sumAddr: 'Addresses fans as', sumAvail: 'Availability', defName: 'Creator',
       finishBtn: 'Submit ✓', nextBtn: 'Next →', backBtn: '← Back',
       exportTitle: 'done!', exportSub: 'Your Creator Bible is complete and ready to download.',
       brandCardBtn: '★ Download Brand Card', fullPdfBtn: '↓ Download full PDF',
+    }
+  }
+  ,
+  es: {
+    popupTitle: '¡Bienvenida! 👋',
+    popupNote: 'Antes de empezar, elegí tu idioma y contanos cómo te llamás.',
+    popupWhyTitle: 'POR QUÉ ES IMPORTANTE ESTE CUESTIONARIO',
+    popupWhy1: 'Nos ayuda a captar tu personalidad, tu voz y tus intereses para que cada conversación con tus fans se sienta auténtica. El objetivo es que tu equipo de chatting escriba tal como lo harías vos, de forma natural.',
+    popupWhy2: 'Al completarlo, vas a tener herramientas para construir relaciones más fuertes con tus fans, más lealtad y más ventas, siendo siempre vos misma.',
+    popupNamePlaceholder: 'Tu nombre o alias...',
+    popupBtn: 'Empezar cuestionario →',
+    labels: {
+      sec1Title: '¿Quién sos?', sec1Note: 'Algunas cosas sobre vos. No hace falta que suene perfecto, queremos conocerte tal cual sos.',
+      dateOfBirth: 'Fecha de nacimiento', datePlaceholder: 'Ej. 24/11/2005',
+      height: 'Altura', heightPlaceholder: 'Ej. 1,68 m o 168 cm',
+      eyeColor: 'Color de ojos', eyePlaceholder: 'Ej. celestes, marrones...',
+      from: '¿De dónde sos?', fromPlaceholder: 'Ciudad, país',
+      tattoos: 'Tatuajes (cuántos)', tattoosPlaceholder: 'Ej. 3, ninguno...',
+      pet: '¿Tenés mascota?', petPlaceholder: 'Ej. perro, gato, no...',
+      relationship: '¿Estás soltera? / Estado de relación',
+      relSingle: 'Soltera', relTaken: 'En pareja', relComplicated: 'Complicado',
+      hobbies: 'Hobbies e intereses', hobbiesPlaceholder: 'Ej. fitness, natación, spa, viajar...',
+      story: 'Tu historia (2 o 3 oraciones)', storyPlaceholder: 'Por qué empezaste, qué te trajo hasta acá, qué te hace auténtica...',
+      personality: '¿Cómo describirías tu personalidad? (2 a 4 cosas)', personalityPlaceholder: 'Ej. atrevida, directa, relajada...',
+      addMore: '+ agregar', diff: '¿Qué te hace diferente de otras chicas en OF?', diffPlaceholder: 'Lo que otras no tienen, o lo que hacés distinto...',
+      sec2Title: 'Tu vibra', sec2Note: 'Elegí los tipos que van con vos y describí tu energía.',
+      archetypeCustom: 'Aclaración o descripción propia', archetypeCustomPlaceholder: 'Tu propia combinación o descripción...',
+      vibeLabel: '¿Cómo describirías tu energía y tu vibra? (con tus propias palabras)', vibePlaceholder: 'Ej. soy la que dice lo que piensa...',
+      sec3Title: '¿Cómo te comunicás?', sec3Note: 'Queremos hablar con tu voz, no con una copia de otra persona.',
+      tovLabel: '¿Cómo describirías tu estilo de comunicación?', tovPlaceholder: 'Ej. sarcástica, juguetona, coqueta, directa...',
+      fansLabel: '¿Cómo les decís a tus fans?', fansPlaceholder: 'Ej. baby, sweetheart, love... (Enter)',
+      wordsLabel: 'Tus propias palabras y expresiones que te encanta usar', wordsPlaceholder: 'Jerga, frases graciosas, muletillas... (Enter)',
+      addBtn: 'Agregar',
+      sec3bTitle: 'Info personal', sec3bNote: 'Sabemos que es algo personal, pero para mantener enganchados a los fans whale (los que más gastan), estos detalles son clave. Nos ayudan a crear una conexión realmente auténtica y personal con tus fans.',
+      favColor: 'Color favorito', favColorPh: 'Ej. negro, azul...',
+      favFood: 'Comida favorita', favFoodPh: 'Ej. sushi, pizza, milanesa...',
+      favMovie: 'Película / serie favorita', favMoviePh: 'Ej. Squid Game, Interstellar...',
+      favMusic: 'Música que escuchás', favMusicPh: 'Ej. pop, cumbia, trap, reggaetón, artistas puntuales...',
+      favNickLabel: 'Tu apodo favorito de parte de los fans',
+      favNickOther: 'O escribí el tuyo...',
+      favEmoji: 'Estilo de emojis favorito', favEmojiPh: 'Ej. 🖤✨, 🔥💋, 🌸🍑...',
+      petsLabel: 'Mascotas (nombre y tipo)', petsPh: 'Ej. Max, perro. Luna, gata...',
+      typicalDay: 'Tu día típico', typicalDayPh: '¿Cómo es tu día normal? Mañana, tarde, noche...',
+      measureTitle: 'Medidas (opcional)',
+      weightLabel: 'Peso', weightPh: 'Ej. 60 kg',
+      braLabel: 'Talle de corpiño', braPh: 'Ej. 90C',
+      waistLabel: 'Cintura', waistPh: 'Ej. 68 cm',
+      hipsLabel: 'Cadera', hipsPh: 'Ej. 95 cm',
+      shoeLabel: 'Talle de calzado', shoePh: 'Ej. 38',
+      dressLabel: 'Talle de ropa', dressPh: 'Ej. S/M, 38',
+      hairLabel: 'Color de pelo', hairPh: 'Ej. castaño oscuro con reflejos rubios...',
+      sec4Title: 'Tu contenido', sec4Note: 'Qué filmás, qué disfrutás, qué no querés.',
+      favVideos: '¿Qué tipo de videos te gustaría hacer más?', favPlaceholder: 'Ej. talking selfie reels...',
+      addProfile: '+ agregar perfil', profiles: 'Perfiles de chicas que seguís y cuyo contenido te gusta', profilePlaceholder: '@perfil, qué te gusta de ella...',
+      neverShoot: '¿Qué nunca querrías filmar?', neverPlaceholder: 'Ej. un estilo de vida falso, filtros exagerados...',
+      sec5Title: 'Tus límites', sec5Note: 'Lo que no querés que se diga de vos o con lo que no querés que te asocien.',
+      tabuLabel: 'Temas de los que no querés hablar en público', tabuPlaceholder: 'Ej. política, familia, ex...',
+      collabLabel: 'Tipos de colaboraciones y SFS que no querés', collabPlaceholder: 'Ej. perfiles con mala reputación...',
+      sec6Title: 'Tu tiempo', sec6Note: 'Nos ayuda a planificar cuánto contenido podés hacer de verdad.',
+      fulltimeLabel: '¿OF es tu trabajo de tiempo completo o tenés otro trabajo / estudios?',
+      ftFulltime: 'OF tiempo completo', ftWork: 'OF + trabajo / estudios', ftSide: 'OF es algo secundario',
+      hoursLabel: '¿Cuántas horas por día podés dedicar a crear contenido?',
+      loveLabel: '¿Qué es lo que más disfrutás de tu trabajo?', lovePlaceholder: 'Lo que te hace feliz, lo que te da energía...',
+      sec7Title: 'Última pregunta', sec7Note: '¡Y listo, terminaste!',
+      goalLabel: '¿Dónde te ves en un año? ¿Qué querés construir?', goalPlaceholder: 'Tu meta, lo que querés lograr...',
+      customLabel: 'Precio mínimo por contenido custom', customPlaceholder: 'Ej. $150, $200, a convenir...',
+      videoLabel: '¿Querés hacer videollamadas?', videoYes: 'Sí', videoNo: 'No',
+      videoLimitsLabel: '¿Qué no querés en las videollamadas?', videoLimitsPlaceholder: 'Ej. sin cara, nada explícito...',
+      notesLabel: 'Información importante para el chat', notesPlaceholder: 'Ej. le gusta la dominación, cuida mucho ciertos temas...',
+      stageBd: 'Cumpleaños público (stage)', stageBdPh: 'La fecha que usamos con los fans',
+      stageAge: 'Edad pública (stage age)', stageAgePh: 'Ej. 20',
+      nationality: 'Nacionalidad', nationalityPh: 'Ej. argentina, uruguaya...',
+      stageNick: 'Apodos (stage)', stageNickPh: 'Ej. Lili, Lu...',
+      englishLabel: 'Nivel de inglés',
+      englishOptions: ['No hablo inglés', 'Básico', 'Conversacional', 'Fluido', 'Nativo'],
+      hairTypeOptions: ['Natural', 'Teñido'],
+      sec8Title: 'Contenido y límites para el chat', sec8Note: 'Esto les dice a los chatters qué pueden ofrecer y qué nunca tocar. Marcá todo lo que corresponda.',
+      contentLabel: 'Contenido que te sentís cómoda creando (marcá todo lo que corresponda)',
+      contentOptions: ['Contenido con cara', 'Contenido sin cara', 'Contenido solo', 'Contenido con juguetes', 'Contenido GG', 'Contenido BG', 'Contenido de sexo oral', 'Contenido anal', 'Contenido de trío', 'Contenido de roleplay', 'Notas de voz / audios', 'Videollamadas', 'Lives / transmisiones en vivo', 'Pedidos de contenido custom', 'JOI (contenido con instrucciones guiadas)', 'Dick rating', 'Fotos / videos de verificación', 'Venta de prendas usadas (ej. bombachas)'],
+      deliveryLabel: 'Tiempo promedio de entrega de un custom',
+      deliveryOptions: ['El mismo día', '1 a 3 días', '1 semana', 'Depende'],
+      liveLabel: '¿Hacés lives en OnlyFans?', liveOptions: ['Sí', 'No'], liveSchedulePh: 'Si hacés, cuándo los hacés normalmente (días y horarios)',
+      limitsLabel: 'Límites firmes (todo lo que nunca querés que un chatter ofrezca o hable)',
+      limitsOptions: ['Nada de contenido fetish explícito', 'Nada de BG', 'Nada de videollamadas', 'Nada de venta de prendas usadas'],
+      limitsOtherPh: 'Otros límites (escribí los tuyos)',
+      fansDescLabel: '¿Cómo querés que te describan los fans?', fansDescPh: 'Ej. dulce, atrevida, natural, alguien que siempre está para ellos...',
+      archetypeOptions: ['Alternativa / estilo tattoo', 'La chica de al lado', 'Princesa mimada', 'Gymrat / chica fitness', 'Gamer / nerd', 'Dulce e inocente', 'Latina / de temperamento', 'Introvertida tranquila', 'Mamá / estilo MILF', 'Dark / gótica', 'Chica de fiesta', 'Otra...'],
+      traitPh: ['Ej. atrevida, directa, relajada...', 'Otra característica...'], favPh: ['Ej. talking selfie reels...', 'Ej. outfit check, baile, POV...'],
+      refsPh: ['@perfil, qué te gusta de ella...', '@perfil...'], topPh: ['Ej. política, familia, ex...', 'Otro tema...'], colPh: ['Ej. perfiles con mala reputación...'],
+      removeLabel: 'Quitar', sending: 'Enviando...',
+      sumName: 'Nombre', sumBirth: 'Fecha de nacimiento', sumArch: 'Arquetipo', sumStyle: 'Estilo', sumAddr: 'Cómo les dice a los fans', sumAvail: 'Disponibilidad', defName: 'Creadora',
+      finishBtn: 'Enviar ✓', nextBtn: 'Siguiente →', backBtn: '← Atrás',
+      exportTitle: '¡listo!', exportSub: 'Tu Creator Bible está completa y lista para descargar.',
+      brandCardBtn: '★ Descargar Brand Card', fullPdfBtn: '↓ Descargar PDF completo',
     }
   }
 };
@@ -737,6 +844,8 @@ function setLang(l) {
   lang = l;
   document.getElementById('lang-cz').classList.toggle('active', l === 'cz');
   document.getElementById('lang-en').classList.toggle('active', l === 'en');
+  document.getElementById('lang-es').classList.toggle('active', l === 'es');
+  document.documentElement.lang = ({cz: 'cs', en: 'en', es: 'es-AR'})[l];
   const t = translations[l];
   document.getElementById('popup-title').textContent = t.popupTitle;
   document.getElementById('popup-note').textContent = t.popupNote;
@@ -753,6 +862,8 @@ function applyTranslations() {
   const setT = (id, text) => { const el = document.getElementById(id); if(el) el.textContent = text; };
   const setP = (id, text) => { const el = document.getElementById(id); if(el) el.placeholder = text; };
   // Option buttons of one group, in order (keeps the selection, only swaps the text)
+  const setAdd = (id, text) => { const b = document.querySelector(`.add-field-btn[onclick="addBullet('${id}')"]`); if(b) b.textContent = text; };
+  const setBul = (id, arr) => { const l = document.getElementById(id); if(!l) return; l.querySelectorAll('input[type=text]').forEach((inp, i) => { if(arr[i] !== undefined) inp.placeholder = arr[i]; }); };
   const setGroup = (id, texts) => { const g = document.getElementById(id); if(!g) return; g.querySelectorAll('.arch-btn').forEach((b, i) => { if(texts[i] !== undefined) b.textContent = texts[i]; }); };
 
   // Sec 1
@@ -835,6 +946,10 @@ function applyTranslations() {
   setT('lbl-live', t.liveLabel); setGroup('s8-live', t.liveOptions); setP('s8-live-schedule', t.liveSchedulePh);
   setT('lbl-limits', t.limitsLabel); setGroup('s8-limits', t.limitsOptions); setP('s8-limits-other', t.limitsOtherPh);
   setT('lbl-fansdesc', t.fansDescLabel); setP('s8-fansdesc', t.fansDescPh);
+  // Vibe types, example rows and "add" buttons
+  setGroup('arch-grid', t.archetypeOptions);
+  setBul('s1-traits', t.traitPh); setBul('s4-fav', t.favPh); setBul('s4-refs', t.refsPh); setBul('s5-top', t.topPh); setBul('s5-col', t.colPh);
+  setAdd('s1-traits', t.addMore); setAdd('s4-fav', t.addMore); setAdd('s5-top', t.addMore); setAdd('s5-col', t.addMore); setAdd('s4-refs', t.addProfile);
   // Nav
   setT('btn-next', t.nextBtn); setT('btn-prev', t.backBtn);
   // Export
@@ -968,7 +1083,9 @@ document.addEventListener('DOMContentLoaded', () => {
 function navigate(d){ goTo(Math.max(0, Math.min(TOTAL-1, cur+d))); }
 
 async function submitToAgency(){
+  teamValues = true;
   const d = collectAll();
+  teamValues = false;
   const isCZ = lang === 'cz';
   const chatterSheet = isCZ ? `**CHATTER SHEET**
 ====================
@@ -1228,7 +1345,7 @@ Goal: ${d.s7.goal}`;
     Cely_formular: celyFormular
   };
   const btn = document.getElementById('btn-next');
-  btn.textContent = 'Odesílám...';
+  btn.textContent = translations[lang].labels.sending;
   btn.disabled = true;
   // Always go to export - send in background
   goTo(TOTAL-1);
@@ -1274,7 +1391,7 @@ function addKw(wrapId, inputId){
   const wrap = document.getElementById(wrapId);
   const tag = document.createElement('div');
   tag.className = 'kw-tag';
-  tag.innerHTML = val + '<button onclick="this.parentElement.remove()" aria-label="Odstranit">×</button>';
+  tag.innerHTML = val + '<button onclick="this.parentElement.remove()" aria-label="' + translations[lang].labels.removeLabel + '">×</button>';
   wrap.appendChild(tag);
   inp.value = '';
 }
@@ -1293,8 +1410,18 @@ document.addEventListener('keydown', e => {
 function gv(id){ const el=document.getElementById(id); return el?el.value.trim():''; }
 function gi(cid){ const el=document.getElementById(cid); if(!el)return[]; return Array.from(el.querySelectorAll('input[type=text]')).map(i=>i.value.trim()).filter(Boolean); }
 function gk(wid){ const w=document.getElementById(wid); if(!w)return[]; return Array.from(w.querySelectorAll('.kw-tag')).map(t=>t.textContent.replace('×','').trim()); }
-function gGroup(id){ const g=document.getElementById(id); if(!g)return[]; return Array.from(g.querySelectorAll('.arch-btn.selected')).map(b=>b.textContent); }
-function gArch(secId){ const sec=document.getElementById(secId); if(!sec)return[]; return Array.from(sec.querySelectorAll('.arch-btn.selected')).map(b=>b.textContent); }
+// Spanish answers are sent to the team with the English option text (so the US team reads one language); on screen and in her PDF they stay Spanish.
+let teamValues = false;
+function bv(b){ return (teamValues && lang === 'es' && b.dataset.en) ? b.dataset.en : b.textContent; }
+function initEn(){
+  const e = translations.en.labels;
+  const grp = {'arch-grid': e.archetypeOptions, 's1-english': e.englishOptions, 's3b-hairtype': e.hairTypeOptions, 's8-content': e.contentOptions, 's8-delivery': e.deliveryOptions, 's8-live': e.liveOptions, 's8-limits': e.limitsOptions};
+  Object.keys(grp).forEach(id => { const g = document.getElementById(id); if(!g) return; g.querySelectorAll('.arch-btn').forEach((b, i) => { if(grp[id][i] !== undefined) b.dataset.en = grp[id][i]; }); });
+  const one = {'btn-single': e.relSingle, 'btn-taken': e.relTaken, 'btn-comp': e.relComplicated, 'btn-ft-full': e.ftFulltime, 'btn-ft-work': e.ftWork, 'btn-ft-side': e.ftSide, 'btn-vid-yes': e.videoYes, 'btn-vid-no': e.videoNo};
+  Object.keys(one).forEach(id => { const b = document.getElementById(id); if(b) b.dataset.en = one[id]; });
+}
+function gGroup(id){ const g=document.getElementById(id); if(!g)return[]; return Array.from(g.querySelectorAll('.arch-btn.selected')).map(bv); }
+function gArch(secId){ const sec=document.getElementById(secId); if(!sec)return[]; return Array.from(sec.querySelectorAll('.arch-btn.selected')).map(bv); }
 
 function collectAll(){
   return {
@@ -1313,17 +1440,18 @@ function collectAll(){
 
 function buildSummary(){
   const d = collectAll();
-  const name = d.model || 'Modelka';
+  const L = translations[lang].labels;
+  const name = d.model || L.defName;
   document.getElementById('ex-title').textContent = name + ': ' + translations[lang].labels.exportTitle;
   document.getElementById('ex-sub').textContent = translations[lang].labels.exportSub;
   const card = document.getElementById('summary-card');
   const rows = [
-    ['Jméno', name],
-    ['Datum narození', d.date||'-'],
-    ['Archetyp', d.s2.archetypy.join(', ')||d.s2.vlastni||'-'],
-    ['Styl', d.s3.tov||'-'],
-    ['Oslovení', d.s3.osloveni.join(', ')||'-'],
-    ['Dostupnost', d.s6.dostupnost||'-'],
+    [L.sumName, name],
+    [L.sumBirth, d.date||'-'],
+    [L.sumArch, d.s2.archetypy.join(', ')||d.s2.vlastni||'-'],
+    [L.sumStyle, d.s3.tov||'-'],
+    [L.sumAddr, d.s3.osloveni.join(', ')||'-'],
+    [L.sumAvail, d.s6.dostupnost||'-'],
   ];
   card.innerHTML = rows.map(([k,v]) => `<div class="summary-row"><span class="summary-key">${k}</span><span class="summary-val">${v}</span></div>`).join('');
 }
@@ -1344,6 +1472,28 @@ function makePDF(){
   return {pdf,W,H,M,CW,y:()=>y,setY:v=>{y=v;},chk,rule,lbl,val,buls,secT,sp};
 }
 
+// ---- PDF text per language (Czech without diacritics as before; English and Spanish) ----
+const PDFT = {
+  cz: { defName:'Modelka', brandOf:n=>n+"'s brand =", born:'nar. ',
+    bc1:'1. Kdo jsi', bc2:'2. Tvuj vibe', bc3:'3. Jak se odlisujes', bc4:'4. Tone of Voice pro reels', bc5:'5. Co bude tocit za obsah', bcSum:'Shrnuti', bcAddr:'Fanousky oslovi: ', bcWords:'Pouziva vyrazy: ', bcNever:'Nikdy: ',
+    h1:'01  Kdo jsi', age:'Vek', pubAge:'Verejny vek', nat:'Narodnost', eng:'Anglictina', from:'Odkud', story:'Pribeh', pers:'Osobnost', diff:'Odliseni od ostatnich',
+    h2:'02  Tvuj vibe', types:'Vybrane typy', vibeOwn:'Vlastni popis vibe', h3:'03  Komunikace & TOV', style:'Styl komunikace', h4:'04  Obsah', favFormats:'Oblibene formaty', profiles:'Inspiracni profily', neverShoot:'Co nikdy nechce tocit',
+    h5:'05  Hranice', taboo:'Tabu temata', noCollab:'Nechce kolaborovat s', h6:'06  Dostupnost', sit:'Situace', enjoys:'Co ji bavi',
+    h7:'07  Chatting', contentDoes:'Obsah ktery dela', delivery:'Doba dodani customu', live:'Live na OF', limits:'Tvrde limity', fansDesc:'Jak ji maji fanousci popsat', h8:'08  Cil' },
+  en: { defName:'Creator', brandOf:n=>n+"'s brand =", born:'born ',
+    bc1:'1. Who she is', bc2:'2. Her vibe', bc3:'3. What makes her different', bc4:'4. Tone of voice for reels', bc5:'5. What content she will shoot', bcSum:'Summary', bcAddr:'Addresses fans as: ', bcWords:'Uses expressions: ', bcNever:'Never: ',
+    h1:'01  Who she is', age:'Age', pubAge:'Public age', nat:'Nationality', eng:'English level', from:'From', story:'Story', pers:'Personality', diff:'What makes her different',
+    h2:'02  Her vibe', types:'Selected types', vibeOwn:'Vibe in her own words', h3:'03  Communication & TOV', style:'Communication style', h4:'04  Content', favFormats:'Favorite formats', profiles:'Inspiration profiles', neverShoot:'Never wants to film',
+    h5:'05  Boundaries', taboo:'Taboo topics', noCollab:'Will not collab with', h6:'06  Availability', sit:'Situation', enjoys:'What she enjoys',
+    h7:'07  Chatting', contentDoes:'Content she does', delivery:'Custom delivery time', live:'Live on OF', limits:'Hard limits', fansDesc:'How fans should describe her', h8:'08  Goal' },
+  es: { defName:'Creadora', brandOf:n=>'La marca de '+n+':', born:'nac. ',
+    bc1:'1. Quién es', bc2:'2. Su vibra', bc3:'3. Qué la hace diferente', bc4:'4. Tono de voz para reels', bc5:'5. Qué contenido va a filmar', bcSum:'Resumen', bcAddr:'Se dirige a sus fans como: ', bcWords:'Usa expresiones: ', bcNever:'Nunca: ',
+    h1:'01  Quién es', age:'Edad', pubAge:'Edad pública', nat:'Nacionalidad', eng:'Nivel de inglés', from:'De dónde es', story:'Historia', pers:'Personalidad', diff:'Qué la hace diferente',
+    h2:'02  Su vibra', types:'Tipos elegidos', vibeOwn:'Su vibra con sus palabras', h3:'03  Comunicación y TOV', style:'Estilo de comunicación', h4:'04  Contenido', favFormats:'Formatos favoritos', profiles:'Perfiles de inspiración', neverShoot:'Lo que nunca quiere filmar',
+    h5:'05  Límites', taboo:'Temas tabú', noCollab:'No quiere colaborar con', h6:'06  Disponibilidad', sit:'Situación', enjoys:'Qué disfruta',
+    h7:'07  Chatting', contentDoes:'Contenido que hace', delivery:'Tiempo de entrega de customs', live:'Live en OF', limits:'Límites firmes', fansDesc:'Cómo quiere que la describan los fans', h8:'08  Meta' }
+};
+
 // ---- BRAND CARD ----
 // Only shown (and only does anything) when the form runs inside Agency OS.
 function continueToDashboard(){
@@ -1360,7 +1510,8 @@ if (window.parent !== window) {
 
 function exportBrandCard(){
   const d = collectAll();
-  const name = d.model||'Modelka';
+  const P = PDFT[lang];
+  const name = d.model||P.defName;
   const {jsPDF} = window.jspdf;
   const pdf = new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
   const W=210,H=297,M=20,CW=W-M*2;
@@ -1418,49 +1569,49 @@ function exportBrandCard(){
   y+=12;
 
   // 1. KDO JSI
-  heading('1. Kdo jsi');
+  heading(P.bc1);
   const info = [d.s1.vek, d.s1.lokace].filter(Boolean).join('. ');
   const kdo = [info, d.s1.pribeh, d.s1.osobnost.filter(Boolean).join('. ')].filter(Boolean).join(' ');
   body(kdo||'-');
   sp();
 
   // 2. VIBE
-  heading('2. Tvuj vibe');
+  heading(P.bc2);
   const arch = d.s2.archetypy.join(' + ')||d.s2.vlastni||'';
   const vibeText = [arch ? arch+'.' : '', d.s2.vibe].filter(Boolean).join(' ');
   body(vibeText||'-');
   sp();
 
   // 3. JAK SE ODLISUJES
-  heading('3. Jak se odlisujes');
+  heading(P.bc3);
   body(d.s1.odliseni||'-');
   sp();
 
   // 4. TONE OF VOICE
-  heading('4. Tone of Voice pro reels');
+  heading(P.bc4);
   const tovParts = [];
   if(d.s3.tov) tovParts.push(d.s3.tov+'.');
-  if(d.s3.osloveni.length) tovParts.push('Fanousky oslovi: '+d.s3.osloveni.join(', ')+'.');
-  if(d.s3.slova.length) tovParts.push('Pouziva vyrazy: '+d.s3.slova.join(', ')+'.');
+  if(d.s3.osloveni.length) tovParts.push(P.bcAddr+d.s3.osloveni.join(', ')+'.');
+  if(d.s3.slova.length) tovParts.push(P.bcWords+d.s3.slova.join(', ')+'.');
   body(tovParts.join(' ')||'-');
   sp();
 
   // 5. CO BUDE DELAT
-  heading('5. Co bude tocit za obsah');
+  heading(P.bc5);
   bullets(d.s4.oblibena);
   if(d.s4.never){
     chk(8);
     pdf.setFontSize(10.5);pdf.setFont('helvetica','normal');pdf.setTextColor(40,40,40);
-    const ls=pdf.splitTextToSize('Nikdy: '+d.s4.never, CW);
+    const ls=pdf.splitTextToSize(P.bcNever+d.s4.never, CW);
     ls.forEach(l=>{chk(6);pdf.text(l,M,y);y+=5.5;});
     y+=3;
   }
   sp();
 
   // SHRNUTI
-  heading('Shrnuti');
+  heading(P.bcSum);
   const shrParts = [
-    name+'\'s brand =',
+    P.brandOf(name),
     arch ? arch+'.' : '',
     d.s1.pribeh ? d.s1.pribeh.split(/[.!?]/)[0]+'.' : '',
     d.s1.odliseni ? d.s1.odliseni.split(/[.!?]/)[0]+'.' : '',
@@ -1474,7 +1625,7 @@ function exportBrandCard(){
   pdf.line(M,H-10,W-M,H-10);
   pdf.setFontSize(7);pdf.setFont('helvetica','normal');pdf.setTextColor(180,180,180);
   pdf.text('Brand Identity Book  |  '+name, M, H-6);
-  if(d.date){ pdf.text('nar. '+d.date, W-M, H-6, {align:'right'}); }
+  if(d.date){ pdf.text(P.born+d.date, W-M, H-6, {align:'right'}); }
 
   pdf.save(name.replace(/\s+/g,'_')+'_brand_card.pdf');
 }
@@ -1482,7 +1633,8 @@ function exportBrandCard(){
 // ---- KOMPLETNI PDF ----
 function exportFullPDF(){
   const d = collectAll();
-  const name = d.model||'Modelka';
+  const P = PDFT[lang];
+  const name = d.model||P.defName;
   const {jsPDF} = window.jspdf;
   const pdf = new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
   const W=210,H=297,M=18,CW=W-M*2;
@@ -1498,49 +1650,50 @@ function exportFullPDF(){
   pdf.setFontSize(18);pdf.setFont('helvetica','bold');pdf.setTextColor(18,179,76);
   pdf.text('CREATOR BIBLE  |  '+name,M,y);
   y+=2;pdf.setDrawColor(18,179,76);pdf.setLineWidth(0.5);pdf.line(M,y,W-M,y);y+=8;
-  title('01  Kdo jsi');
-  lbl('Vek');val(d.s1.vek);
-  lbl('Verejny vek');val(d.s1.stageAge);
-  lbl('Narodnost');val(d.s1.nationality);
-  lbl('Anglictina');val(d.s1.english);
-  lbl('Odkud');val(d.s1.lokace);
-  lbl('Pribeh');val(d.s1.pribeh);
-  lbl('Osobnost');buls(d.s1.osobnost);
-  lbl('Odliseni od ostatnich');val(d.s1.odliseni);
+  title(P.h1);
+  lbl(P.age);val(d.s1.vek);
+  lbl(P.pubAge);val(d.s1.stageAge);
+  lbl(P.nat);val(d.s1.nationality);
+  lbl(P.eng);val(d.s1.english);
+  lbl(P.from);val(d.s1.lokace);
+  lbl(P.story);val(d.s1.pribeh);
+  lbl(P.pers);buls(d.s1.osobnost);
+  lbl(P.diff);val(d.s1.odliseni);
   sp();
-  title('02  Tvuj vibe');
-  lbl('Vybrane typy');val(d.s2.archetypy.join(', ')||d.s2.vlastni||'-');
-  lbl('Vlastni popis vibe');val(d.s2.vibe);
+  title(P.h2);
+  lbl(P.types);val(d.s2.archetypy.join(', ')||d.s2.vlastni||'-');
+  lbl(P.vibeOwn);val(d.s2.vibe);
   sp();
-  title('03  Komunikace & TOV');
-  lbl('Styl komunikace');val(d.s3.tov);
+  title(P.h3);
+  lbl(P.style);val(d.s3.tov);
   sp();
-  title('04  Obsah');
-  lbl('Oblibene formaty');buls(d.s4.oblibena);
-  lbl('Inspiracni profily');buls(d.s4.reference);
-  lbl('Co nikdy nechce tocit');val(d.s4.never);
+  title(P.h4);
+  lbl(P.favFormats);buls(d.s4.oblibena);
+  lbl(P.profiles);buls(d.s4.reference);
+  lbl(P.neverShoot);val(d.s4.never);
   sp();
-  title('05  Hranice');
-  lbl('Tabu temata');buls(d.s5.temata);
-  lbl('Nechce kolaborovat s');buls(d.s5.kolaborace);
+  title(P.h5);
+  lbl(P.taboo);buls(d.s5.temata);
+  lbl(P.noCollab);buls(d.s5.kolaborace);
   sp();
-  title('06  Dostupnost');
-  lbl('Situace');val(d.s6.dostupnost||'-');
-  lbl('Co ji bavi');val(d.s6.love);
+  title(P.h6);
+  lbl(P.sit);val(d.s6.dostupnost||'-');
+  lbl(P.enjoys);val(d.s6.love);
   sp();
-  title('07  Chatting');
-  lbl('Obsah ktery dela');buls(d.s8.content);
-  lbl('Doba dodani customu');val(d.s8.delivery);
-  lbl('Live na OF');val([d.s8.live,d.s8.liveSchedule].filter(Boolean).join(' | '));
-  lbl('Tvrde limity');buls(d.s8.limits);
-  lbl('Jak ji maji fanousci popsat');val(d.s8.fansDesc);
+  title(P.h7);
+  lbl(P.contentDoes);buls(d.s8.content);
+  lbl(P.delivery);val(d.s8.delivery);
+  lbl(P.live);val([d.s8.live,d.s8.liveSchedule].filter(Boolean).join(' | '));
+  lbl(P.limits);buls(d.s8.limits);
+  lbl(P.fansDesc);val(d.s8.fansDesc);
   sp();
-  title('08  Cil');
+  title(P.h8);
   val(d.s7.goal);
 
   pdf.save(name.replace(/\s+/g,'_')+'_creator_bible.pdf');
 }
 
+initEn();
 buildDots();
 </script>
 </body>
