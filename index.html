@@ -119,9 +119,9 @@
   .lang-btn.active { border-color: var(--accent-soft); background: rgba(57,230,115,0.12); color: var(--accent-soft); box-shadow: 0 0 14px rgba(18,179,76,0.2); }
   .lang-btn:hover { border-color: var(--border-hover); }
   /* INTRO: tilting 3D panel, drifting aurora, interactive particles */
-  .popup-overlay { perspective: 1100px; overflow-y: auto; overflow-x: hidden; align-items: flex-start; --rx: 0deg; --ry: 0deg; --mx: 50%; --my: 30%; --sheen: 0; }
+  .popup-overlay { overflow-y: auto; overflow-x: hidden; align-items: flex-start; --rx: 0deg; --ry: 0deg; --mx: 50%; --my: 30%; --sheen: 0; --dx: 0; --dy: 0; }
   .popup-overlay::before { z-index: 0; background: radial-gradient(520px circle at 50% 40%, rgba(18,179,76,0.16), transparent 70%); }
-  .popup-box { margin: auto; z-index: 2; transform: rotateX(var(--rx)) rotateY(var(--ry)); transform-style: preserve-3d; will-change: transform; animation: boxIn .9s cubic-bezier(.2,.8,.2,1) backwards; }
+  .popup-box { margin: auto; z-index: 2; transform: perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry)); will-change: transform; animation: boxIn .9s cubic-bezier(.2,.8,.2,1) backwards; }
   .popup-box::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: var(--sheen);
     background: radial-gradient(420px circle at var(--mx) var(--my), rgba(120,255,170,0.16), transparent 55%); transition: opacity .25s; }
   .popup-box > * { animation: popIn .75s cubic-bezier(.2,.8,.2,1) backwards; }
@@ -129,13 +129,13 @@
   .popup-box > *:nth-child(3) { animation-delay: .36s; } .popup-box > *:nth-child(4) { animation-delay: .44s; }
   .popup-box > *:nth-child(5) { animation-delay: .52s; } .popup-box > *:nth-child(6) { animation-delay: .60s; }
   .popup-box > *:nth-child(7) { animation-delay: .68s; }
-  .popup-logo { transform: translateZ(34px); } .popup-title { transform: translateZ(46px); } .popup-note { transform: translateZ(22px); }
-  .popup-langs { transform: translateZ(26px); } .popup-input-wrap { transform: translateZ(18px); } .popup-btn { transform: translateZ(40px); }
+  /* depth is faked with a small shift per layer (no 3D context, so no flickering edges) */
+  .popup-logo { translate: calc(var(--dx) * .6px) calc(var(--dy) * -.6px); } .popup-title { translate: calc(var(--dx) * .8px) calc(var(--dy) * -.8px); } .popup-note { translate: calc(var(--dx) * .4px) calc(var(--dy) * -.4px); }
+  .popup-langs { translate: calc(var(--dx) * .45px) calc(var(--dy) * -.45px); } .popup-input-wrap { translate: calc(var(--dx) * .3px) calc(var(--dy) * -.3px); } .popup-btn { translate: calc(var(--dx) * .7px) calc(var(--dy) * -.7px); }
   .popup-btn { position: relative; overflow: hidden; }
   .popup-btn::after { content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; transform: skewX(-20deg); pointer-events: none;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent); transition: left .7s ease; }
   .popup-btn:hover::after { left: 130%; }
-  .popup-btn:hover { transform: translateZ(40px) translateY(-2px); }
   .popup-langs .lang-btn { padding: .65rem .3rem; font-size: 13.5px; white-space: nowrap; }
   .popup-title.swap, .popup-note.swap, .popup-why p.swap, .popup-why-title.swap, .popup-btn.swap { animation: swapIn .35s ease; }
   .fx-canvas, .fx-blob { position: fixed; pointer-events: none; }
@@ -190,11 +190,11 @@
   @keyframes headPulse { 0%, 100% { opacity: .75; transform: scale(.85); } 50% { opacity: 1; transform: scale(1.25); } }
   .nav-dot { animation: dotIn .5s cubic-bezier(.3,1.6,.5,1) backwards; animation-delay: calc(var(--i, 0) * 30ms); }
   @keyframes dotIn { from { opacity: 0; transform: scale(.2); } to { opacity: 1; transform: scale(1); } }
-  #sec-export .export-screen { transform: perspective(1100px) rotateX(var(--erx, 0deg)) rotateY(var(--ery, 0deg)); transform-style: preserve-3d; will-change: transform; }
-  #sec-export .export-icon { transform: translateZ(50px); animation: iconIn 1s cubic-bezier(.2,1.4,.4,1) .15s backwards; }
-  #sec-export .export-title { transform: translateZ(34px); background: linear-gradient(90deg, var(--text) 40%, var(--accent-soft) 50%, var(--text) 60%); background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: titleShine 3.4s ease .5s 1 both; }
-  #sec-export .export-sub, #sec-export .export-btns { transform: translateZ(22px); }
-  #sec-export .summary-card { transform: translateZ(12px); box-shadow: 0 24px 50px rgba(0,0,0,0.45), 0 0 30px rgba(18,179,76,0.08); }
+  #sec-export .export-screen { transform: perspective(1100px) rotateX(var(--erx, 0deg)) rotateY(var(--ery, 0deg)); will-change: transform; }
+  #sec-export .export-icon { translate: calc(var(--edx, 0) * .85px) calc(var(--edy, 0) * -.85px); animation: iconIn 1s cubic-bezier(.2,1.4,.4,1) .15s backwards; }
+  #sec-export .export-title { translate: calc(var(--edx, 0) * .6px) calc(var(--edy, 0) * -.6px); background: linear-gradient(90deg, var(--text) 40%, var(--accent-soft) 50%, var(--text) 60%); background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: titleShine 3.4s ease .5s 1 both; }
+  #sec-export .export-sub, #sec-export .export-btns { translate: calc(var(--edx, 0) * .4px) calc(var(--edy, 0) * -.4px); }
+  #sec-export .summary-card { translate: calc(var(--edx, 0) * .2px) calc(var(--edy, 0) * -.2px); box-shadow: 0 24px 50px rgba(0,0,0,0.45), 0 0 30px rgba(18,179,76,0.08); }
   @keyframes iconIn { from { opacity: 0; scale: .3; rotate: -45deg; } to { opacity: 1; scale: 1; rotate: 0deg; } }
   @keyframes titleShine { from { background-position: 100% 0; } to { background-position: 0 0; } }
   /* progress bar lives inside the header, so it always sits exactly on its bottom edge */
@@ -1087,6 +1087,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const k = 1 - Math.pow(.001, dt / 1000);
     rx += (tx - rx) * k; ry += (ty - ry) * k; sheen += (tSheen - sheen) * k;
     overlay.style.setProperty('--rx', rx.toFixed(2) + 'deg'); overlay.style.setProperty('--ry', ry.toFixed(2) + 'deg');
+    overlay.style.setProperty('--dx', ry.toFixed(2)); overlay.style.setProperty('--dy', rx.toFixed(2));
     overlay.style.setProperty('--sheen', sheen.toFixed(2));
 
     ctx.clearRect(0, 0, W, H);
@@ -1198,6 +1199,7 @@ document.addEventListener('DOMContentLoaded', () => {
       erx += (tx - erx) * k; ery += (ty - ery) * k;
       const ex = document.getElementById('sec-export');
       ex.style.setProperty('--erx', erx.toFixed(2) + 'deg'); ex.style.setProperty('--ery', ery.toFixed(2) + 'deg');
+      ex.style.setProperty('--edx', ery.toFixed(2)); ex.style.setProperty('--edy', erx.toFixed(2));
     }
     raf = requestAnimationFrame(frame);
   }
