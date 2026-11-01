@@ -223,6 +223,9 @@
     <div class="popup-input-wrap">
       <input type="text" id="popup-name" placeholder="Tvoje jméno nebo alias..." autocomplete="off">
     </div>
+    <div class="popup-input-wrap">
+      <input type="text" id="popup-of" placeholder="Tvůj OnlyFans username (např. @tvojejmeno)" autocomplete="off" autocapitalize="off" spellcheck="false">
+    </div>
     <div class="popup-why">
       <div class="popup-why-title" id="popup-why-title">PROČ JE TENTO DOTAZNÍK DŮLEŽITÝ</div>
       <p id="popup-why-1">Pomáhá nám zachytit tvoji osobnost, hlas a zájmy, aby každá konverzace s tvými fanoušky působila autenticky. Cílem je zajistit, aby chatting tým psal tak, jak bys psala ty přirozeně.</p>
@@ -620,6 +623,7 @@ const translations = {
     popupWhy1: 'Pomáhá nám zachytit tvoji osobnost, hlas a zájmy, aby každá konverzace s tvými fanoušky působila autenticky. Cílem je zajistit, aby chatting tým psal tak, jak bys psala ty přirozeně.',
     popupWhy2: 'Vyplněním získáš nástroje pro silnější vztahy s fans, vyšší loajalitu a maximální sales při zachování tvé osobnosti.',
     popupNamePlaceholder: 'Tvoje jméno nebo alias...',
+    popupOfPlaceholder: 'Tvůj OnlyFans username (např. @tvojejmeno)',
     popupBtn: 'Začít dotazník →',
     labels: {
       sec1Title: 'Kdo jsi?', sec1Note: 'Pár věcí o tobě. Nemusíš znít dokonale, chceme znát tebe skutečnou.',
@@ -713,6 +717,7 @@ const translations = {
     popupWhy1: 'It helps us capture your personality, voice and interests so every conversation with your fans feels authentic. The goal is to make sure your chatting team writes just like you would naturally.',
     popupWhy2: 'By completing this, you\'ll get tools to build stronger fan relationships, increase loyalty and maximize sales, while staying true to your personality.',
     popupNamePlaceholder: 'Your name or alias...',
+    popupOfPlaceholder: 'Your OnlyFans username (e.g. @yourname)',
     popupBtn: 'Start questionnaire →',
     labels: {
       sec1Title: 'Who are you?', sec1Note: 'A few things about you. You don\'t have to sound perfect, we want to know the real you.',
@@ -807,6 +812,7 @@ const translations = {
     popupWhy1: 'Nos ayuda a captar tu personalidad, tu voz y tus intereses para que cada conversación con tus fans se sienta auténtica. El objetivo es que tu equipo de chatting escriba tal como lo harías vos, de forma natural.',
     popupWhy2: 'Al completarlo, vas a tener herramientas para construir relaciones más fuertes con tus fans, más lealtad y más ventas, siendo siempre vos misma.',
     popupNamePlaceholder: 'Tu nombre o alias...',
+    popupOfPlaceholder: 'Tu usuario de OnlyFans (ej. @tunombre)',
     popupBtn: 'Empezar cuestionario →',
     labels: {
       sec1Title: '¿Quién sos?', sec1Note: 'Algunas cosas sobre vos. No hace falta que suene perfecto, queremos conocerte tal cual sos.',
@@ -908,6 +914,7 @@ function setLang(l) {
   document.getElementById('popup-why-1').textContent = t.popupWhy1;
   document.getElementById('popup-why-2').textContent = t.popupWhy2;
   document.getElementById('popup-name').placeholder = t.popupNamePlaceholder;
+  document.getElementById('popup-of').placeholder = t.popupOfPlaceholder;
   document.getElementById('popup-btn').textContent = t.popupBtn;
   ['popup-title','popup-note','popup-why-title','popup-why-1','popup-why-2','popup-btn'].forEach(id => { const el = document.getElementById(id); el.classList.remove('swap'); void el.offsetWidth; el.classList.add('swap'); });
 }
@@ -1019,6 +1026,7 @@ function applyTranslations() {
 function startForm(){
   const name = document.getElementById('popup-name').value.trim();
   if(!name){ document.getElementById('popup-name').focus(); return; }
+  if(!document.getElementById('popup-of').value.trim()){ document.getElementById('popup-of').focus(); return; }
   document.getElementById('cv-name').value = name;
   document.getElementById('popup').style.display = 'none';
   applyTranslations();
@@ -1027,9 +1035,9 @@ function startForm(){
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('popup-name').addEventListener('keydown', e => {
+  ['popup-name','popup-of'].forEach(id => document.getElementById(id).addEventListener('keydown', e => {
     if(e.key === 'Enter') startForm();
-  });
+  }));
 });
 
 // Intro screen: panel tilts toward the pointer, particles drift and react to it.
@@ -1529,7 +1537,7 @@ Goal: ${d.s7.goal}`;
   fetch('https://kvwwjyvkoiqsvpyzbcmn.supabase.co/functions/v1/creator-bible-submit', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name: d.model, lang: lang, celyFormular: celyFormular, chatterSheet: chatterSheet }),
+    body: JSON.stringify({ name: d.model, ofUsername: document.getElementById('popup-of').value.trim(), lang: lang, celyFormular: celyFormular, chatterSheet: chatterSheet }),
     mode: 'cors'
   }).catch(() => {});
   // When this page is framed inside Agency OS (Zion), tell the parent window
@@ -1570,7 +1578,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('keydown', e => {
-  if(e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && e.target.id !== 'kw-fans-inp' && e.target.id !== 'kw-words-inp' && e.target.id !== 'popup-name' && cur < TOTAL-1){
+  if(e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && e.target.id !== 'kw-fans-inp' && e.target.id !== 'kw-words-inp' && e.target.id !== 'popup-name' && e.target.id !== 'popup-of' && cur < TOTAL-1){
     e.preventDefault(); navigate(1);
   }
 });
