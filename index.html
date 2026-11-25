@@ -221,8 +221,32 @@
   .popup-overlay { background: #060908; display: block; padding: 6vh 1.25rem 2.5rem; overflow-y: auto; -webkit-overflow-scrolling: touch; touch-action: pan-y; overscroll-behavior: contain; }
   .popup-box { margin: 0 auto; background: linear-gradient(160deg, rgba(18,179,76,0.16), #0d120f 58%); border-color: rgba(57,230,115,0.24); box-shadow: 0 30px 70px rgba(0,0,0,0.6), 0 0 50px rgba(18,179,76,0.14); }
   .popup-why { background: rgba(18,179,76,0.09); }
+  /* phone: the intro is exactly one screen, no scrolling, everything visible */
+  body:has(#popup:not([style*="none"])) { overflow: hidden; height: 100dvh; }
   @media (max-width: 520px) {
-    .popup-overlay { padding: 18px 16px 2rem; }
+    .popup-overlay { padding: 10px 14px; height: 100vh; height: 100dvh; overflow: hidden; display: flex; align-items: center; touch-action: manipulation; }
+    .popup-overlay .popup-box { max-height: calc(100dvh - 20px); }
+  }
+  @media (max-width: 520px) and (max-height: 760px) {
+    .popup-box { padding: 1.1rem 1rem 1rem !important; }
+    .popup-logo { margin-bottom: .5rem !important; gap: 6px !important; }
+    .popup-logo .zw-svg { height: 30px !important; }
+    .popup-logo .zw-by { font-size: 12px !important; margin-top: 4px !important; }
+    .popup-logo .pl-name { font-size: 9.5px !important; padding: .15rem .65rem !important; }
+    .popup-title { font-size: 22px !important; margin-bottom: .2rem !important; }
+    .popup-note { font-size: 12px !important; margin-bottom: .7rem !important; line-height: 1.45 !important; }
+    .popup-langs { margin-bottom: .6rem !important; }
+    .popup-langs .lang-btn { padding: .42rem .2rem !important; }
+    .popup-input-wrap { margin-bottom: .5rem !important; }
+    .popup-input-wrap input { padding: .62rem !important; }
+    .popup-why { padding: .65rem .85rem !important; margin-bottom: .7rem !important; }
+    .popup-why-title { margin-bottom: .3rem !important; }
+    .popup-why p { font-size: 11px !important; line-height: 1.45 !important; }
+    .popup-btn { padding: .75rem !important; }
+  }
+  @media (max-width: 520px) and (max-height: 640px) { .popup-why p + p { display: none; } }
+  @media (max-width: 520px) {
+    .popup-overlay { padding: 10px 14px; }
     .popup-box { padding: 1.6rem 1.15rem 1.35rem; border-radius: 20px; }
     .popup-logo { margin-bottom: .9rem; }
     .popup-title { font-size: 26px; margin-bottom: .35rem; }
