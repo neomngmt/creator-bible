@@ -217,28 +217,23 @@
   .popup-logo .pl-name { font-family: var(--mono); font-size: 10.5px; letter-spacing: 4px; color: var(--accent-soft); text-transform: uppercase; border: 1px solid var(--border); border-radius: 999px; padding: .25rem .8rem; }
   body.embed .app-header { padding-right: 58px; }
 
-  /* ---- calmer intro: corner logo, solid panel, no auto tilt, fits the phone ---- */
-  .popup-logo, .popup-why { display: none !important; }
-  .popup-overlay { background: #060908; display: block; padding: 96px 1.25rem 2.5rem; overflow-y: auto; -webkit-overflow-scrolling: touch; touch-action: pan-y; overscroll-behavior: contain; }
+  /* ---- intro: solid panel, no auto tilt, scrolls and fits on the phone (layout as before) ---- */
+  .popup-overlay { background: #060908; display: block; padding: 6vh 1.25rem 2.5rem; overflow-y: auto; -webkit-overflow-scrolling: touch; touch-action: pan-y; overscroll-behavior: contain; }
   .popup-box { margin: 0 auto; background: linear-gradient(160deg, rgba(18,179,76,0.16), #0d120f 58%); border-color: rgba(57,230,115,0.24); box-shadow: 0 30px 70px rgba(0,0,0,0.6), 0 0 50px rgba(18,179,76,0.14); }
-  .popup-corner { position: absolute; top: calc(18px + env(safe-area-inset-top)); left: 20px; z-index: 3; display: flex; align-items: center; gap: 12px; animation: popIn .8s cubic-bezier(.2,.8,.2,1) .1s backwards; }
-  .popup-corner .zw { height: 32px; justify-content: center; }
-  .popup-corner .zw-svg { height: 18px; }
-  .popup-corner .zw-by { font-size: 10px; margin-top: 3px; }
-  .popup-corner .pl-tag { font-family: var(--mono); font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent-soft); border: 1px solid var(--border); border-radius: 999px; padding: .2rem .7rem; }
-  .popup-title { font-size: 28px; }
-  .popup-note { max-width: 320px; margin-left: auto; margin-right: auto; margin-bottom: 1.3rem; }
-  @media (min-height: 760px) and (min-width: 521px) { .popup-overlay { padding-top: 14vh; } }
+  .popup-why { background: rgba(18,179,76,0.09); }
   @media (max-width: 520px) {
-    .popup-overlay { padding: 84px 16px 2rem; }
+    .popup-overlay { padding: 18px 16px 2rem; }
     .popup-box { padding: 1.6rem 1.15rem 1.35rem; border-radius: 20px; }
-    .popup-title { font-size: 24px; margin-bottom: .35rem; }
+    .popup-logo { margin-bottom: .9rem; }
+    .popup-title { font-size: 26px; margin-bottom: .35rem; }
     .popup-note { font-size: 12.5px; margin-bottom: 1rem; }
     .popup-langs { margin-bottom: .85rem !important; gap: 6px !important; }
     .popup-langs .lang-btn { padding: .5rem .2rem; font-size: 12.5px; }
     .popup-input-wrap { margin-bottom: .7rem; }
     .popup-input-wrap input { padding: .75rem; font-size: 16px; }
-    .popup-btn { padding: .85rem; font-size: 15px; margin-top: .3rem; }
+    .popup-why { padding: .8rem 1rem; margin-bottom: 1rem; }
+    .popup-why p { font-size: 11.5px; line-height: 1.55; }
+    .popup-btn { padding: .85rem; font-size: 15px; }
   }
 </style>
 </head>
@@ -248,7 +243,6 @@
 <div class="popup-overlay" id="popup">
   <div class="fx-blob b1"></div><div class="fx-blob b2"></div><div class="fx-blob b3"></div>
   <canvas class="fx-canvas" id="popup-fx" aria-hidden="true"></canvas>
-  <div class="popup-corner"><span class="zw"><svg class="zw-svg" viewBox="-6 0 788 180" fill="none" stroke="#fff" stroke-width="12" role="img" aria-label="ZION"><path d="M0 6H160"/><path d="M160 6L92.8 76.6"/><path d="M76.8 93.4L0 174"/><path d="M0 174H160"/><path d="M252 6V174"/><path d="M344 90V128Q344 174 390 174H458Q504 174 504 128V52Q504 6 458 6H390Q344 6 344 52"/><path d="M596 6V174"/><path d="M596 6L660.8 66.5"/><path d="M678.8 83.3L776 174"/><path d="M776 6V174"/></svg><span class="zw-by">by neomngmt</span></span><span class="pl-tag">Creator Bible</span></div>
   <div class="popup-box">
     <div class="popup-logo"><span class="zw"><svg class="zw-svg" viewBox="-6 0 788 180" fill="none" stroke="#fff" stroke-width="12" role="img" aria-label="ZION"><path d="M0 6H160"/><path d="M160 6L92.8 76.6"/><path d="M76.8 93.4L0 174"/><path d="M0 174H160"/><path d="M252 6V174"/><path d="M344 90V128Q344 174 390 174H458Q504 174 504 128V52Q504 6 458 6H390Q344 6 344 52"/><path d="M596 6V174"/><path d="M596 6L660.8 66.5"/><path d="M678.8 83.3L776 174"/><path d="M776 6V174"/></svg><span class="zw-by">by neomngmt</span></span><span class="pl-name">Creator Bible</span></div>
     <div class="popup-title" id="popup-title">Vítej 👋</div>
