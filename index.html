@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#07090a">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
   /* Zion brand: same palette and fonts as zion-management.eu */
@@ -201,6 +201,21 @@
   .app-header { border-bottom: none; }
   .app-header .progress-wrap { position: absolute; top: auto; left: 0; right: 0; bottom: 0; z-index: 1; }
   @media (max-width: 480px) { .grid2 { grid-template-columns: 1fr; } .sec-title { font-size: 26px; } }
+
+  /* Zion wordmark with the neon "by neomngmt", same as the Zion app */
+  .zw { display: inline-flex; flex-direction: column; align-items: flex-end; line-height: 1; }
+  .zw-svg { display: block; height: 100%; width: auto; }
+  .zw-by { font-family: 'Dancing Script', cursive; font-weight: 700; color: #39e673; white-space: nowrap; letter-spacing: 0; text-transform: none;
+    text-shadow: 0 0 2px #39e673, 0 0 6px #39e673, 0 0 14px rgba(57,230,115,0.55); animation: zwFlicker 3.5s ease-in-out infinite; }
+  @keyframes zwFlicker { 0%, 100% { opacity: .85; } 50% { opacity: 1; } 52% { opacity: .6; } 54% { opacity: 1; } }
+  .header-logo .zw { height: 30px; justify-content: center; }
+  .header-logo .zw-svg { height: 17px; }
+  .header-logo .zw-by { font-size: 9.5px; margin-top: 3px; }
+  .popup-logo { flex-direction: column !important; gap: 12px !important; letter-spacing: 3px; }
+  .popup-logo .zw-svg { height: 38px; }
+  .popup-logo .zw-by { font-size: 15px; margin-top: 7px; }
+  .popup-logo .pl-name { font-family: var(--mono); font-size: 10.5px; letter-spacing: 4px; color: var(--accent-soft); text-transform: uppercase; border: 1px solid var(--border); border-radius: 999px; padding: .25rem .8rem; }
+  body.embed .app-header { padding-right: 58px; }
 </style>
 </head>
 <body>
@@ -210,7 +225,7 @@
   <div class="fx-blob b1"></div><div class="fx-blob b2"></div><div class="fx-blob b3"></div>
   <canvas class="fx-canvas" id="popup-fx" aria-hidden="true"></canvas>
   <div class="popup-box">
-    <div class="popup-logo"><svg class="star" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1L23 12L12 23L1 12Z" stroke="url(#zgP)" stroke-width="1.2"/><path d="M12 7L17 12L12 17L7 12Z" fill="url(#zgP)"/><defs><linearGradient id="zgP" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#39e673"/><stop offset="1" stop-color="#12b34c"/></linearGradient></defs></svg><span class="pl-a">Zion Management</span><span class="pl-dot">&middot;</span><span class="pl-b">Creator Bible</span></div>
+    <div class="popup-logo"><span class="zw"><svg class="zw-svg" viewBox="-6 0 788 180" fill="none" stroke="#fff" stroke-width="12" role="img" aria-label="ZION"><path d="M0 6H160"/><path d="M160 6L92.8 76.6"/><path d="M76.8 93.4L0 174"/><path d="M0 174H160"/><path d="M252 6V174"/><path d="M344 90V128Q344 174 390 174H458Q504 174 504 128V52Q504 6 458 6H390Q344 6 344 52"/><path d="M596 6V174"/><path d="M596 6L660.8 66.5"/><path d="M678.8 83.3L776 174"/><path d="M776 6V174"/></svg><span class="zw-by">by neomngmt</span></span><span class="pl-name">Creator Bible</span></div>
     <div class="popup-title" id="popup-title">Vítej 👋</div>
     <p class="popup-note" id="popup-note">Než začneš, vyber jazyk a řekni nám jak se jmenuješ.</p>
     
@@ -239,7 +254,7 @@
 <canvas class="pg-canvas" id="pg-fx" aria-hidden="true"></canvas>
 
 <header class="app-header">
-  <div class="header-logo"><svg class="star" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1L23 12L12 23L1 12Z" stroke="url(#zgH)" stroke-width="1.2"/><path d="M12 7L17 12L12 17L7 12Z" fill="url(#zgH)"/><defs><linearGradient id="zgH" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#39e673"/><stop offset="1" stop-color="#12b34c"/></linearGradient></defs></svg><span>Zion<span class="mgmt"> Management</span></span><span class="tag">Creator Bible</span></div>
+  <div class="header-logo"><span class="zw"><svg class="zw-svg" viewBox="-6 0 788 180" fill="none" stroke="#fff" stroke-width="12" role="img" aria-label="ZION"><path d="M0 6H160"/><path d="M160 6L92.8 76.6"/><path d="M76.8 93.4L0 174"/><path d="M0 174H160"/><path d="M252 6V174"/><path d="M344 90V128Q344 174 390 174H458Q504 174 504 128V52Q504 6 458 6H390Q344 6 344 52"/><path d="M596 6V174"/><path d="M596 6L660.8 66.5"/><path d="M678.8 83.3L776 174"/><path d="M776 6V174"/></svg><span class="zw-by">by neomngmt</span></span><span class="tag">Creator Bible</span></div>
   <div class="header-step" id="hdr-step">Úvod</div>
   <div class="progress-wrap"><div class="progress-bar" id="prog" style="width:0%"></div></div>
 </header>
