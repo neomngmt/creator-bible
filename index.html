@@ -227,8 +227,10 @@
   @media (max-width: 520px) { input[type=text], textarea, select { font-size: 16px !important; } }
   /* phone: the intro is exactly one screen, no scrolling, everything visible */
   body:has(#popup:not([style*="none"])) { overflow: hidden; height: 100dvh; }
+  @media (max-width: 520px) { body:has(#popup:not([style*="none"])) { position: fixed; inset: 0; width: 100%; } }
   @media (max-width: 520px) {
-    .popup-overlay { padding: 10px 14px; height: 100vh; height: 100dvh; overflow: hidden; display: flex; align-items: center; touch-action: manipulation; }
+    .popup-overlay { padding: 10px 14px; height: 100vh; height: 100dvh; overflow: hidden; overflow: clip; display: flex; align-items: center; touch-action: none; overscroll-behavior: none; }
+    .popup-overlay input, .popup-overlay button { touch-action: manipulation; }
     .popup-overlay .popup-box { max-height: calc(100dvh - 20px); }
   }
   @media (max-width: 520px) and (max-height: 760px) {
@@ -1136,32 +1138,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     seed();
   }
-  // phone: the panel follows how the phone is held (iPhone asks once, on the first tap)
-  let gyro = false, base = null;
-  function onOrient(e){
-    if(e.beta == null || e.gamma == null) return;
-    if(base === null) base = e.beta;
-    base += (e.beta - base) * 0.01; // slowly re-centres on the way she holds the phone
-    gyro = true; lastMove = performance.now();
-    const typing = document.activeElement && document.activeElement.tagName === 'INPUT';
-    const g = Math.max(-1, Math.min(1, e.gamma / 22)), b = Math.max(-1, Math.min(1, (e.beta - base) / 22));
-    if(typing){ tx = 0; ty = 0; tSheen = .3; return; }
-    tx = -b * MAX_TILT; ty = g * MAX_TILT; tSheen = .7;
-    overlay.style.setProperty('--mx', (50 + g * 40).toFixed(1) + '%');
-    overlay.style.setProperty('--my', (35 + b * 35).toFixed(1) + '%');
-  }
-  let gyroAsked = false;
-  function askGyro(){
-    if(gyroAsked) return; gyroAsked = true;
-    try {
-      if(window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === 'function'){
-        DeviceOrientationEvent.requestPermission().then((st) => { if(st === 'granted') window.addEventListener('deviceorientation', onOrient); }).catch(() => {});
-      }
-    } catch(_e) {}
-  }
-  if(window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission !== 'function') window.addEventListener('deviceorientation', onOrient);
-  else overlay.addEventListener('touchend', askGyro, { passive: true });
-  window.addEventListener('orientationchange', () => { base = null; });
 
   function onMove(e){
     if(e.pointerType === 'touch'){ px = e.clientX; py = e.clientY; return; } // a finger only moves the particles, never tilts
@@ -1179,7 +1155,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if(overlay.style.display === 'none'){ raf = 0; return; }
     const dt = Math.min(48, now - (last || now)); last = now;
     // idle: the panel goes back to flat (no tilting on its own)
-    if(!gyro && now - lastMove > 2200){ tx = 0; ty = 0; tSheen = 0; }
+    if(now - lastMove > 2200){ tx = 0; ty = 0; tSheen = 0; }
     const k = 1 - Math.pow(.001, dt / 1000);
     rx += (tx - rx) * k; ry += (ty - ry) * k; sheen += (tSheen - sheen) * k;
     overlay.style.setProperty('--rx', rx.toFixed(2) + 'deg'); overlay.style.setProperty('--ry', ry.toFixed(2) + 'deg');
