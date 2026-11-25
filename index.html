@@ -1030,6 +1030,7 @@ function startForm(){
   document.getElementById('cv-name').value = name;
   document.getElementById('popup').style.display = 'none';
   applyTranslations();
+  document.getElementById('hdr-step').textContent = ({cz: LABELS, en: LABELS_EN, es: LABELS_ES})[lang][cur];
   buildDots();
   if(window.startPageFx) window.startPageFx();
 }
